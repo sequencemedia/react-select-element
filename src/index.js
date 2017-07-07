@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+const toNumber = (v) => isNaN(v) ? 0 : parseInt(v, 10)
+
 export default class SelectElement extends React.Component {
   state = {
-    selectIndex: this.props.selectedIndex,
+    selectIndex: toNumber(this.props.selectedIndex),
     hasActiveOptions: false,
     activeEnter: false,
     activeIndex: 0,
@@ -11,10 +13,20 @@ export default class SelectElement extends React.Component {
   }
 
   get lowerBound () { return 0 }
-  get upperBound () { return this.props.options.length - 1 }
+  get upperBound () {
+    const {
+      options: {
+        length: n
+      }
+    } = this.props
+
+    return Math.max(0, n - 1)
+  }
 
   handleFocus = () => {
-    this.setState({ activeIndex: this.state.selectIndex })
+    const { selectIndex: activeIndex } = this.state
+
+    this.setState({ activeIndex })
   }
 
   handleBlur = () => {
@@ -271,6 +283,10 @@ export default class SelectElement extends React.Component {
     }
   }
 
+  componentWillReceiveProps ({ selectedIndex }) {
+    this.setState({ selectIndex: toNumber(selectedIndex) })
+  }
+
   shouldComponentUpdate (props, state) {
     if (props !== this.props) return true
     return (
@@ -292,7 +308,10 @@ export default class SelectElement extends React.Component {
 }
 
 SelectElement.propTypes = {
-  selectedIndex: PropTypes.number,
+  selectedIndex: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   tabIndex: PropTypes.number,
   options: PropTypes.array,
   onChange: PropTypes.func
