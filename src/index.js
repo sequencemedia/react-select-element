@@ -2,6 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const toNumber = (v) => isNaN(v) ? 0 : parseInt(v, 10)
+/*
+ *  User 'accesskey' events are raised as clicks but they have no co-ordinates
+ *  (because they're not actually clicks)
+ *
+ *  This is a woolly way of distinguishing between 'click' and 'click-like' events
+ */
+const isEventProbablyAccessKey = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
 
 export default class SelectElement extends React.Component {
   state = {
@@ -25,7 +32,6 @@ export default class SelectElement extends React.Component {
 
   handleFocus = () => {
     const { selectIndex: activeIndex } = this.state
-
     this.setState({ activeIndex })
   }
 
@@ -41,10 +47,16 @@ export default class SelectElement extends React.Component {
     this.setState({ activeEnter: false })
   }
 
-  retainFocus = () => this.selectedOption.focus()
-  acceptFocus = () => true /* kill an arrow function with a bound method to simplify a conditional? */
+  returnFocus = () => this.selectedOption.focus()
+  acceptFocus = () => true /* simplify a conditional! */
 
-  handleClick = () => this.setState({ hasActiveOptions: true })
+  handleClick = (event) => {
+    if (isEventProbablyAccessKey(event)) { // it's probably an accessKey event (which raises a click)
+      this.returnFocus()
+    } else { // it's probably a click
+      this.setState({ hasActiveOptions: true })
+    }
+  }
 
   handleOptionClick = (index) => {
     const { onChange } = this.props
@@ -75,9 +87,7 @@ export default class SelectElement extends React.Component {
   }
 
   findChars (chars) {
-    const {
-      options
-    } = this.props
+    const { options } = this.props
 
     let i = 0
     const n = chars.length
@@ -93,9 +103,7 @@ export default class SelectElement extends React.Component {
   }
 
   findChar (char) {
-    const {
-      options
-    } = this.props
+    const { options } = this.props
 
     let i = 0
     const j = options.length
@@ -110,9 +118,7 @@ export default class SelectElement extends React.Component {
   }
 
   handleOptionsKeyChar (keyChar) {
-    const {
-      activeChars
-    } = this.state
+    const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -129,9 +135,7 @@ export default class SelectElement extends React.Component {
   }
 
   handleKeyChar (keyChar) {
-    const {
-      activeChars
-    } = this.state
+    const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -214,6 +218,7 @@ export default class SelectElement extends React.Component {
 
     const {
       options,
+      accessKey,
       tabIndex
     } = this.props
 
@@ -221,13 +226,14 @@ export default class SelectElement extends React.Component {
 
     return (
       <div
+        accessKey={accessKey}
         tabIndex={tabIndex}
         className='selectedOption'
         onFocus={(activeEnter)
           ? this.acceptFocus /* Bonkers but I like it. Soz-oh */
           : this.handleFocus}
         onBlur={(activeEnter)
-          ? this.retainFocus
+          ? this.returnFocus
           : this.handleBlur}
         onClick={this.handleClick}
         onKeyPress={(hasActiveOptions)
@@ -314,7 +320,8 @@ SelectElement.propTypes = {
   ]),
   tabIndex: PropTypes.number,
   options: PropTypes.array,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  accessKey: PropTypes.string
 }
 
 SelectElement.defaultProps = {
