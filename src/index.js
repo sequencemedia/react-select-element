@@ -15,23 +15,18 @@ const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 const noFocus = (e) => e.cancelDefault()
 
 export default class SelectElement extends React.Component {
-  state = {
-    hasActiveOptions: false,
-    activeEnter: false,
-    activeIndex: 0,
-    activeChars: ''
-  }
-
   constructor (props) {
     super(props)
     const { index, defaultIndex } = this.props
     const value = toNumber(index)
     const selectIndex = isNaN(value) ? toNumber(defaultIndex) : value
-    const { ...state } = this.state
 
     this.state = {
       selectIndex,
-      ...state
+      hasActiveOptions: false,
+      activeEnter: false,
+      activeIndex: 0,
+      activeChars: ''
     }
   }
 
@@ -235,14 +230,8 @@ export default class SelectElement extends React.Component {
   }
 
   createSelectedOptionDisabled () {
-    const {
-      options
-    } = this.props
-
-    const {
-      selectIndex
-    } = this.state
-
+    const { options } = this.props
+    const { selectIndex } = this.state
     const { text } = options[selectIndex] || {}
 
     return (
@@ -360,9 +349,9 @@ export default class SelectElement extends React.Component {
   }
 
   componentWillReceiveProps ({ index }) {
-    const value = toNumber(index)
+    const selectIndex = toNumber(index)
 
-    this.setState({ selectIndex: isNaN(value) ? NaN : value })
+    this.setState({ selectIndex })
   }
 
   shouldComponentUpdate (props, state) {
