@@ -413,6 +413,5 @@ SelectElement.defaultProps = {
   defaultIndex: 0,
   tabIndex: 0,
   options: [],
-  // onChange: () => {},
   disabled: false
 }
