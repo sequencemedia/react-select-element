@@ -9,22 +9,27 @@ A React Select Element component.
 ### Using ES
 
 ```
-import SelectElement from 'react-select-element'
+import Select from 'react-select-element'
 ```
 
 ### Using JS
 
 ```
-const SelectElement = require('react-select-element')
+const Select = require('react-select-element')
 ```
 
 ### Implementing in React
 
+Either:
+
 ```
-  <SelectElement
-    selectedIndex={4}
-    onChange={(selectedIndex) => { /* etc */ }}
+  <Select
+    index={this.state.index}
+    onChange={(index) => { 
+      this.setState({ index }) 
+    }}
     tabIndex={0}
+    accessKey='S'
     options={[
       { value: 'A', text: 'Letter A' },
       { value: 'B', text: 'Letter B' },
@@ -34,3 +39,27 @@ const SelectElement = require('react-select-element')
     ]}
   />
 ```
+Or:
+
+```
+  <Select
+    defaultIndex={0}
+    tabIndex={0}
+    accessKey='S'
+    options={[
+      { value: 'A', text: 'Letter A' },
+      { value: 'B', text: 'Letter B' },
+      { value: 'C', text: 'Letter C' },
+      { value: 'D', text: 'Letter D' },
+      { value: 'E', text: 'Letter E' }
+    ]}
+  />
+```
+Otherwise:
+
+```
+  <Select
+    disabled
+  />
+```
+
