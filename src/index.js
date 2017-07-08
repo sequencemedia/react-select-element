@@ -1,22 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const toNumber = (v) => isNaN(v) ? 0 : parseInt(v, 10)
+const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
+
 /*
- *  User 'accesskey' events are raised as clicks but they have no co-ordinates
- *  (because they're not actually clicks)
- *
- *  This is a woolly way of distinguishing between 'click' and 'click-like' events
+ *  'accesskey' events are raised as clicks with all-zero co-ordinates. All-zero
+ *  coordinates are (of course) possible, but unlikely. This is a woolly way of
+ *  identifying 'accesskey' events
  */
-const isEventProbablyAccessKey = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
+const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
+
+const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
+
+const noFocus = (e) => e.cancelDefault()
 
 export default class SelectElement extends React.Component {
   state = {
-    selectIndex: toNumber(this.props.selectedIndex),
     hasActiveOptions: false,
     activeEnter: false,
     activeIndex: 0,
     activeChars: ''
+  }
+
+  constructor (props) {
+    super(props)
+    const { index, defaultIndex } = this.props
+    const value = toNumber(index)
+    const selectIndex = isNaN(value) ? toNumber(defaultIndex) : value
+    const { ...state } = this.state
+
+    this.state = {
+      selectIndex,
+      ...state
+    }
   }
 
   get lowerBound () { return 0 }
@@ -31,8 +47,9 @@ export default class SelectElement extends React.Component {
   }
 
   handleFocus = () => {
-    const { selectIndex: activeIndex } = this.state
-    this.setState({ activeIndex })
+    const { selectIndex } = this.state
+
+    this.activeIndex(selectIndex)
   }
 
   handleBlur = () => {
@@ -47,23 +64,20 @@ export default class SelectElement extends React.Component {
     this.setState({ activeEnter: false })
   }
 
-  returnFocus = () => this.selectedOption.focus()
+  optionFocus = () => this.selectedOption.focus()
   acceptFocus = () => true /* simplify a conditional! */
 
   handleClick = (event) => {
-    if (isEventProbablyAccessKey(event)) { // it's probably an accessKey event (which raises a click)
-      this.returnFocus()
+    if (isEventClickLike(event)) { // it's probably an accessKey event (which raises a click)
+      this.optionFocus()
     } else { // it's probably a click
       this.setState({ hasActiveOptions: true })
     }
   }
 
   handleOptionClick = (index) => {
-    const { onChange } = this.props
-
-    this.selectIndex(index)
     this.setState({ hasActiveOptions: false })
-    onChange(index)
+    this.selectIndex(index)
   }
 
   handleOptionsKeyPress = ({ charCode }) => {
@@ -89,32 +103,26 @@ export default class SelectElement extends React.Component {
   findChars (chars) {
     const { options } = this.props
 
-    let i = 0
     const n = chars.length
-    const j = options.length
-    for (i, j; i < j; i = i + 1) {
-      const { text } = options[i]
-      const optionText = this.createOptionText(text).toLowerCase()
-      if (optionText.substr(0, n) === chars) {
-        return i
-      }
-    }
-    return NaN
+    const i = options.findIndex(({ text }) => (
+      toOptionText(text)
+        .toLowerCase()
+        .substr(0, n) === chars
+    ))
+
+    return (i < 0) ? NaN : i
   }
 
   findChar (char) {
     const { options } = this.props
 
-    let i = 0
-    const j = options.length
-    for (i, j; i < j; i = i + 1) {
-      const { text } = options[i]
-      const optionText = this.createOptionText(text).toLowerCase()
-      if (optionText.charAt(0) === char) {
-        return i
-      }
-    }
-    return NaN
+    const i = options.findIndex(({ text }) => (
+      toOptionText(text)
+        .toLowerCase()
+        .charAt(0) === char
+    ))
+
+    return (i < 0) ? NaN : i
   }
 
   handleOptionsKeyChar (keyChar) {
@@ -122,14 +130,15 @@ export default class SelectElement extends React.Component {
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
-    let activeIndex
-    if (!isNaN(activeIndex = this.findChars(chars))) {
-      this.setState({ activeIndex })
+    let index = this.findChars(chars)
+    if (!isNaN(index)) {
       this.setState({ activeChars: chars })
+      this.activeIndex(index)
     } else {
-      if (!isNaN(activeIndex = this.findChar(char))) {
-        this.setState({ activeIndex })
+      let index = this.findChar(char)
+      if (!isNaN(index)) {
         this.setState({ activeChars: char })
+        this.activeIndex(index)
       }
     }
   }
@@ -139,21 +148,16 @@ export default class SelectElement extends React.Component {
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
-    let selectIndex
-    if (!isNaN(selectIndex = this.findChars(chars))) {
-      const { onChange } = this.props
-
-      this.setState({ selectIndex })
+    let index = this.findChars(chars)
+    if (!isNaN(index)) {
       this.setState({ activeChars: chars })
-      onChange(selectIndex)
+      this.selectIndex(index)
     } else {
       if (activeChars !== char) {
-        if (!isNaN(selectIndex = this.findChar(char))) {
-          const { onChange } = this.props
-
-          this.setState({ selectIndex })
+        let index = this.findChar(char)
+        if (!isNaN(index)) {
           this.setState({ activeChars: char })
-          onChange(selectIndex)
+          this.selectIndex(index)
         }
       }
     }
@@ -163,19 +167,20 @@ export default class SelectElement extends React.Component {
     switch (keyCode) {
       case 13:
       case 32:
-      {
-        const { activeIndex: selectIndex } = this.state
-        const { onChange } = this.props
+        {
+          this.setState({ hasActiveOptions: false })
 
-        this.setState({ selectIndex })
-        this.setState({ hasActiveOptions: false })
-        onChange(selectIndex)
+          const { activeIndex } = this.state
+
+          this.selectIndex(activeIndex)
+        }
         break
-      }
       case 38: // arrow up
-        return this.decrementActiveIndex()
+        this.decrementActiveIndex()
+        break
       case 40: // arrow down
-        return this.incrementActiveIndex()
+        this.incrementActiveIndex()
+        break
     }
   }
 
@@ -185,42 +190,82 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  selectIndex (selectIndex) {
-    this.setState({ selectIndex })
+  /*
+   *  'shouldComponentUpdate()'
+   */
+  selectIndex (index) {
+    const { selectIndex } = this.state
+
+    if (index !== selectIndex) {
+      const { onChange } = this.props
+
+      if (onChange instanceof Function) onChange(index)
+      else {
+        if ('index' in this.props) return
+        this.setState({ selectIndex: index })
+      }
+    }
   }
 
-  activeIndex (activeIndex) {
-    this.setState({ activeIndex })
+  /*
+   *  'shouldComponentUpdate()'
+   */
+  activeIndex (index) {
+    const { activeIndex } = this.state
+
+    if (index !== activeIndex) {
+      this.setState({ activeIndex: index })
+    }
   }
 
   decrementActiveIndex () {
     const { activeIndex } = this.state
 
-    this.setState({ activeIndex: Math.max(activeIndex - 1, this.lowerBound) })
+    this.activeIndex(
+      Math.max(activeIndex - 1, this.lowerBound)
+    )
   }
 
   incrementActiveIndex () {
     const { activeIndex } = this.state
 
-    this.setState({ activeIndex: Math.min(activeIndex + 1, this.upperBound) })
+    this.activeIndex(
+      Math.min(activeIndex + 1, this.upperBound)
+    )
   }
 
-  createOptionText (text) {
-    return (text !== undefined) ? text.toString() : '\uFEFF'
+  createSelectedOptionDisabled () {
+    const {
+      options
+    } = this.props
+
+    const {
+      selectIndex
+    } = this.state
+
+    const { text } = options[selectIndex] || {}
+
+    return (
+      <div
+        className='selected-option'
+        ref={this.handleRef}>
+        {toOptionText(text)}
+      </div>
+    )
   }
 
   createSelectedOption () {
-    const {
-      selectIndex,
-      activeEnter,
-      hasActiveOptions
-    } = this.state
-
     const {
       options,
       accessKey,
       tabIndex
     } = this.props
+
+    const {
+      selectIndex,
+      activeEnter,
+      hasActiveOptions
+    } = this.state
 
     const { text } = options[selectIndex] || {}
 
@@ -228,12 +273,12 @@ export default class SelectElement extends React.Component {
       <div
         accessKey={accessKey}
         tabIndex={tabIndex}
-        className='selectedOption'
+        className='selected-option'
         onFocus={(activeEnter)
           ? this.acceptFocus /* Bonkers but I like it. Soz-oh */
           : this.handleFocus}
         onBlur={(activeEnter)
-          ? this.returnFocus
+          ? this.optionFocus
           : this.handleBlur}
         onClick={this.handleClick}
         onKeyPress={(hasActiveOptions)
@@ -243,7 +288,7 @@ export default class SelectElement extends React.Component {
           ? this.handleOptionsKeyUp
           : this.handleKeyUp}
         ref={this.handleRef}>
-        {this.createOptionText(text)}
+        {toOptionText(text)}
       </div>
     )
   }
@@ -252,6 +297,18 @@ export default class SelectElement extends React.Component {
     return (index === this.state.activeIndex)
       ? 'option active'
       : 'option'
+  }
+
+  createOptionDisabled = (option, index) => {
+    const { text } = option
+
+    return (
+      <li
+        key={index}
+        className='option'>
+        {toOptionText(text)}
+      </li>
+    )
   }
 
   createOption = (option, index) => {
@@ -263,7 +320,7 @@ export default class SelectElement extends React.Component {
         className={this.createOptionClassName(index)}
         onMouseOver={() => this.activeIndex(index)}
         onClick={() => this.handleOptionClick(index)}>
-        {this.createOptionText(text)}
+        {toOptionText(text)}
       </li>
     )
   }
@@ -272,6 +329,19 @@ export default class SelectElement extends React.Component {
     return (this.state.hasActiveOptions)
       ? 'options active'
       : 'options'
+  }
+
+  createOptionsDisabled () {
+    const { options } = this.props
+
+    if (options.length) {
+      return (
+        <ul
+          className='options'>
+          {options.map(this.createOptionDisabled)}
+        </ul>
+      )
+    }
   }
 
   createOptions () {
@@ -289,8 +359,10 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  componentWillReceiveProps ({ selectedIndex }) {
-    this.setState({ selectIndex: toNumber(selectedIndex) })
+  componentWillReceiveProps ({ index }) {
+    const value = toNumber(index)
+
+    this.setState({ selectIndex: isNaN(value) ? NaN : value })
   }
 
   shouldComponentUpdate (props, state) {
@@ -304,29 +376,43 @@ export default class SelectElement extends React.Component {
   }
 
   render () {
-    return (
-      <div className='selectElement'>
-        {this.createSelectedOption()}
-        {this.createOptions()}
-      </div>
-    )
+    const { disabled } = this.props
+    return (disabled)
+      ? (
+        <div className='react-select-element disabled' onFocus={noFocus}>
+          {this.createSelectedOptionDisabled()}
+          {this.createOptionsDisabled()}
+        </div>
+      )
+      : (
+        <div className='react-select-element'>
+          {this.createSelectedOption()}
+          {this.createOptions()}
+        </div>
+      )
   }
 }
 
 SelectElement.propTypes = {
-  selectedIndex: PropTypes.oneOfType([
+  defaultIndex: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  index: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
   ]),
   tabIndex: PropTypes.number,
   options: PropTypes.array,
   onChange: PropTypes.func,
-  accessKey: PropTypes.string
+  accessKey: PropTypes.string,
+  disabled: PropTypes.bool
 }
 
 SelectElement.defaultProps = {
-  selectedIndex: 0,
+  defaultIndex: 0,
   tabIndex: 0,
   options: [],
-  onChange: () => {}
+  // onChange: () => {},
+  disabled: false
 }
