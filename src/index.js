@@ -158,16 +158,16 @@ export default class SelectElement extends React.Component {
 
   handleKeyArrowUp () {
     this.decrementActiveIndex()
-
+    /*
     const { previousSibling: sibling } = this.activeOption
-    if (sibling) sibling.scrollIntoView(true)
+    if (sibling) sibling.scrollIntoView(true) */
   }
 
   handleKeyArrowDown () {
     this.incrementActiveIndex()
-
+    /*
     const { nextSibling: sibling } = this.activeOption
-    if (sibling) sibling.scrollIntoView(false)
+    if (sibling) sibling.scrollIntoView(false) */
   }
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
