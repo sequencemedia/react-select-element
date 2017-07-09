@@ -41,6 +41,18 @@ export default class SelectElement extends React.Component {
     return Math.max(0, n - 1)
   }
 
+  toLowerBound () {
+    this.setState({ activeIndex: this.lowerBound })
+  }
+
+  toUpperBound () {
+    this.setState({ activeIndex: this.upperBound })
+  }
+
+  selectedOptionFocus () {
+    this.selectedOption.focus()
+  }
+
   handleFocus = () => {
     const { selectIndex } = this.state
 
@@ -51,21 +63,24 @@ export default class SelectElement extends React.Component {
     this.setState({ hasActiveOptions: false })
   }
 
-  handleOptionsEnter = () => {
+  handleMouseEnter = () => {
     this.setState({ activeEnter: true })
   }
 
-  handleOptionsLeave = () => {
+  handleMouseLeave = () => {
     this.setState({ activeEnter: false })
   }
 
-  optionFocus = () => this.selectedOption.focus()
-  acceptFocus = () => true /* simplify a conditional! */
+  handleActiveEnterFocus = () => true
+
+  handleActiveEnterBlur = () => {
+    this.selectedOptionFocus()
+  }
 
   handleClick = (event) => {
-    if (isEventClickLike(event)) { // it's probably an accessKey event (which raises a click)
-      this.optionFocus()
-    } else { // it's probably a click
+    if (isEventClickLike(event)) { // it's probably an accessKey event
+      this.selectedOptionFocus()
+    } else { // it's probably a mouse click
       this.setState({ hasActiveOptions: true })
     }
   }
@@ -73,23 +88,20 @@ export default class SelectElement extends React.Component {
   handleOptionClick = (index) => {
     this.setState({ hasActiveOptions: false })
     this.selectIndex(index)
+    this.selectedOptionFocus()
   }
 
-  handleOptionsKeyPress = ({ charCode }) => {
-    this.handleOptionsKeyChar(charCode)
-  }
+  handleActiveOptionsKeyPress = (event) => this.handleActiveOptionsKeyChar(event)
 
-  handleKeyPress = ({ charCode }) => {
-    this.handleKeyChar(charCode)
-  }
+  handleKeyPress = (event) => this.handleKeyChar(event)
 
-  handleOptionsKeyUp = ({ keyCode }) => {
-    this.handleOptionsKeyCode(keyCode)
-  }
+  handleActiveOptionsKeyUp = (event) => this.handleActiveOptionsKeyCode(event)
 
-  handleKeyUp = ({ keyCode }) => {
-    this.handleKeyCode(keyCode)
-  }
+  handleActiveOptionsKeyDown = () => true
+
+  handleKeyUp = (event) => this.handleKeyCode(event)
+
+  handleKeyDown = () => true
 
   handleRef = (ref) => {
     this.selectedOption = ref
@@ -120,7 +132,35 @@ export default class SelectElement extends React.Component {
     return (i < 0) ? NaN : i
   }
 
-  handleOptionsKeyChar (keyChar) {
+  handleKeySpace () {
+    this.setState({ hasActiveOptions: false })
+
+    const { activeIndex } = this.state
+
+    this.selectIndex(activeIndex)
+  }
+
+  handleKeyEnter () {
+    this.setState({ hasActiveOptions: false })
+
+    const { activeIndex } = this.state
+
+    this.selectIndex(activeIndex)
+  }
+
+  handleKeyEscape () {
+    this.setState({ hasActiveOptions: false })
+  }
+
+  handleKeyArrowUp () {
+    this.decrementActiveIndex()
+  }
+
+  handleKeyArrowDown () {
+    this.incrementActiveIndex()
+  }
+
+  handleActiveOptionsKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
@@ -138,7 +178,7 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  handleKeyChar (keyChar) {
+  handleKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
@@ -158,29 +198,32 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  handleOptionsKeyCode (keyCode) {
+  handleActiveOptionsKeyCode (event) {
+    const { keyCode } = event
     switch (keyCode) {
       case 13:
+        this.handleKeyEnter(event)
+        break
+      case 27:
+        this.handleKeyEscape(event)
+        break
       case 32:
-        {
-          this.setState({ hasActiveOptions: false })
-
-          const { activeIndex } = this.state
-
-          this.selectIndex(activeIndex)
-        }
+        this.handleKeySpace(event)
         break
-      case 38: // arrow up
-        this.decrementActiveIndex()
+      case 38:
+        this.handleKeyArrowUp(event)
         break
-      case 40: // arrow down
-        this.incrementActiveIndex()
+      case 40:
+        this.handleKeyArrowDown(event)
         break
     }
   }
 
-  handleKeyCode (keyCode) {
-    if (keyCode === 40) {
+  handleKeyCode ({ keyCode }) {
+    if (
+      keyCode === 32 ||
+      keyCode === 38 ||
+      keyCode === 40) { // space or arrow up or arrow down
       this.setState({ hasActiveOptions: true })
     }
   }
@@ -264,18 +307,21 @@ export default class SelectElement extends React.Component {
         tabIndex={tabIndex}
         className='selected-option'
         onFocus={(activeEnter)
-          ? this.acceptFocus /* Bonkers but I like it. Soz-oh */
+          ? this.handleActiveEnterFocus
           : this.handleFocus}
         onBlur={(activeEnter)
-          ? this.optionFocus
+          ? this.handleActiveEnterBlur
           : this.handleBlur}
         onClick={this.handleClick}
         onKeyPress={(hasActiveOptions)
-          ? this.handleOptionsKeyPress
+          ? this.handleActiveOptionsKeyPress
           : this.handleKeyPress}
         onKeyUp={(hasActiveOptions)
-          ? this.handleOptionsKeyUp
+          ? this.handleActiveOptionsKeyUp
           : this.handleKeyUp}
+        onKeyDown={(hasActiveOptions)
+          ? this.handleActiveOptionsKeyDown
+          : this.handleKeyDown}
         ref={this.handleRef}>
         {toOptionText(text)}
       </div>
@@ -340,8 +386,8 @@ export default class SelectElement extends React.Component {
       return (
         <ul
           className={this.createOptionsClassName()}
-          onMouseEnter={this.handleOptionsEnter}
-          onMouseLeave={this.handleOptionsLeave}>
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}>
           {options.map(this.createOption)}
         </ul>
       )
