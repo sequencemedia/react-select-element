@@ -12,8 +12,6 @@ const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || page
 
 const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 
-const noFocus = (e) => e.cancelDefault()
-
 export default class SelectElement extends React.Component {
   constructor (props) {
     super(props)
@@ -414,7 +412,7 @@ export default class SelectElement extends React.Component {
     const { disabled } = this.props
     return (disabled)
       ? (
-        <div className='react-select-element disabled' onFocus={noFocus}>
+        <div className='react-select-element disabled'>
           {this.createSelectedOptionDisabled()}
           {this.createOptionsDisabled()}
         </div>
