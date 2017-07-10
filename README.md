@@ -2,9 +2,13 @@
 
 ## React Select Element
 
-`react-select-element` implements standard `HTML` `<select />` behaviour, but without using any `<form />` elements whatsoever. (It can, of course, be composed into components which implement those elements.) While it can be used as-is, it's expected that the component will be extended by your own components, and its behaviour modified to suit your needs.
+`react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements whatsoever. (It can, of course, be composed into other components which implement them.) 
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) While the component modifies some `className` attributes on its elements, the `react-select-element` package does not contain any `CSS` stylesheets: it's expected that you will write your own, but the example implementation contains [a simple stylesheet](https://github.com/sequencemedia/React.Select.Element.IO/blob/master/public/assets/css/react-select-element.css) which should help you start.
+You can use it as-is, or you can use `extend` your own components from it, modifying its behaviour to suit your needs.
+
+[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) 
+
+While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/React.Select.Element.IO/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
 ### Using ES
 
@@ -67,7 +71,7 @@ Otherwise:
 
 #### 1. `<InfiniteSelect />`
 
-In standard behaviour, when the options are visible the user can move up and down the list by pressing the "arrow up" and "arrow down" keys on their keyboard -- but the movement is constrained, and will stop at the first or the last item in the list.
+In standard behaviour, when the options are visible, the user can move up and down through the options list by pressing the "arrow up" and "arrow down" keys on their keyboard. Movement will stop at the first item or the last item.
 
 You want to modify that behaviour. 
 
@@ -133,7 +137,7 @@ class SelectSelect extends Select {
   }
 }
 ```
-Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements below those calls modify the behaviour of the component.
+Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements modify the behaviour of the component.
 
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
 
@@ -143,7 +147,7 @@ Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the
 
 You want to compose it into a `<form />`.
 
-In this case, you've chosen to compose the `<Select />` into a controlling component, which renders the `value` of the selected option into an `<input type='hidden' />`.
+In this case, you've chosen to compose the `<Select />` into a controlling component which renders the `value` of the selected option into the `value` attribute of an `<input type='hidden' />` element.
 
 ```
 class HiddenSelect extends Component {
