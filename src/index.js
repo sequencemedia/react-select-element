@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
@@ -37,6 +38,25 @@ export default class SelectElement extends React.Component {
     } = this.props
 
     return Math.max(0, n - 1)
+  }
+
+  scrollOptionIntoView (element) {
+    if (ReactDOM.findDOMNode(this).contains(element)) {
+      const { options } = this
+      const {
+        offsetTop,
+        offsetHeight
+      } = element
+      const {
+        scrollTop,
+        clientHeight
+      } = options
+
+      const i = (clientHeight / 2)
+      const j = (offsetHeight / 2)
+      const n = Math.max(0, (offsetTop - (i + j)))
+      if (n !== scrollTop) options.scrollTop = n
+    }
   }
 
   toLowerBound () {
@@ -103,12 +123,14 @@ export default class SelectElement extends React.Component {
 
   selectOptionRef = (ref) => (ref) ? !!(this.selectOption = ref) : delete this.selectOption
 
+  optionsRef = (ref) => (ref) ? !!(this.options = ref) : delete this.options
+
   optionRef = (index) => {
     const { activeIndex } = this.state
 
-    return (index === activeIndex)
-      ? (ref) => (ref) ? !!(this.activeOption = ref) : delete this.activeOption
-      : () => {}
+    if (index === activeIndex) {
+      return (ref) => (ref) ? !!(this.activeOption = ref) : delete this.activeOption
+    }
   }
 
   findChars (chars) {
@@ -156,18 +178,36 @@ export default class SelectElement extends React.Component {
     this.setState({ hasActiveOptions: false })
   }
 
+  getOptionsFirstChild () {
+    return (this.options
+      .firstChild
+    ) || null
+  }
+
+  getOptionsLastChild () {
+    return (this.options
+      .lastChild
+    ) || null
+  }
+
+  getActiveOptionPreviousSibling () {
+    return (this.activeOption
+      .previousSibling
+    ) || null
+  }
+
+  getActiveOptionNextSibling () {
+    return (this.activeOption
+      .nextSibling
+    ) || null
+  }
+
   handleKeyArrowUp () {
     this.decrementActiveIndex()
-    /*
-    const { previousSibling: sibling } = this.activeOption
-    if (sibling) sibling.scrollIntoView(true) */
   }
 
   handleKeyArrowDown () {
     this.incrementActiveIndex()
-    /*
-    const { nextSibling: sibling } = this.activeOption
-    if (sibling) sibling.scrollIntoView(false) */
   }
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
@@ -398,7 +438,8 @@ export default class SelectElement extends React.Component {
         <ul
           className={this.createOptionsClassName()}
           onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}>
+          onMouseLeave={this.handleMouseLeave}
+          ref={this.optionsRef}>
           {options.map(this.createOption)}
         </ul>
       )

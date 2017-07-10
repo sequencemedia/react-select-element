@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "prop-types": "^15.5.10",
-    "react": "^15.6.0"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -38,7 +39,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
-    "eslint": "^4.1.1",
+    "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-node": "^5.1.0",
