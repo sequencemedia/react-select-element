@@ -54,7 +54,7 @@ export default class SelectElement extends React.Component {
 
       const i = (clientHeight / 2)
       const j = (offsetHeight / 2)
-      const n = Math.max(0, (offsetTop - (i + j)))
+      const n = Math.max(0, (offsetTop - i) + j)
       if (n !== scrollTop) options.scrollTop = n
     }
   }
