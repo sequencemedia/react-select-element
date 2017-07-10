@@ -16,7 +16,10 @@ const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 export default class SelectElement extends React.Component {
   constructor (props) {
     super(props)
-    const { index, defaultIndex } = this.props
+    const {
+      index,
+      defaultIndex
+    } = this.props
     const value = toNumber(index)
     const selectIndex = isNaN(value) ? toNumber(defaultIndex) : value
 
