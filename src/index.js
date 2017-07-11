@@ -128,13 +128,7 @@ export default class SelectElement extends React.Component {
 
   optionsRef = (ref) => (ref) ? !!(this.options = ref) : delete this.options
 
-  optionRef = (index) => {
-    const { activeIndex } = this.state
-
-    if (index === activeIndex) {
-      return (ref) => (ref) ? !!(this.activeOption = ref) : delete this.activeOption
-    }
-  }
+  activeOptionRef = (ref) => (ref) ? !!(this.activeOption = ref) : delete this.activeOption
 
   findChars (chars) {
     const { options } = this.props
@@ -332,8 +326,7 @@ export default class SelectElement extends React.Component {
 
     return (
       <div
-        className='selected-option'
-        ref={this.selectOptionRef}>
+        className='selected-option'>
         {toOptionText(text)}
       </div>
     )
@@ -356,6 +349,7 @@ export default class SelectElement extends React.Component {
 
     return (
       <div
+        ref={this.selectOptionRef}
         accessKey={accessKey}
         tabIndex={tabIndex}
         className='selected-option'
@@ -374,15 +368,24 @@ export default class SelectElement extends React.Component {
           : this.handleKeyUp}
         onKeyDown={(hasActiveOptions)
           ? this.handleActiveOptionsKeyDown
-          : this.handleKeyDown}
-        ref={this.selectOptionRef}>
+          : this.handleKeyDown}>
         {toOptionText(text)}
       </div>
     )
   }
 
+  createOptionRef = (index) => {
+    const { activeIndex } = this.state
+
+    if (index === activeIndex) {
+      return this.activeOptionRef
+    }
+  }
+
   createOptionClassName (index) {
-    return (index === this.state.activeIndex)
+    const { activeIndex } = this.state
+
+    return (index === activeIndex)
       ? 'option active'
       : 'option'
   }
@@ -405,17 +408,19 @@ export default class SelectElement extends React.Component {
     return (
       <li
         key={index}
+        ref={this.createOptionRef(index)}
         className={this.createOptionClassName(index)}
         onMouseOver={() => this.activeIndex(index)}
-        onClick={() => this.handleOptionClick(index)}
-        ref={this.optionRef(index)}>
+        onClick={() => this.handleOptionClick(index)}>
         {toOptionText(text)}
       </li>
     )
   }
 
   createOptionsClassName () {
-    return (this.state.hasActiveOptions)
+    const { hasActiveOptions } = this.state
+
+    return (hasActiveOptions)
       ? 'options active'
       : 'options'
   }
@@ -439,10 +444,10 @@ export default class SelectElement extends React.Component {
     if (options.length) {
       return (
         <ul
+          ref={this.optionsRef}
           className={this.createOptionsClassName()}
           onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-          ref={this.optionsRef}>
+          onMouseLeave={this.handleMouseLeave}>
           {options.map(this.createOption)}
         </ul>
       )
