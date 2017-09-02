@@ -1,7 +1,7 @@
 {
   "compact": true,
   "presets": [
-    "es2015",
+    "env",
     "react",
     "stage-0",
     "stage-1"
@@ -9,6 +9,13 @@
   "plugins": [
     "transform-class-properties",
     "transform-object-rest-spread",
-    "transform-react-jsx"
+    "transform-react-jsx",
+    [
+      "module-resolver", {
+        "alias": {
+          "react-select-element": "./src"
+        }
+      }
+    ]
   ]
 }

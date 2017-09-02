@@ -1,0 +1,68 @@
+<style type="text/css">
+
+  body {
+    font-family: arial, helvetica, sans-serif;
+  }
+
+  .react-select-element {
+    font-size: .75rem;
+    cursor: default;
+    user-select: none;
+    margin: 2px 0;
+    position: relative;
+  }
+
+  .react-select-element .selected-option {
+    padding: 2px 8px;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 0;
+    border-radius: 4px;
+  }
+
+  .react-select-element.disabled .selected-option,
+  .react-select-element.readonly .selected-option {
+    border-color: #ebebeb;
+    color: #808080;
+  }
+
+  /*
+    Default focus outline is bobbins
+    In Chrome, there's a margin between the element and the outline
+    In FF, the outline is dashed
+  */
+  .react-select-element .selected-option:focus {
+    outline: none;
+    box-shadow: 0px 0px 4px 2px rgba(59, 153, 252, 1);
+  }
+
+  .react-select-element ul {
+    position:absolute;
+    margin: -1px 0 0;
+    width: 100%;
+    padding: 8px 0;
+    background-color: #f0f0f0;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.25);
+    display: none;
+    z-index: 1;
+  }
+
+  .react-select-element ul.active {
+    display: block;
+  }
+
+  .react-select-element li {
+    display: block;
+    list-style-type: none;
+    padding: 0 1rem;
+    cursor: default;
+  }
+
+  .react-select-element li.active {
+    background-color: #3991fc;
+    color: white;
+  }
+
+</style>

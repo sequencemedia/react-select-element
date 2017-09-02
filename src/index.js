@@ -2,7 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
+const ENTER = 'Enter'
+const SPACE = String.fromCharCode(32)
+
+const isKeyEnter = ({ key }) => key === ENTER
+
+const isKeySpace = ({ key }) => key === SPACE
 
 /*
  *  'accesskey' events are raised as clicks with all-zero co-ordinates. All-zero
@@ -11,7 +16,13 @@ const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
  */
 const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
 
+const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
+
 const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
+
+const byOptionText = (alpha, omega) => (
+  toOptionText(alpha).toLowerCase() > toOptionText(omega).toLowerCase()
+)
 
 export default class SelectElement extends React.Component {
   constructor (props) {
@@ -112,7 +123,11 @@ export default class SelectElement extends React.Component {
     this.selectOptionFocus()
   }
 
-  handleActiveOptionsKeyPress = (event) => this.handleActiveOptionsKeyChar(event)
+  handleActiveOptionsKeyPress = (event) => {
+    if (isKeyEnter(event) || isKeySpace(event)) return
+
+    return this.handleActiveOptionsKeyChar(event)
+  }
 
   handleKeyPress = (event) => this.handleKeyChar(event)
 
@@ -130,29 +145,159 @@ export default class SelectElement extends React.Component {
 
   activeOptionRef = (ref) => (ref) ? !!(this.activeOption = ref) : delete this.activeOption
 
-  findChars (chars) {
+  hasExactMatch (chars) {
+    const { options } = this.props
+
+    /*
+     * Matches exactly
+     */
+    return options
+      .some(({ text }) => (
+        toOptionText(text)
+          .toLowerCase() === chars
+      ))
+  }
+
+  getExactMatchIndex (chars) {
+    const { options } = this.props
+
+    /*
+     * Matches exactly
+     */
+    return options
+      .findIndex(({ text }) => (
+        toOptionText(text)
+          .toLowerCase() === chars
+      ))
+  }
+
+  hasStartMatch (chars) {
     const { options } = this.props
 
     const n = chars.length
-    const i = options.findIndex(({ text }) => (
-      toOptionText(text)
-        .toLowerCase()
-        .substr(0, n) === chars
-    ))
 
-    return (i < 0) ? NaN : i
+    /*
+     * Matches from the start of the string
+     */
+    return options
+      .some(({ text }) => (
+        toOptionText(text)
+          .toLowerCase()
+          .substr(0, n) === chars
+      ))
   }
 
-  findChar (char) {
+  getStartMatchIndex (chars) {
     const { options } = this.props
 
-    const i = options.findIndex(({ text }) => (
-      toOptionText(text)
-        .toLowerCase()
-        .charAt(0) === char
-    ))
+    const n = chars.length
 
-    return (i < 0) ? NaN : i
+    /*
+     * Matches from the start of the string
+     */
+    return options
+      .findIndex(({ text }) => (
+        toOptionText(text)
+          .toLowerCase()
+          .substr(0, n) === chars
+      ))
+  }
+
+  hasGreaterThanMatch (chars) {
+    const { options } = this.props
+
+    /*
+     *  Find the the smallest match greater than the chars!
+     */
+    const a = Array
+      .from(options) // duplicate the array
+      .sort(({ text: alpha }, { text: omega }) => ( // sort the duplicate
+        byOptionText(alpha, omega)
+      ))
+
+    const o = a // find in the duplicated, sorted array
+      .find(({ text }) => (
+        toOptionText(text) // the smallest match greater than the chars?
+          .toLowerCase() > chars
+      ))
+
+    return options
+      .some((option) => (
+        option === o
+      ))
+  }
+
+  getGreaterThanMatchIndex (chars) {
+    const { options } = this.props
+
+    /*
+     *  Find the the smallest match greater than the chars!
+     */
+    const a = Array
+      .from(options) // duplicate the array
+      .sort(({ text: alpha }, { text: omega }) => ( // sort the duplicate
+        byOptionText(alpha, omega)
+      ))
+
+    const o = a // find in the duplicated, sorted array
+      .find(({ text }) => (
+        toOptionText(text) // the smallest match greater than the chars?
+          .toLowerCase() > chars
+      ))
+
+    return options
+      .findIndex((option) => (
+        option === o
+      ))
+  }
+
+  hasSmallerThanMatch (chars) {
+    const { options } = this.props
+
+    /*
+     *  Find the the largest match smaller than the chars!
+     */
+    const a = Array
+      .from(options) // duplicate the array
+      .sort(({ text: alpha }, { text: omega }) => ( // sort the duplicate
+        byOptionText(alpha, omega)
+      ))
+
+    const o = a // find in the duplicated, sorted array
+      .find(({ text }) => (
+        toOptionText(text) // the largest match smaller than the chars?
+          .toLowerCase() < chars
+      ))
+
+    return options
+      .some((option) => (
+        option === o
+      ))
+  }
+
+  getSmallerThanMatchIndex (chars) {
+    const { options } = this.props
+
+    /*
+     *  Find the the largest match smaller than the chars!
+     */
+    const a = Array
+      .from(options) // duplicate the array
+      .sort(({ text: alpha }, { text: omega }) => ( // sort the duplicate
+        byOptionText(alpha, omega)
+      ))
+      .reverse()
+
+    const o = a // find in the duplicated, sorted array
+      .find(({ text }) => (
+        toOptionText(text) // the largest match hasSmallerThanMatch than the chars?
+          .toLowerCase() < chars
+      ))
+
+    return options
+      .findIndex((option) => (
+        option === o
+      ))
   }
 
   handleKeySpace () {
@@ -201,26 +346,66 @@ export default class SelectElement extends React.Component {
 
   handleKeyArrowUp () {
     this.decrementActiveIndex()
+
+    this.setState({ activeChars: '' })
   }
 
   handleKeyArrowDown () {
     this.incrementActiveIndex()
+
+    this.setState({ activeChars: '' })
   }
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
-
-    let index = this.findChars(chars)
-    if (!isNaN(index)) {
+    if (this.hasExactMatch(chars)) {
       this.setState({ activeChars: chars })
-      this.activeIndex(index)
+      this.activeIndex(
+        this.getExactMatchIndex(chars)
+      )
     } else {
-      let index = this.findChar(char)
-      if (!isNaN(index)) {
-        this.setState({ activeChars: char })
-        this.activeIndex(index)
+      if (this.hasStartMatch(chars)) {
+        this.setState({ activeChars: chars })
+        this.activeIndex(
+          this.getExactMatchIndex(chars)
+        )
+      } else {
+        if (this.hasGreaterThanMatch(chars)) {
+          this.setState({ activeChars: '' })
+          this.activeIndex(
+            this.getGreaterThanMatchIndex(chars)
+          )
+        } else {
+          if (this.hasExactMatch(char)) {
+            this.setState({ activeChars: char })
+            this.activeIndex(
+              this.getExactMatchIndex(char)
+            )
+          } else {
+            if (this.hasStartMatch(char)) {
+              this.setState({ activeChars: char })
+              this.activeIndex(
+                this.getExactMatchIndex(char)
+              )
+            } else {
+              if (this.hasGreaterThanMatch(char)) {
+                this.setState({ activeChars: '' })
+                this.activeIndex(
+                  this.getGreaterThanMatchIndex(char)
+                )
+              } else {
+                if (this.hasSmallerThanMatch(char)) {
+                  this.setState({ activeChars: '' })
+                  this.activeIndex(
+                    this.getSmallerThanMatchIndex(char)
+                  )
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -230,16 +415,37 @@ export default class SelectElement extends React.Component {
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
-    let index = this.findChars(chars)
-    if (!isNaN(index)) {
+    if (this.hasExactMatch(chars)) {
       this.setState({ activeChars: chars })
-      this.selectIndex(index)
+      this.selectIndex(
+        this.getExactMatchIndex(chars)
+      )
     } else {
-      if (activeChars !== char) {
-        let index = this.findChar(char)
-        if (!isNaN(index)) {
+      if (this.hasStartMatch(chars)) {
+        this.setState({ activeChars: chars })
+        this.selectIndex(
+          this.getExactMatchIndex(chars)
+        )
+      } else {
+        if (this.hasExactMatch(char)) {
           this.setState({ activeChars: char })
-          this.selectIndex(index)
+          this.selectIndex(
+            this.getExactMatchIndex(char)
+          )
+        } else {
+          if (this.hasStartMatch(char)) {
+            this.setState({ activeChars: char })
+            this.selectIndex(
+              this.getExactMatchIndex(char)
+            )
+          } else {
+            if (this.hasGreaterThanMatch(char)) {
+              this.setState({ activeChars: '' })
+              this.selectIndex(
+                this.getGreaterThanMatchIndex(char)
+              )
+            }
+          }
         }
       }
     }
@@ -332,6 +538,19 @@ export default class SelectElement extends React.Component {
     )
   }
 
+  createSelectedOptionReadOnly () {
+    const { options } = this.props
+    const { selectIndex } = this.state
+    const { text } = options[selectIndex] || {}
+
+    return (
+      <div
+        className='selected-option'>
+        {toOptionText(text)}
+      </div>
+    )
+  }
+
   createSelectedOption () {
     const {
       options,
@@ -402,6 +621,18 @@ export default class SelectElement extends React.Component {
     )
   }
 
+  createOptionReadOnly = (option, index) => {
+    const { text } = option
+
+    return (
+      <li
+        key={index}
+        className='option'>
+        {toOptionText(text)}
+      </li>
+    )
+  }
+
   createOption = (option, index) => {
     const { text } = option
 
@@ -438,6 +669,19 @@ export default class SelectElement extends React.Component {
     }
   }
 
+  createOptionsReadOnly () {
+    const { options } = this.props
+
+    if (options.length) {
+      return (
+        <ul
+          className='options'>
+          {options.map(this.createOptionReadOnly)}
+        </ul>
+      )
+    }
+  }
+
   createOptions () {
     const { options } = this.props
 
@@ -457,11 +701,14 @@ export default class SelectElement extends React.Component {
   componentWillReceiveProps ({ index }) {
     const selectIndex = toNumber(index)
 
-    this.setState({ selectIndex })
+    if (!isNaN(selectIndex)) {
+      this.setState({ selectIndex })
+    }
   }
 
   shouldComponentUpdate (props, state) {
     if (props !== this.props) return true
+
     return (
       (state.selectIndex !== this.state.selectIndex) ||
       (state.hasActiveOptions !== this.state.hasActiveOptions) ||
@@ -470,21 +717,43 @@ export default class SelectElement extends React.Component {
     )
   }
 
+  renderDisabled () {
+    return (
+      <div className='react-select-element disabled'>
+        {this.createSelectedOptionDisabled()}
+        {this.createOptionsDisabled()}
+      </div>
+    )
+  }
+
+  renderReadOnly () {
+    return (
+      <div className='react-select-element readonly'>
+        {this.createSelectedOptionReadOnly()}
+        {this.createOptionsReadOnly()}
+      </div>
+    )
+  }
+
   render () {
     const { disabled } = this.props
-    return (disabled)
-      ? (
-        <div className='react-select-element disabled'>
-          {this.createSelectedOptionDisabled()}
-          {this.createOptionsDisabled()}
-        </div>
-      )
-      : (
-        <div className='react-select-element'>
-          {this.createSelectedOption()}
-          {this.createOptions()}
-        </div>
-      )
+
+    if (disabled) {
+      return this.renderDisabled()
+    }
+
+    const { readOnly } = this.props
+
+    if (readOnly) {
+      return this.renderReadOnly()
+    }
+
+    return (
+      <div className='react-select-element'>
+        {this.createSelectedOption()}
+        {this.createOptions()}
+      </div>
+    )
   }
 }
 
@@ -498,15 +767,24 @@ SelectElement.propTypes = {
     PropTypes.string
   ]),
   tabIndex: PropTypes.number,
-  options: PropTypes.array,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+      ])
+    })
+  ),
   onChange: PropTypes.func,
   accessKey: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool
 }
 
 SelectElement.defaultProps = {
   defaultIndex: 0,
   tabIndex: 0,
   options: [],
-  disabled: false
+  disabled: false,
+  readOnly: false
 }
