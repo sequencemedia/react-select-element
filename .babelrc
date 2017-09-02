@@ -7,8 +7,6 @@
     "stage-1"
   ],
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
     "transform-react-jsx",
     [
       "module-resolver", {
