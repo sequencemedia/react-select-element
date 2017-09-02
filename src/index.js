@@ -369,7 +369,7 @@ export default class SelectElement extends React.Component {
       if (this.hasStartMatch(chars)) {
         this.setState({ activeChars: chars })
         this.activeIndex(
-          this.getExactMatchIndex(chars)
+          this.getStartMatchIndex(chars)
         )
       } else {
         if (this.hasGreaterThanMatch(chars)) {
@@ -387,7 +387,7 @@ export default class SelectElement extends React.Component {
             if (this.hasStartMatch(char)) {
               this.setState({ activeChars: char })
               this.activeIndex(
-                this.getExactMatchIndex(char)
+                this.getStartMatchIndex(char)
               )
             } else {
               if (this.hasGreaterThanMatch(char)) {
@@ -424,7 +424,7 @@ export default class SelectElement extends React.Component {
       if (this.hasStartMatch(chars)) {
         this.setState({ activeChars: chars })
         this.selectIndex(
-          this.getExactMatchIndex(chars)
+          this.getStartMatchIndex(chars)
         )
       } else {
         if (this.hasExactMatch(char)) {
@@ -436,7 +436,7 @@ export default class SelectElement extends React.Component {
           if (this.hasStartMatch(char)) {
             this.setState({ activeChars: char })
             this.selectIndex(
-              this.getExactMatchIndex(char)
+              this.getStartMatchIndex(char)
             )
           } else {
             if (this.hasGreaterThanMatch(char)) {
