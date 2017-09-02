@@ -2,11 +2,11 @@
 
 ## React Select Element
 
-`react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements whatsoever. (It can, of course, be composed into other components which implement them.) 
+`react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements whatsoever. (It can, of course, be composed into other components which implement them.)
 
 You can use it as-is, or you can use `extend` your own components from it, modifying its behaviour to suit your needs.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) 
+[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO)
 
 While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/React.Select.Element.IO/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
@@ -29,17 +29,17 @@ Either:
 ```
   <Select
     index={this.state.index}
-    onChange={(index) => { 
-      this.setState({ index }) 
+    onChange={(index) => {
+      this.setState({ index })
     }}
     tabIndex={0}
     accessKey='S'
     options={[
-      { value: 'A', text: 'Letter A' },
-      { value: 'B', text: 'Letter B' },
-      { value: 'C', text: 'Letter C' },
-      { value: 'D', text: 'Letter D' },
-      { value: 'E', text: 'Letter E' }
+      { text: 'Letter A' },
+      { text: 'Letter B' },
+      { text: 'Letter C' },
+      { text: 'Letter D' },
+      { text: 'Letter E' }
     ]}
   />
 ```
@@ -51,11 +51,11 @@ Or:
     tabIndex={0}
     accessKey='S'
     options={[
-      { value: 'A', text: 'Letter A' },
-      { value: 'B', text: 'Letter B' },
-      { value: 'C', text: 'Letter C' },
-      { value: 'D', text: 'Letter D' },
-      { value: 'E', text: 'Letter E' }
+      { text: 'Letter A' },
+      { text: 'Letter B' },
+      { text: 'Letter C' },
+      { text: 'Letter D' },
+      { text: 'Letter E' }
     ]}
   />
 ```
@@ -67,15 +67,23 @@ Otherwise:
   />
 ```
 
+Finally:
+
+```
+  <Select
+    readOnly
+  />
+```
+
 ### Extending the component
 
 #### 1. `<InfiniteSelect />`
 
 In standard behaviour, when the options are visible, the user can move up and down through the options list by pressing the "arrow up" and "arrow down" keys on their keyboard. Movement will stop at the first item or the last item.
 
-You want to modify that behaviour. 
+You want to modify that behaviour.
 
-By pressing the "arrow up" key, the user should move through each item to the _first item_ in the list; then, by pressing again, they should move to the _last item_. 
+By pressing the "arrow up" key, the user should move through each item to the _first item_ in the list; then, by pressing again, they should move to the _last item_.
 
 Similarly, by pressing the "arrow down" key, the user should move through each item to the _last item_ in the list; then, pressing again, they should move to the _first item_.
 
@@ -101,12 +109,12 @@ class InfiniteSelect extends Select {
     )
   }
 }
-```  
+```
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
 
 #### 2. `<SelectSelect />`
 
-In standard behaviour, controlling components are only notified of a change to the selected `index` on `click` or keyboard `enter` events. 
+In standard behaviour, controlling components are only notified of a change to the selected `index` on `click` or keyboard `enter` events.
 
 You want to modify that behaviour.
 
