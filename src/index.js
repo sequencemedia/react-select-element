@@ -20,9 +20,13 @@ const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
 
 const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 
-const byOptionText = (alpha, omega) => (
-  toOptionText(alpha).toLowerCase() > toOptionText(omega).toLowerCase()
-)
+const byOptionText = (alpha, omega) => {
+  const ALPHA = toOptionText(alpha).toLowerCase()
+  const OMEGA = toOptionText(omega).toLowerCase()
+  if (ALPHA < OMEGA) return -1
+  if (ALPHA > OMEGA) return +1
+  return 0
+}
 
 export default class SelectElement extends React.Component {
   constructor (props) {
@@ -372,7 +376,11 @@ export default class SelectElement extends React.Component {
           this.getStartMatchIndex(chars)
         )
       } else {
-        if (this.hasGreaterThanMatch(chars)) {
+        const CHARS = activeChars.split('')
+        const L = Math.max.apply(CHARS, CHARS.map((s) => s.charCodeAt()))
+        const R = char.charCodeAt()
+
+        if (L === R && this.hasGreaterThanMatch(chars)) {
           this.setState({ activeChars: '' })
           this.activeIndex(
             this.getGreaterThanMatchIndex(chars)

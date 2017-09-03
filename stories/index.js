@@ -37,6 +37,29 @@ const RANDOM_OPTIONS = [
   { text: 'BB' }
 ]
 
+const LARGER_OPTIONS = [
+  { text: 'A' },
+  { text: 'AA' },
+  { text: 'AAA' },
+  { text: 'AAAA' },
+  { text: 'AAAAA' },
+  { text: 'B' },
+  { text: 'BB' },
+  { text: 'BBB' },
+  { text: 'BBBB' },
+  { text: 'BBBBB' },
+  { text: 'C' },
+  { text: 'CC' },
+  { text: 'CCC' },
+  { text: 'CCCC' },
+  { text: 'CCCCC' },
+  { text: 1 },
+  { text: 2 },
+  { text: 3 },
+  { text: 4 },
+  { text: 5 }
+]
+
 class ChangeSelectElement extends React.Component {
   state = {
     index: 0
@@ -106,7 +129,7 @@ storiesOf('SelectElement component', module)
     <div>
       <input type='text' tabIndex={1} />
       <SelectElement
-        options={OPTIONS}
+        options={LARGER_OPTIONS}
         accessKey='A'
         tabIndex={3}
       />
