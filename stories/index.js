@@ -134,6 +134,9 @@ storiesOf('SelectElement component', module)
         tabIndex={3}
       />
       <input type='text' tabIndex={2} />
+      <select tabIndex={4}>
+        {LARGER_OPTIONS.map(({ text }, i) => (<option key={i}>{text}</option>))}
+      </select>
     </div>
   ))
   .add('With default props, readOnly', () => (

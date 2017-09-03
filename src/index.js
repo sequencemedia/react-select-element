@@ -364,6 +364,7 @@ export default class SelectElement extends React.Component {
     const { activeChars } = this.state
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
+
     if (this.hasExactMatch(chars)) {
       this.setState({ activeChars: chars })
       this.activeIndex(
@@ -381,7 +382,7 @@ export default class SelectElement extends React.Component {
         const R = char.charCodeAt()
 
         if (L === R && this.hasGreaterThanMatch(chars)) {
-          this.setState({ activeChars: '' })
+          this.setState({ activeChars })
           this.activeIndex(
             this.getGreaterThanMatchIndex(chars)
           )
