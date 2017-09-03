@@ -336,15 +336,15 @@ export default class SelectElement extends React.Component {
     this.setState({ activeChars: '' })
   }
 
+  /*
+  const CHARS = activeChars.split('')
+  const L = Math.max.apply(CHARS, CHARS.map((s) => s.charCodeAt()))
+  const R = char.charCodeAt()
+  */
+
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
-    const {
-      activeChars
-    } = this.state
-
-    const {
-      options
-    } = this.props
-
+    const { activeChars } = this.state
+    const { options } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -394,21 +394,9 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  /*
-  const CHARS = activeChars.split('')
-  const L = Math.max.apply(CHARS, CHARS.map((s) => s.charCodeAt()))
-  const R = char.charCodeAt()
-  */
-
   handleKeyChar ({ charCode: keyChar }) {
-    const {
-      activeChars
-    } = this.state
-
-    const {
-      options
-    } = this.props
-
+    const { activeChars } = this.state
+    const { options } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -453,6 +441,7 @@ export default class SelectElement extends React.Component {
 
   handleActiveOptionsKeyCode (event) {
     const { keyCode } = event
+
     switch (keyCode) {
       case 13:
         this.handleKeyEnter(event)
