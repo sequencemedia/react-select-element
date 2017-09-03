@@ -398,41 +398,6 @@ export default class SelectElement extends React.Component {
   const CHARS = activeChars.split('')
   const L = Math.max.apply(CHARS, CHARS.map((s) => s.charCodeAt()))
   const R = char.charCodeAt()
-
-  if (L === R && this.hasGreaterThanMatch(chars)) {
-    this.setState({ activeChars })
-    this.activeIndex(
-      this.getGreaterThanMatchIndex(chars)
-    )
-  } else {
-    if (this.hasExactMatch(char)) {
-      this.setState({ activeChars: char })
-      this.activeIndex(
-        this.getExactMatchIndex(char)
-      )
-    } else {
-      if (this.hasStartMatch(char)) {
-        this.setState({ activeChars: char })
-        this.activeIndex(
-          this.getStartMatchIndex(char)
-        )
-      } else {
-        if (this.hasGreaterThanMatch(char)) {
-          this.setState({ activeChars: '' })
-          this.activeIndex(
-            this.getGreaterThanMatchIndex(char)
-          )
-        } else {
-          if (this.hasSmallerThanMatch(char)) {
-            this.setState({ activeChars: '' })
-            this.activeIndex(
-              this.getSmallerThanMatchIndex(char)
-            )
-          }
-        }
-      }
-    }
-  }
   */
 
   handleKeyChar ({ charCode: keyChar }) {
