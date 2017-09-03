@@ -20,13 +20,23 @@ const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
 
 const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 
-const byOptionText = (alpha, omega) => {
-  const ALPHA = toOptionText(alpha).toLowerCase()
-  const OMEGA = toOptionText(omega).toLowerCase()
-  if (ALPHA < OMEGA) return -1
-  if (ALPHA > OMEGA) return +1
-  return 0
-}
+const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? +1 : 0
+
+const reverse = (alpha, omega) => (alpha < omega) ? +1 : (alpha > omega) ? -1 : 0
+
+const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
+  forward(
+    toOptionText(alpha).toLowerCase(),
+    toOptionText(omega).toLowerCase()
+  )
+)
+
+const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
+  reverse(
+    toOptionText(alpha).toLowerCase(),
+    toOptionText(omega).toLowerCase()
+  )
+)
 
 const exactMatchFor = (chars) => ({ text }) => (
   toOptionText(text)
@@ -57,7 +67,85 @@ const smallerThanFor = (chars) => ({ text }) => ( // find in the duplicated, sor
     .toLowerCase() < chars
 )
 
-const sort = ({ text: alpha }, { text: omega }) => byOptionText(alpha, omega)
+/*
+ * Matches exactly
+ */
+const getExactMatch = (options, chars) => options.find(exactMatchFor(chars))
+
+/*
+ * Matches exactly
+ */
+const hasExactMatch = (options, chars) => options.some(exactMatchFor(chars))
+
+/*
+ * Matches exactly
+ */
+const getExactMatchIndex = (options, chars) => (
+  options
+    .findIndex(match(
+      getExactMatch(options, chars)
+    ))
+)
+
+/*
+ * Match from the start of the string
+ */
+const getStartMatch = (options, chars) => options.find(startMatchFor(chars))
+
+/*
+ * Match from the start of the string
+ */
+const hasStartMatch = (options, chars) => options.some(startMatchFor(chars))
+
+/*
+ * Match from the start of the string
+ */
+const getStartMatchIndex = (options, chars) => (
+  options
+    .findIndex(match(
+      getStartMatch(options, chars)
+    ))
+)
+
+/*
+ *  Find the the smallest match greater than the chars!
+ */
+const getGreaterThanMatch = (options, chars) => options.find(greaterThanFor(chars))
+
+/*
+ *  Find the the smallest match greater than the chars!
+ */
+const hasGreaterThanMatch = (options, chars) => options.some(greaterThanFor(chars))
+
+const getGreaterThanMatchIndex = (options, chars) => (
+  options
+    .findIndex(match(
+      getGreaterThanMatch(
+        Array.from(options).sort(forwardByOptionText),
+        chars
+      )
+    ))
+)
+
+/*
+ *  Find the the largest match smaller than the chars!
+ */
+const getSmallerThanMatch = (options, chars) => options.find(smallerThanFor(chars))
+
+/*
+ *  Find the the largest match smaller than the chars!
+ */
+const hasSmallerThanMatch = (options, chars) => options.some(smallerThanFor(chars))
+
+const getSmallerThanMatchIndex = (options, chars) => (
+  options
+    .findIndex(match(
+      getSmallerThanMatch(
+        Array.from(options).sort(reverseByOptionText),
+        chars
+      )
+    ))
+)
 
 export default class SelectElement extends React.Component {
   constructor (props) {
@@ -192,134 +280,6 @@ export default class SelectElement extends React.Component {
       : delete this.activeOption
   )
 
-  getExactMatch (chars) {
-    const { options } = this.props
-
-    /*
-     * Matches exactly
-     */
-    return options
-      .find(exactMatchFor(chars))
-  }
-
-  hasExactMatch (chars) {
-    const { options } = this.props
-
-    /*
-     * Matches exactly
-     */
-    return options
-      .some(exactMatchFor(chars))
-  }
-
-  getExactMatchIndex (chars) {
-    const { options } = this.props
-
-    /*
-     * Matches exactly
-     */
-    return options
-      .findIndex(exactMatchFor(chars))
-  }
-
-  getStartMatch (chars) {
-    const { options } = this.props
-
-    /*
-     * Match from the start of the string
-     */
-    return options
-      .find(startMatchFor(chars))
-  }
-
-  hasStartMatch (chars) {
-    const { options } = this.props
-
-    /*
-     * Match from the start of the string
-     */
-    return options
-      .some(startMatchFor(chars))
-  }
-
-  getStartMatchIndex (chars) {
-    const { options } = this.props
-
-    /*
-     * Match from the start of the string
-     */
-    return options
-      .findIndex(startMatchFor(chars))
-  }
-
-  getGreaterThanMatch (chars) {
-    const { options } = this.props
-
-    /*
-     *  Find the the smallest match greater than the chars!
-     */
-    return Array
-      .from(options) // duplicate the array
-      .sort(sort)
-      .find(greaterThanFor(chars))
-  }
-
-  hasGreaterThanMatch (chars) {
-    const { options } = this.props
-
-    /*
-     *  Find the the smallest match greater than the chars!
-     */
-    return Array
-      .from(options) // duplicate the array
-      .sort(sort)
-      .some(greaterThanFor(chars))
-  }
-
-  getGreaterThanMatchIndex (chars) {
-    const { options } = this.props
-
-    return options
-      .findIndex(match(
-        this.getGreaterThanMatch(chars)
-      ))
-  }
-
-  getSmallerThanMatch (chars) {
-    const { options } = this.props
-
-    /*
-     *  Find the the largest match smaller than the chars!
-     */
-    return Array
-      .from(options) // duplicate the array
-      .sort(sort)
-      .reverse()
-      .find(smallerThanFor(chars))
-  }
-
-  hasSmallerThanMatch (chars) {
-    const { options } = this.props
-
-    /*
-     *  Find the the largest match smaller than the chars!
-     */
-    return Array
-      .from(options) // duplicate the array
-      .sort(sort)
-      .reverse()
-      .some(smallerThanFor(chars))
-  }
-
-  getSmallerThanMatchIndex (chars) {
-    const { options } = this.props
-
-    return options
-      .findIndex(match(
-        this.getSmallerThanMatch(chars)
-      ))
-  }
-
   handleKeySpace () {
     this.setState({ hasActiveOptions: false })
 
@@ -377,47 +337,54 @@ export default class SelectElement extends React.Component {
   }
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
-    const { activeChars } = this.state
+    const {
+      activeChars
+    } = this.state
+
+    const {
+      options
+    } = this.props
+
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
     /*
      *  activeIndex()
      */
-    if (this.hasExactMatch(chars)) {
+    if (hasExactMatch(options, chars)) {
       this.setState({ activeChars: chars })
       this.activeIndex(
-        this.getExactMatchIndex(chars)
+        getExactMatchIndex(options, chars)
       )
     } else {
-      if (this.hasStartMatch(chars)) {
+      if (hasStartMatch(options, chars)) {
         this.setState({ activeChars: chars })
         this.activeIndex(
-          this.getStartMatchIndex(chars)
+          getStartMatchIndex(options, chars)
         )
       } else {
-        if (this.hasExactMatch(char)) {
+        if (hasExactMatch(options, char)) {
           this.setState({ activeChars: char })
           this.activeIndex(
-            this.getExactMatchIndex(char)
+            getExactMatchIndex(options, char)
           )
         } else {
-          if (this.hasStartMatch(char)) {
+          if (hasStartMatch(options, char)) {
             this.setState({ activeChars: char })
             this.activeIndex(
-              this.getStartMatchIndex(char)
+              getStartMatchIndex(options, char)
             )
           } else {
-            if (this.hasGreaterThanMatch(char)) {
+            if (hasGreaterThanMatch(options, char)) {
               this.setState({ activeChars: '' })
               this.activeIndex(
-                this.getGreaterThanMatchIndex(char)
+                getGreaterThanMatchIndex(options, char)
               )
             } else {
-              if (this.hasSmallerThanMatch(char)) {
+              if (hasSmallerThanMatch(options, char)) {
                 this.setState({ activeChars: '' })
                 this.activeIndex(
-                  this.getSmallerThanMatchIndex(char)
+                  getSmallerThanMatchIndex(options, char)
                 )
               }
             }
@@ -469,41 +436,48 @@ export default class SelectElement extends React.Component {
   */
 
   handleKeyChar ({ charCode: keyChar }) {
-    const { activeChars } = this.state
+    const {
+      activeChars
+    } = this.state
+
+    const {
+      options
+    } = this.props
+
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
     /*
      *  selectIndex()
      */
-    if (this.hasExactMatch(chars)) {
+    if (hasExactMatch(options, chars)) {
       this.setState({ activeChars: chars })
       this.selectIndex(
-        this.getExactMatchIndex(chars)
+        getExactMatchIndex(options, chars)
       )
     } else {
-      if (this.hasStartMatch(chars)) {
+      if (hasStartMatch(options, chars)) {
         this.setState({ activeChars: chars })
         this.selectIndex(
-          this.getStartMatchIndex(chars)
+          getStartMatchIndex(options, chars)
         )
       } else {
-        if (this.hasExactMatch(char)) {
+        if (hasExactMatch(options, char)) {
           this.setState({ activeChars: char })
           this.selectIndex(
-            this.getExactMatchIndex(char)
+            getExactMatchIndex(options, char)
           )
         } else {
-          if (this.hasStartMatch(char)) {
+          if (hasStartMatch(options, char)) {
             this.setState({ activeChars: char })
             this.selectIndex(
-              this.getStartMatchIndex(char)
+              getStartMatchIndex(options, char)
             )
           } else {
-            if (this.hasGreaterThanMatch(char)) {
+            if (hasGreaterThanMatch(options, char)) {
               this.setState({ activeChars: '' })
               this.selectIndex(
-                this.getGreaterThanMatchIndex(char)
+                getGreaterThanMatchIndex(options, char)
               )
             }
           }
