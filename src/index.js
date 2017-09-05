@@ -476,14 +476,26 @@ export default class SelectElement extends React.Component {
   selectIndex (index) {
     const { selectIndex } = this.state
 
+    /*
+     * Is the index different to the index stored in state?
+     */
     if (index !== selectIndex) {
       const { onChange } = this.props
 
+      /*
+       *  Always invoke 'onChange' if it is available
+       */
       if (onChange instanceof Function) onChange(index)
-      else {
-        if ('index' in this.props) return
-        this.setState({ selectIndex: index })
-      }
+
+      /*
+       *  Exit if 'index' is a prop. The component is not managing state
+       */
+      if ('index' in this.props) return
+
+      /*
+       *  Otherwise, update the state
+       */
+      this.setState({ selectIndex: index })
     }
   }
 

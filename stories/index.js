@@ -60,9 +60,9 @@ const LARGER_OPTIONS = [
   { text: 5 }
 ]
 
-class ChangeSelectElement extends React.Component {
+class ControlledSelectElement extends React.Component {
   state = {
-    index: 0
+    index: this.props.index
   }
 
   handleChange = (index) => {
@@ -74,19 +74,18 @@ class ChangeSelectElement extends React.Component {
 
   render () {
     const { index } = this.state
-    const { options } = this.props
 
     return (
       <SelectElement
-        index={index}
+        {...this.props}
         onChange={this.handleChange}
-        options={options}
+        index={index}
       />
     )
   }
 }
 
-ChangeSelectElement.propTypes = {
+ControlledSelectElement.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.oneOfType([
@@ -98,7 +97,56 @@ ChangeSelectElement.propTypes = {
   action: PropTypes.func
 }
 
-ChangeSelectElement.defaultProps = {
+ControlledSelectElement.defaultProps = {
+  index: 0,
+  options: OPTIONS,
+  action: action('change')
+}
+
+class ControlledSelect extends React.Component {
+  state = {
+    value: this.props.value
+  }
+
+  handleChange = ({ target: { value } }) => {
+    this.setState({ value })
+
+    const { action } = this.props
+    action(value)
+  }
+
+  render () {
+    const { value } = this.state
+    const { options, ...props } = this.props
+    return (
+      <select
+        {...props}
+        onChange={this.handleChange}
+        value={value}>
+        {options.map(({ text }, i) => (
+          <option key={i}>
+            {text}
+          </option>
+        ))}
+      </select>
+    )
+  }
+}
+
+ControlledSelect.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+      ])
+    })
+  ),
+  action: PropTypes.func
+}
+
+ControlledSelect.defaultProps = {
+  value: 'A',
   options: OPTIONS,
   action: action('change')
 }
@@ -109,34 +157,61 @@ storiesOf('SelectElement component', module)
       options={OPTIONS}
     />
   ))
-  .add('With default props, defaultIndex', () => (
+  .add('With default props (defaultIndex)', () => (
     <SelectElement
       options={OPTIONS}
-      defaultIndex={1}
+      defaultIndex={0}
     />
   ))
-  .add('With default props, index, onChange', () => {
+  .add('With default props (index, onChange)', () => {
     /**
      *  An 'onChange' prop indicates that the component's selected index is not
      *  managed internally: it will call the 'onChange' function with the 'index'
      *  as the only argument and expect it to be passed back as a prop
      */
     return (
-      <ChangeSelectElement />
+      <ControlledSelectElement
+        options={OPTIONS}
+        index={0}
+      />
     )
   })
-  .add('With default props, accessKey, tabIndex', () => (
+  .add('With default props, accessKey, tabIndex (defaultIndex)', () => (
     <div>
       <input type='text' tabIndex={1} />
       <SelectElement
         options={LARGER_OPTIONS}
-        accessKey='A'
+        accessKey='X'
+        tabIndex={3}
+        defaultIndex={0}
+      />
+      <input type='text' tabIndex={2} />
+      <select
+        accessKey='Y'
+        tabIndex={4}
+        defaultValue='A'>
+        {LARGER_OPTIONS.map(({ text }, i) => (
+          <option key={i}>
+            {text}
+          </option>
+        ))}
+      </select>
+    </div>
+  ))
+  .add('With default props, accessKey, tabIndex (index, onChange)', () => (
+    <div>
+      <input type='text' tabIndex={1} />
+      <ControlledSelectElement
+        options={LARGER_OPTIONS}
+        accessKey='X'
         tabIndex={3}
       />
       <input type='text' tabIndex={2} />
-      <select tabIndex={4}>
-        {LARGER_OPTIONS.map(({ text }, i) => (<option key={i}>{text}</option>))}
-      </select>
+      <ControlledSelect
+        options={LARGER_OPTIONS}
+        accessKey='Y'
+        tabIndex={4}
+      />
     </div>
   ))
   .add('With default props, readOnly', () => (
@@ -151,23 +226,57 @@ storiesOf('SelectElement component', module)
       disabled
     />
   ))
-  .add('With default props, sorted options', () => (
+  .add('With default props, sorted options (defaultIndex)', () => (
     <div>
       <SelectElement
         options={SORTED_OPTIONS}
+        defaultIndex={0}
       />
-      <select>
-        {SORTED_OPTIONS.map(({ text }, i) => (<option key={i}>{text}</option>))}
+      <select
+        defaultValue='A'>
+        {SORTED_OPTIONS.map(({ text }, i) => (
+          <option key={i}>
+            {text}
+          </option>
+        ))}
       </select>
     </div>
   ))
-  .add('With default props, random options', () => (
+  .add('With default props, sorted options (index, onChange)', () => (
+    <div>
+      <ControlledSelectElement
+        options={SORTED_OPTIONS}
+      />
+      <ControlledSelect
+        options={SORTED_OPTIONS}
+      />
+    </div>
+  ))
+  .add('With default props, random options (defaultIndex)', () => (
     <div>
       <SelectElement
         options={RANDOM_OPTIONS}
+        defaultIndex={0}
       />
-      <select>
-        {RANDOM_OPTIONS.map(({ text }, i) => (<option key={i}>{text}</option>))}
+      <select
+        defaultValue='C'>
+        {RANDOM_OPTIONS.map(({ text }, i) => (
+          <option key={i}>
+            {text}
+          </option>
+        ))}
       </select>
+    </div>
+  ))
+  .add('With default props, random options (index, onChange)', () => (
+    <div>
+      <ControlledSelectElement
+        options={RANDOM_OPTIONS}
+        index={0}
+      />
+      <ControlledSelect
+        options={RANDOM_OPTIONS}
+        value='C'
+      />
     </div>
   ))
