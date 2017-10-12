@@ -134,6 +134,7 @@ class ControlledSelect extends React.Component {
 }
 
 ControlledSelect.propTypes = {
+  value: PropTypes.any,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.oneOfType([

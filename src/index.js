@@ -772,7 +772,8 @@ SelectElement.propTypes = {
     PropTypes.shape({
       text: PropTypes.oneOfType([
         PropTypes.number,
-        PropTypes.string
+        PropTypes.string,
+        PropTypes.bool
       ])
     })
   ),
