@@ -1,4 +1,4 @@
-# React.Select.Element
+# react-select-element
 
 ## React Select Element
 
