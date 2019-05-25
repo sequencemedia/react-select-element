@@ -16,8 +16,6 @@ const isKeySpace = ({ key }) => key === SPACE
  */
 const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
 
-const toNumber = (v) => isNaN(v) ? NaN : parseInt(v, 10)
-
 const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 
 const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? +1 : 0
@@ -147,18 +145,14 @@ const getSmallerThanMatchIndex = (options, chars) => (
     ))
 )
 
+const getSelectIndex = ({ index, defaultIndex }) => !isNaN(index) ? Number(index) : Number(defaultIndex)
+
 export default class SelectElement extends React.Component {
   constructor (props) {
     super(props)
-    const {
-      index,
-      defaultIndex
-    } = this.props
-    const value = toNumber(index)
-    const selectIndex = isNaN(value) ? toNumber(defaultIndex) : value
 
     this.state = {
-      selectIndex,
+      selectIndex: getSelectIndex(props),
       hasActiveOptions: false,
       activeEnter: false,
       activeIndex: 0,
@@ -699,12 +693,8 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  componentWillReceiveProps ({ index }) {
-    const selectIndex = toNumber(index)
-
-    if (!isNaN(selectIndex)) {
-      this.setState({ selectIndex })
-    }
+  static getDerivedStateFromProps (props) {
+    return ('index' in props) ? { selectIndex: getSelectIndex(props) } : null
   }
 
   shouldComponentUpdate (props, state) {
