@@ -17,7 +17,7 @@
     "build": "babel src -d lib",
     "build:watch": "babel src -d lib -w",
     "prepublishOnly": "npm run build",
-    "lint": "eslint *.js src",
+    "lint": "eslint *.js src stories .storybook",
     "lint:fix": "npm run lint -- --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
