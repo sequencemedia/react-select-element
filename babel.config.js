@@ -18,9 +18,7 @@ module.exports = {
   ],
   'plugins': [
     '@babel/proposal-export-default-from',
-    '@babel/proposal-do-expressions',
     '@babel/proposal-export-namespace-from',
-    '@babel/proposal-throw-expressions',
     [
       '@babel/proposal-class-properties',
       {
