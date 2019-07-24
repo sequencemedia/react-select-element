@@ -1,13 +1,13 @@
 module.exports = {
-  'compact': true,
-  'comments': false,
-  'presets': [
+  compact: true,
+  comments: false,
+  presets: [
     [
       '@babel/env', {
         useBuiltIns: 'entry',
         targets: {
           node: 'current',
-          'browsers': [
+          browsers: [
             'last 2 versions'
           ]
         },
@@ -16,7 +16,7 @@ module.exports = {
     ],
     '@babel/react'
   ],
-  'plugins': [
+  plugins: [
     '@babel/proposal-export-default-from',
     '@babel/proposal-export-namespace-from',
     [
@@ -29,7 +29,7 @@ module.exports = {
       'module-resolver', {
         root: ['./src'],
         cwd: 'babelrc',
-        'alias': {
+        alias: {
           'react-select-element': './src'
         }
       }

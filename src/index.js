@@ -161,6 +161,7 @@ export default class SelectElement extends React.Component {
   }
 
   get lowerBound () { return 0 }
+
   get upperBound () {
     const {
       options: {
