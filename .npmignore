@@ -9,3 +9,8 @@ stories
 
 # NPM
 .npmrc
+
+.eslintignore
+.eslintrc
+
+babel.config.js
