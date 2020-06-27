@@ -9,6 +9,9 @@
     "url": "http://www.sequencemedia.net"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=12.18.1"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/sequencemedia/react-select-element.git"
