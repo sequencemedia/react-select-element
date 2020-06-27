@@ -12,13 +12,13 @@ While the component appends some `className` attributes to its elements, the pac
 
 ### Using ES
 
-```
+```javascript
 import Select from 'react-select-element'
 ```
 
 ### Using JS
 
-```
+```javascript
 const Select = require('react-select-element')
 ```
 
@@ -26,7 +26,7 @@ const Select = require('react-select-element')
 
 Either:
 
-```
+```jsx
   <Select
     index={this.state.index}
     onChange={(index) => {
@@ -43,9 +43,10 @@ Either:
     ]}
   />
 ```
+
 Or:
 
-```
+```jsx
   <Select
     defaultIndex={0}
     tabIndex={0}
@@ -59,9 +60,10 @@ Or:
     ]}
   />
 ```
+
 Otherwise:
 
-```
+```jsx
   <Select
     disabled
   />
@@ -69,7 +71,7 @@ Otherwise:
 
 Finally:
 
-```
+```jsx
   <Select
     readOnly
   />
@@ -89,7 +91,7 @@ Similarly, by pressing the "arrow down" key, the user should move through each i
 
 To achieve this, you can `extend` the component and override two of its methods.
 
-```
+```javascript
 class InfiniteSelect extends Select {
   incrementActiveIndex () {
     const { activeIndex } = this.state
@@ -110,6 +112,7 @@ class InfiniteSelect extends Select {
   }
 }
 ```
+
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
 
 #### 2. `<SelectSelect />`
@@ -122,7 +125,7 @@ You want controlling components to be notified of a change whenever the the "arr
 
 To achieve this, you can extend the component and modify the same two methods as before.
 
-```
+```javascript
 class SelectSelect extends Select {
   incrementActiveIndex () {
     super.incrementActiveIndex()
@@ -145,6 +148,7 @@ class SelectSelect extends Select {
   }
 }
 ```
+
 Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements modify the behaviour of the component.
 
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
@@ -157,7 +161,7 @@ You want to compose it into a `<form />`.
 
 In this case, you've chosen to compose the `<Select />` into a controlling component which renders the `value` of the selected option into the `value` attribute of an `<input type='hidden' />` element.
 
-```
+```jsx
 class HiddenSelect extends Component {
   state = {}
 
@@ -195,4 +199,5 @@ HiddenSelect.defaultProps = {
 }
 
 ```
+
 [Again, an example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
