@@ -32,18 +32,18 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
+    "@babel/cli": "^7.12.0",
+    "@babel/core": "^7.12.0",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-export-default-from": "^7.10.4",
-    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
-    "@babel/preset-env": "^7.11.5",
+    "@babel/plugin-proposal-export-namespace-from": "^7.12.0",
+    "@babel/preset-env": "^7.12.0",
     "@babel/preset-react": "^7.10.4",
-    "@babel/register": "^7.11.5",
+    "@babel/register": "^7.12.0",
     "@storybook/addon-actions": "^6.0.26",
     "@storybook/addon-links": "^6.0.26",
     "@storybook/react": "^6.0.26",
