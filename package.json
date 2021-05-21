@@ -31,9 +31,9 @@
     "pre-commit": "npm run lint && npm run build && git add lib"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.2",
-    "@babel/eslint-parser": "^7.14.2",
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/eslint-parser": "^7.14.3",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
     "@babel/plugin-proposal-export-namespace-from": "^7.14.2",
