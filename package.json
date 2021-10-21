@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.6.29",
+  "version": "1.6.30",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -46,10 +46,10 @@
     "eslint-import-resolver-babel-module": "^5.3.1",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-promise": "^5.1.1",
     "eslint-plugin-react": "^7.26.1",
     "gulp": "^4.0.2",
-    "husky": "^7.0.2",
+    "husky": "^7.0.4",
     "prop-types": "15.7.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
