@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.6.61",
+  "version": "1.6.62",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=12.19.0"
+    "node": ">=16.13.0"
   },
   "repository": {
     "type": "git",
