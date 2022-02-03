@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.6.122",
+  "version": "1.6.123",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -30,15 +30,15 @@
     "pre-commit": "npm run lint && npm run build && git add lib && npm run gulp -- pre-commit"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.8",
-    "@babel/core": "^7.16.12",
-    "@babel/eslint-parser": "^7.16.5",
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.0",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-export-default-from": "^7.16.7",
     "@babel/plugin-proposal-export-namespace-from": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
-    "@babel/register": "^7.16.9",
+    "@babel/register": "^7.17.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "core-js": "^3.21.0",
     "eslint": "7.32.0",
