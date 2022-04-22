@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.6.174",
+  "version": "1.6.175",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -40,7 +40,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.7",
     "babel-plugin-module-resolver": "^4.1.0",
-    "core-js": "^3.22.1",
+    "core-js": "^3.22.2",
     "eslint": "^8.13.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-import-resolver-babel-module": "^5.3.1",
