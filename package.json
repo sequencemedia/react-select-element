@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.6.246",
+  "version": "1.6.247",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -32,13 +32,13 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.1",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-export-default-from": "^7.18.10",
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
-    "@babel/preset-env": "^7.19.1",
+    "@babel/preset-env": "^7.19.3",
     "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.18.9",
     "@storybook/addon-actions": "^6.5.12",
