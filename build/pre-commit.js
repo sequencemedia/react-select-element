@@ -4,7 +4,7 @@ import {
   exec
 } from 'child_process'
 
-const log = debug('react-select-element:build:gulp:pre-commit')
+const log = debug('react-select-element:build:pre-commit')
 
 log('`react-select-element` is awake')
 

@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -26,8 +26,7 @@
     "prebuild": "npm run clean",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "gulp": "gulp --color",
-    "pre-commit": "npm run lint && npm run build && git add lib && npm run gulp -- pre-commit",
+    "pre-commit": "npm run lint && npm run build && git add lib && DEBUG=react-select-element* node pre-commit",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "husky install"
@@ -42,10 +41,7 @@
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.18.9",
-    "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-webpack5": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.12",
     "@storybook/react": "^6.5.12",
@@ -61,7 +57,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.0",
     "eslint-plugin-react": "^7.31.10",
-    "gulp": "^4.0.2",
     "husky": "^8.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
