@@ -14,7 +14,11 @@ import {
 export default {
   title: 'Example/Select Element',
   component: SelectElement,
-  argTypes: { onChange: { action: 'changed' } }
+  argTypes: {
+    onChange: {
+      action: 'changed'
+    }
+  }
 };
 
 const Template = (args) => <SelectElement {...args} />;

@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import PropTypes from 'prop-types'
 
 const ENTER = 'Enter'
@@ -151,6 +150,14 @@ export default class SelectElement extends React.Component {
   constructor (props) {
     super(props)
 
+    /**
+     * this.selectElement = React.createRef()
+     */
+
+    this.selectOption = React.createRef()
+    this.options = React.createRef()
+    this.activeOption = React.createRef()
+
     this.state = {
       selectIndex: getSelectIndex(props),
       hasActiveOptions: false,
@@ -172,24 +179,26 @@ export default class SelectElement extends React.Component {
     return Math.max(0, n - 1)
   }
 
-  scrollOptionIntoView (element) {
-    if (ReactDOM.findDOMNode(this).contains(element)) {
-      const { options } = this
-      const {
-        offsetTop,
-        offsetHeight
-      } = element
-      const {
-        scrollTop,
-        clientHeight
-      } = options
-
-      const i = (clientHeight / 2)
-      const j = (offsetHeight / 2)
-      const n = Math.max(0, (offsetTop - i) + j)
-      if (n !== scrollTop) options.scrollTop = n
-    }
-  }
+  /**
+   *  scrollOptionIntoView (element) {
+   *    if (this.selectElement.current.contains(element)) {
+   *      const { options } = this
+   *      const {
+   *        offsetTop,
+   *        offsetHeight
+   *      } = element
+   *      const {
+   *        scrollTop,
+   *        clientHeight
+   *      } = options
+   *
+   *      const i = (clientHeight / 2)
+   *      const j = (offsetHeight / 2)
+   *      const n = Math.max(0, (offsetTop - i) + j)
+   *      if (n !== scrollTop) options.scrollTop = n
+   *    }
+   *  }
+   */
 
   toLowerBound () {
     this.setState({ activeIndex: this.lowerBound })
@@ -200,7 +209,7 @@ export default class SelectElement extends React.Component {
   }
 
   selectOptionFocus () {
-    this.selectOption.focus()
+    this.getSelectOption().focus()
   }
 
   handleFocus = () => {
@@ -257,24 +266,6 @@ export default class SelectElement extends React.Component {
 
   handleKeyDown = () => true
 
-  selectOptionRef = (ref) => (
-    (ref)
-      ? !!(this.selectOption = ref)
-      : delete this.selectOption
-  )
-
-  optionsRef = (ref) => (
-    (ref)
-      ? !!(this.options = ref)
-      : delete this.options
-  )
-
-  activeOptionRef = (ref) => (
-    (ref)
-      ? !!(this.activeOption = ref)
-      : delete this.activeOption
-  )
-
   handleKeySpace () {
     this.setState({ hasActiveOptions: false })
 
@@ -295,26 +286,38 @@ export default class SelectElement extends React.Component {
     this.setState({ hasActiveOptions: false })
   }
 
+  getSelectOption () {
+    return this.selectOption.current
+  }
+
+  getOptions () {
+    return this.options.current
+  }
+
+  getActiveOption () {
+    return this.activeOption.current
+  }
+
   getOptionsFirstChild () {
-    return (this.options
+    return (this.getOptions()
       .firstChild
     ) || null
   }
 
   getOptionsLastChild () {
-    return (this.options
+    return (this.getOptions()
       .lastChild
     ) || null
   }
 
   getActiveOptionPreviousSibling () {
-    return (this.activeOption
+    return (this.getActiveOption()
       .previousSibling
     ) || null
   }
 
   getActiveOptionNextSibling () {
-    return (this.activeOption
+    return (this.getActiveOption()
       .nextSibling
     ) || null
   }
@@ -330,12 +333,6 @@ export default class SelectElement extends React.Component {
 
     this.setState({ activeChars: '' })
   }
-
-  /*
-  const CHARS = activeChars.split('')
-  const L = Math.max.apply(CHARS, CHARS.map((s) => s.charCodeAt()))
-  const R = char.charCodeAt()
-  */
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
@@ -465,9 +462,6 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  /*
-   *  'shouldComponentUpdate()'
-   */
   selectIndex (index) {
     const { selectIndex } = this.state
 
@@ -494,9 +488,6 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  /*
-   *  'shouldComponentUpdate()'
-   */
   activeIndex (index) {
     const { activeIndex } = this.state
 
@@ -521,50 +512,51 @@ export default class SelectElement extends React.Component {
     )
   }
 
-  createSelectedOptionDisabled () {
+  getSelectedOptionText () {
     const { options } = this.props
     const { selectIndex } = this.state
     const { text } = options[selectIndex] || {}
 
+    return text
+  }
+
+  createSelectedOptionDisabled () {
+    const { children } = this.props
+
     return (
       <div
-        className='selected-option'>
-        {toOptionText(text)}
+        className='selected-option disabled'>
+        {children || this.getSelectedOptionText()}
       </div>
     )
   }
 
   createSelectedOptionReadOnly () {
-    const { options } = this.props
-    const { selectIndex } = this.state
-    const { text } = options[selectIndex] || {}
+    const { children } = this.props
 
     return (
       <div
-        className='selected-option'>
-        {toOptionText(text)}
+        className='selected-option readonly'>
+        {children || this.getSelectedOptionText()}
       </div>
     )
   }
 
   createSelectedOption () {
     const {
-      options,
       accessKey,
-      tabIndex
+      tabIndex,
+      children
     } = this.props
 
     const {
-      selectIndex,
       activeEnter,
       hasActiveOptions
     } = this.state
 
-    const { text } = options[selectIndex] || {}
-
     return (
       <div
-        ref={this.selectOptionRef}
+        ref={this.selectOption}
         accessKey={accessKey}
         tabIndex={tabIndex}
         className='selected-option'
@@ -584,7 +576,7 @@ export default class SelectElement extends React.Component {
         onKeyDown={(hasActiveOptions)
           ? this.handleActiveOptionsKeyDown
           : this.handleKeyDown}>
-        {toOptionText(text)}
+        {children || this.getSelectedOptionText()}
       </div>
     )
   }
@@ -593,7 +585,7 @@ export default class SelectElement extends React.Component {
     const { activeIndex } = this.state
 
     if (index === activeIndex) {
-      return this.activeOptionRef
+      return this.activeOption
     }
   }
 
@@ -611,7 +603,7 @@ export default class SelectElement extends React.Component {
     return (
       <li
         key={index}
-        className='option'>
+        className='option disabled'>
         {toOptionText(text)}
       </li>
     )
@@ -623,7 +615,7 @@ export default class SelectElement extends React.Component {
     return (
       <li
         key={index}
-        className='option'>
+        className='option readonly'>
         {toOptionText(text)}
       </li>
     )
@@ -684,7 +676,7 @@ export default class SelectElement extends React.Component {
     if (options.length) {
       return (
         <ul
-          ref={this.optionsRef}
+          ref={this.options}
           className={this.createOptionsClassName()}
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}>
@@ -711,7 +703,9 @@ export default class SelectElement extends React.Component {
 
   renderDisabled () {
     return (
-      <div className='react-select-element disabled'>
+      <div
+        // ref={this.selectElement}
+        className='react-select-element disabled'>
         {this.createSelectedOptionDisabled()}
         {this.createOptionsDisabled()}
       </div>
@@ -720,7 +714,9 @@ export default class SelectElement extends React.Component {
 
   renderReadOnly () {
     return (
-      <div className='react-select-element readonly'>
+      <div
+        // ref={this.selectElement}
+        className='react-select-element readonly'>
         {this.createSelectedOptionReadOnly()}
         {this.createOptionsReadOnly()}
       </div>
@@ -741,7 +737,9 @@ export default class SelectElement extends React.Component {
     }
 
     return (
-      <div className='react-select-element'>
+      <div
+        // ref={this.selectElement}
+        className='react-select-element'>
         {this.createSelectedOption()}
         {this.createOptions()}
       </div>
@@ -771,7 +769,8 @@ SelectElement.propTypes = {
   onChange: PropTypes.func,
   accessKey: PropTypes.string,
   disabled: PropTypes.bool,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  children: PropTypes.node
 }
 
 SelectElement.defaultProps = {
