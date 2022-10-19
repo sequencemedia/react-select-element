@@ -1,46 +1,47 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 const ENTER = 'Enter'
 const SPACE = String.fromCharCode(32)
 
-const isKeyEnter = ({ key }) => key === ENTER
+export const isKeyEnter = ({ key }) => key === ENTER
 
-const isKeySpace = ({ key }) => key === SPACE
+export const isKeySpace = ({ key }) => key === SPACE
 
 /*
  *  'accesskey' events are raised as clicks with all-zero co-ordinates. All-zero
  *  coordinates are (of course) possible, but unlikely. This is a woolly way of
  *  identifying 'accesskey' events
  */
-const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
+export const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
 
-const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
+export const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
 
-const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? +1 : 0
+export const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? +1 : 0
 
-const reverse = (alpha, omega) => (alpha < omega) ? +1 : (alpha > omega) ? -1 : 0
+export const reverse = (alpha, omega) => (alpha < omega) ? +1 : (alpha > omega) ? -1 : 0
 
-const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
+export const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
   forward(
     toOptionText(alpha).toLowerCase(),
     toOptionText(omega).toLowerCase()
   )
 )
 
-const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
+export const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
   reverse(
     toOptionText(alpha).toLowerCase(),
     toOptionText(omega).toLowerCase()
   )
 )
 
-const exactMatchFor = (chars) => ({ text }) => (
+export const exactMatchFor = (chars) => ({ text }) => (
   toOptionText(text)
     .toLowerCase() === chars
 )
 
-const startMatchFor = (chars) => {
+export const startMatchFor = (chars) => {
   const {
     length: n
   } = chars
@@ -52,14 +53,14 @@ const startMatchFor = (chars) => {
   )
 }
 
-const match = (option) => (o) => option === o
+export const match = (option) => (o) => option === o
 
-const greaterThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
+export const greaterThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
   toOptionText(text) // the smallest match greater than the chars?
     .toLowerCase() > chars
 )
 
-const smallerThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
+export const smallerThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
   toOptionText(text) // the largest match hasSmallerThanMatch than the chars?
     .toLowerCase() < chars
 )
@@ -67,17 +68,17 @@ const smallerThanFor = (chars) => ({ text }) => ( // find in the duplicated, sor
 /*
  * Matches exactly
  */
-const getExactMatch = (options, chars) => options.find(exactMatchFor(chars))
+export const getExactMatch = (options, chars) => options.find(exactMatchFor(chars))
 
 /*
  * Matches exactly
  */
-const hasExactMatch = (options, chars) => options.some(exactMatchFor(chars))
+export const hasExactMatch = (options, chars) => options.some(exactMatchFor(chars))
 
 /*
  * Matches exactly
  */
-const getExactMatchIndex = (options, chars) => (
+export const getExactMatchIndex = (options, chars) => (
   options
     .findIndex(match(
       getExactMatch(options, chars)
@@ -87,17 +88,17 @@ const getExactMatchIndex = (options, chars) => (
 /*
  * Match from the start of the string
  */
-const getStartMatch = (options, chars) => options.find(startMatchFor(chars))
+export const getStartMatch = (options, chars) => options.find(startMatchFor(chars))
 
 /*
  * Match from the start of the string
  */
-const hasStartMatch = (options, chars) => options.some(startMatchFor(chars))
+export const hasStartMatch = (options, chars) => options.some(startMatchFor(chars))
 
 /*
  * Match from the start of the string
  */
-const getStartMatchIndex = (options, chars) => (
+export const getStartMatchIndex = (options, chars) => (
   options
     .findIndex(match(
       getStartMatch(options, chars)
@@ -107,14 +108,14 @@ const getStartMatchIndex = (options, chars) => (
 /*
  *  Find the the smallest match greater than the chars!
  */
-const getGreaterThanMatch = (options, chars) => options.find(greaterThanFor(chars))
+export const getGreaterThanMatch = (options, chars) => options.find(greaterThanFor(chars))
 
 /*
  *  Find the the smallest match greater than the chars!
  */
-const hasGreaterThanMatch = (options, chars) => options.some(greaterThanFor(chars))
+export const hasGreaterThanMatch = (options, chars) => options.some(greaterThanFor(chars))
 
-const getGreaterThanMatchIndex = (options, chars) => (
+export const getGreaterThanMatchIndex = (options, chars) => (
   options
     .findIndex(match(
       getGreaterThanMatch(
@@ -127,14 +128,14 @@ const getGreaterThanMatchIndex = (options, chars) => (
 /*
  *  Find the the largest match smaller than the chars!
  */
-const getSmallerThanMatch = (options, chars) => options.find(smallerThanFor(chars))
+export const getSmallerThanMatch = (options, chars) => options.find(smallerThanFor(chars))
 
 /*
  *  Find the the largest match smaller than the chars!
  */
-const hasSmallerThanMatch = (options, chars) => options.some(smallerThanFor(chars))
+export const hasSmallerThanMatch = (options, chars) => options.some(smallerThanFor(chars))
 
-const getSmallerThanMatchIndex = (options, chars) => (
+export const getSmallerThanMatchIndex = (options, chars) => (
   options
     .findIndex(match(
       getSmallerThanMatch(
@@ -144,7 +145,7 @@ const getSmallerThanMatchIndex = (options, chars) => (
     ))
 )
 
-const getSelectIndex = ({ index, defaultIndex }) => !isNaN(index) ? Number(index) : Number(defaultIndex)
+export const getSelectIndex = ({ index, defaultIndex }) => !isNaN(index) ? Number(index) : Number(defaultIndex)
 
 export default class SelectElement extends React.Component {
   constructor (props) {
@@ -167,8 +168,6 @@ export default class SelectElement extends React.Component {
     }
   }
 
-  get lowerBound () { return 0 }
-
   get upperBound () {
     const {
       options: {
@@ -178,6 +177,8 @@ export default class SelectElement extends React.Component {
 
     return Math.max(0, n - 1)
   }
+
+  get lowerBound () { return 0 }
 
   /**
    *  scrollOptionIntoView (element) {
@@ -208,10 +209,6 @@ export default class SelectElement extends React.Component {
     this.setState({ activeIndex: this.upperBound })
   }
 
-  selectOptionFocus () {
-    this.getSelectOption().focus()
-  }
-
   handleFocus = () => {
     const { selectIndex } = this.state
 
@@ -233,12 +230,12 @@ export default class SelectElement extends React.Component {
   handleActiveEnterFocus = () => true
 
   handleActiveEnterBlur = () => {
-    this.selectOptionFocus()
+    this.getSelectOption().focus()
   }
 
   handleClick = (event) => {
     if (isEventClickLike(event)) { // it's probably an accessKey event
-      this.selectOptionFocus()
+      this.getSelectOption().focus()
     } else { // it's probably a mouse click
       this.setState({ hasActiveOptions: true })
     }
@@ -247,7 +244,7 @@ export default class SelectElement extends React.Component {
   handleOptionClick = (index) => {
     this.setState({ hasActiveOptions: false })
     this.selectIndex(index)
-    this.selectOptionFocus()
+    this.getSelectOption().focus()
   }
 
   handleActiveOptionsKeyPress = (event) => {
@@ -284,42 +281,6 @@ export default class SelectElement extends React.Component {
 
   handleKeyEscape () {
     this.setState({ hasActiveOptions: false })
-  }
-
-  getSelectOption () {
-    return this.selectOption.current
-  }
-
-  getOptions () {
-    return this.options.current
-  }
-
-  getActiveOption () {
-    return this.activeOption.current
-  }
-
-  getOptionsFirstChild () {
-    return (this.getOptions()
-      .firstChild
-    ) || null
-  }
-
-  getOptionsLastChild () {
-    return (this.getOptions()
-      .lastChild
-    ) || null
-  }
-
-  getActiveOptionPreviousSibling () {
-    return (this.getActiveOption()
-      .previousSibling
-    ) || null
-  }
-
-  getActiveOptionNextSibling () {
-    return (this.getActiveOption()
-      .nextSibling
-    ) || null
   }
 
   handleKeyArrowUp () {
@@ -512,37 +473,146 @@ export default class SelectElement extends React.Component {
     )
   }
 
-  getSelectedOptionText () {
+  getSelectOption () {
+    return this.selectOption.current
+  }
+
+  getOptions () {
+    return this.options.current
+  }
+
+  getActiveOption () {
+    return this.activeOption.current
+  }
+
+  getOptionsFirstChild () {
+    return (this.getOptions()
+      .firstChild
+    ) || null
+  }
+
+  getOptionsLastChild () {
+    return (this.getOptions()
+      .lastChild
+    ) || null
+  }
+
+  getActiveOptionPreviousSibling () {
+    return (this.getActiveOption()
+      .previousSibling
+    ) || null
+  }
+
+  getActiveOptionNextSibling () {
+    return (this.getActiveOption()
+      .nextSibling
+    ) || null
+  }
+
+  getOptionRef = (index) => {
+    const { activeIndex } = this.state
+
+    if (index === activeIndex) {
+      return this.activeOption
+    }
+  }
+
+  getSelectedOption () {
     const { options } = this.props
     const { selectIndex } = this.state
-    const { text } = options[selectIndex] || {}
 
-    return text
+    return (
+      options[selectIndex] || {}
+    )
   }
 
-  createSelectedOptionDisabled () {
+  getOptionDisabledClassName (index) {
+    const { selectIndex } = this.state
+
+    return (
+      classnames({ selected: (index === selectIndex) }, 'option')
+    )
+  }
+
+  getOptionReadOnlyClassName (index) {
+    const { selectIndex } = this.state
+
+    return (
+      classnames({ selected: (index === selectIndex) }, 'option')
+    )
+  }
+
+  getOptionClassName (index) {
+    const {
+      selectIndex,
+      activeIndex
+    } = this.state
+
+    return (
+      classnames({ selected: (index === selectIndex) }, 'option', { active: (index === activeIndex) })
+    )
+  }
+
+  getOptionsClassName () {
+    const { hasActiveOptions } = this.state
+
+    return (
+      classnames('options', { active: hasActiveOptions })
+    )
+  }
+
+  static getDerivedStateFromProps (props) {
+    return ('index' in props) ? { selectIndex: getSelectIndex(props) } : null
+  }
+
+  shouldComponentUpdate (props, state) {
+    if (props !== this.props) return true
+
+    return (
+      (state.selectIndex !== this.state.selectIndex) ||
+      (state.hasActiveOptions !== this.state.hasActiveOptions) ||
+      (state.activeEnter !== this.state.activeEnter) ||
+      (state.activeIndex !== this.state.activeIndex)
+    )
+  }
+
+  renderSelectedOptionText (option) {
+    return toOptionText(option)
+  }
+
+  renderSelectedOptionDisabled () {
     const { children } = this.props
 
     return (
       <div
-        className='selected-option disabled'>
-        {children || this.getSelectedOptionText()}
+        ref={this.selectOption}
+        className='selected-option'>
+        {children || (
+          this.renderSelectedOptionText(
+            this.getSelectedOption()
+          )
+        )}
       </div>
     )
   }
 
-  createSelectedOptionReadOnly () {
+  renderSelectedOptionReadOnly () {
     const { children } = this.props
 
     return (
       <div
-        className='selected-option readonly'>
-        {children || this.getSelectedOptionText()}
+        ref={this.selectOption}
+        className='selected-option'>
+        {children || (
+          this.renderSelectedOptionText(
+            this.getSelectedOption()
+          )
+        )}
       </div>
     )
   }
 
-  createSelectedOption () {
+  renderSelectedOption () {
     const {
       accessKey,
       tabIndex,
@@ -576,129 +646,102 @@ export default class SelectElement extends React.Component {
         onKeyDown={(hasActiveOptions)
           ? this.handleActiveOptionsKeyDown
           : this.handleKeyDown}>
-        {children || this.getSelectedOptionText()}
+        {children || (
+          this.renderSelectedOptionText(
+            this.getSelectedOption()
+          )
+        )}
       </div>
     )
   }
 
-  createOptionRef = (index) => {
-    const { activeIndex } = this.state
-
-    if (index === activeIndex) {
-      return this.activeOption
-    }
+  renderOptionText ({ text }) {
+    return toOptionText(text)
   }
 
-  createOptionClassName (index) {
-    const { activeIndex } = this.state
-
-    return (index === activeIndex)
-      ? 'option active'
-      : 'option'
-  }
-
-  createOptionDisabled = (option, index) => {
-    const { text } = option
+  renderOptionDisabled = (option, index) => {
+    const optionText = this.renderOptionText(option)
 
     return (
       <li
         key={index}
-        className='option disabled'>
-        {toOptionText(text)}
+        ref={this.getOptionRef(index)}
+        className={this.getOptionDisabledClassName(index)}>
+        {optionText}
       </li>
     )
   }
 
-  createOptionReadOnly = (option, index) => {
-    const { text } = option
+  renderOptionReadOnly = (option, index) => {
+    const optionText = this.renderOptionText(option)
 
     return (
       <li
         key={index}
-        className='option readonly'>
-        {toOptionText(text)}
+        ref={this.getOptionRef(index)}
+        className={this.getOptionReadOnlyClassName(index)}>
+        {optionText}
       </li>
     )
   }
 
-  createOption = (option, index) => {
-    const { text } = option
+  renderOption = (option, index) => {
+    const optionText = this.renderOptionText(option)
 
     return (
       <li
         key={index}
-        ref={this.createOptionRef(index)}
-        className={this.createOptionClassName(index)}
+        ref={this.getOptionRef(index)}
+        className={this.getOptionClassName(index)}
         onMouseOver={() => this.activeIndex(index)}
         onClick={() => this.handleOptionClick(index)}>
-        {toOptionText(text)}
+        {optionText}
       </li>
     )
   }
 
-  createOptionsClassName () {
-    const { hasActiveOptions } = this.state
-
-    return (hasActiveOptions)
-      ? 'options active'
-      : 'options'
-  }
-
-  createOptionsDisabled () {
-    const { options } = this.props
-
-    if (options.length) {
-      return (
-        <ul
-          className='options'>
-          {options.map(this.createOptionDisabled)}
-        </ul>
-      )
-    }
-  }
-
-  createOptionsReadOnly () {
-    const { options } = this.props
-
-    if (options.length) {
-      return (
-        <ul
-          className='options'>
-          {options.map(this.createOptionReadOnly)}
-        </ul>
-      )
-    }
-  }
-
-  createOptions () {
+  renderOptionsDisabled () {
     const { options } = this.props
 
     if (options.length) {
       return (
         <ul
           ref={this.options}
-          className={this.createOptionsClassName()}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}>
-          {options.map(this.createOption)}
+          className='options'>
+          {options.map(this.renderOptionDisabled)}
         </ul>
       )
     }
   }
 
-  static getDerivedStateFromProps (props) {
-    return ('index' in props) ? { selectIndex: getSelectIndex(props) } : null
+  renderOptionsReadOnly () {
+    const { options } = this.props
+
+    if (options.length) {
+      return (
+        <ul
+          ref={this.options}
+          className='options'>
+          {options.map(this.renderOptionReadOnly)}
+        </ul>
+      )
+    }
   }
 
-  shouldComponentUpdate (props, state) {
-    if (props !== this.props) return true
+  renderOptions () {
+    const { options } = this.props
 
-    return (
-      (state.selectIndex !== this.state.selectIndex) ||
-      (state.hasActiveOptions !== this.state.hasActiveOptions) ||
-      (state.activeEnter !== this.state.activeEnter) ||
-      (state.activeIndex !== this.state.activeIndex)
-    )
+    if (options.length) {
+      return (
+        <ul
+          ref={this.options}
+          className={this.getOptionsClassName()}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}>
+          {options.map(this.renderOption)}
+        </ul>
+      )
+    }
   }
 
   renderDisabled () {
@@ -706,8 +749,8 @@ export default class SelectElement extends React.Component {
       <div
         // ref={this.selectElement}
         className='react-select-element disabled'>
-        {this.createSelectedOptionDisabled()}
-        {this.createOptionsDisabled()}
+        {this.renderSelectedOptionDisabled()}
+        {this.renderOptionsDisabled()}
       </div>
     )
   }
@@ -717,8 +760,8 @@ export default class SelectElement extends React.Component {
       <div
         // ref={this.selectElement}
         className='react-select-element readonly'>
-        {this.createSelectedOptionReadOnly()}
-        {this.createOptionsReadOnly()}
+        {this.renderSelectedOptionReadOnly()}
+        {this.renderOptionsReadOnly()}
       </div>
     )
   }
@@ -740,8 +783,8 @@ export default class SelectElement extends React.Component {
       <div
         // ref={this.selectElement}
         className='react-select-element'>
-        {this.createSelectedOption()}
-        {this.createOptions()}
+        {this.renderSelectedOption()}
+        {this.renderOptions()}
       </div>
     )
   }
