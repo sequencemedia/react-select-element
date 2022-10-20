@@ -14,7 +14,11 @@ import {
 export default {
   title: 'Example/Controlled Select Element',
   component: ControlledSelectElement,
-  argTypes: { onChange: { action: 'changed' } }
+  argTypes: {
+    onChange: {
+      action: 'changed'
+    }
+  }
 };
 
 const Template = (args) => <ControlledSelectElement {...args} />;
