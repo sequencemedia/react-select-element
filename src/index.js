@@ -517,6 +517,18 @@ export default class SelectElement extends React.Component {
     }
   }
 
+  getSelectedOptionDisabledClassName () {
+    return 'selected-option'
+  }
+
+  getSelectedOptionReadOnlyClassName (index) {
+    return 'selected-option'
+  }
+
+  getSelectedOptionClassName () {
+    return 'selected-option'
+  }
+
   getSelectedOption () {
     const { options } = this.props
     const { selectIndex } = this.state
@@ -586,7 +598,7 @@ export default class SelectElement extends React.Component {
     return (
       <div
         ref={this.selectOption}
-        className='selected-option'>
+        className={this.getSelectedOptionDisabledClassName()}>
         {children || (
           this.renderSelectedOptionText(
             this.getSelectedOption()
@@ -602,7 +614,7 @@ export default class SelectElement extends React.Component {
     return (
       <div
         ref={this.selectOption}
-        className='selected-option'>
+        className={this.getSelectedOptionReadOnlyClassName()}>
         {children || (
           this.renderSelectedOptionText(
             this.getSelectedOption()
@@ -629,7 +641,7 @@ export default class SelectElement extends React.Component {
         ref={this.selectOption}
         accessKey={accessKey}
         tabIndex={tabIndex}
-        className='selected-option'
+        className={this.getSelectedOptionClassName()}
         onFocus={(activeEnter)
           ? this.handleActiveEnterFocus
           : this.handleFocus}
@@ -655,7 +667,7 @@ export default class SelectElement extends React.Component {
     )
   }
 
-  renderOptionText ({ text }) /* ({ text }, index) */ {
+  renderOptionText ({ text }) /* (option, index) */ {
     return toOptionText(text)
   }
 
