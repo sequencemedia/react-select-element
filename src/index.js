@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import classNames from 'classnames'
 
 const ENTER = 'Enter'
 const SPACE = String.fromCharCode(32)
@@ -53,7 +53,7 @@ export const startMatchFor = (chars) => {
   )
 }
 
-export const match = (option) => (o) => option === o
+export const match = (alpha) => (omega) => alpha === omega
 
 export const greaterThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
   toOptionText(text) // the smallest match greater than the chars?
@@ -530,7 +530,7 @@ export default class SelectElement extends React.Component {
     const { selectIndex } = this.state
 
     return (
-      classnames({ selected: (index === selectIndex) }, 'option')
+      classNames({ selected: (index === selectIndex) }, 'option')
     )
   }
 
@@ -538,7 +538,7 @@ export default class SelectElement extends React.Component {
     const { selectIndex } = this.state
 
     return (
-      classnames({ selected: (index === selectIndex) }, 'option')
+      classNames({ selected: (index === selectIndex) }, 'option')
     )
   }
 
@@ -549,7 +549,7 @@ export default class SelectElement extends React.Component {
     } = this.state
 
     return (
-      classnames({ selected: (index === selectIndex) }, 'option', { active: (index === activeIndex) })
+      classNames({ selected: (index === selectIndex) }, 'option', { active: (index === activeIndex) })
     )
   }
 
@@ -557,7 +557,7 @@ export default class SelectElement extends React.Component {
     const { hasActiveOptions } = this.state
 
     return (
-      classnames('options', { active: hasActiveOptions })
+      classNames('options', { active: hasActiveOptions })
     )
   }
 
@@ -576,8 +576,8 @@ export default class SelectElement extends React.Component {
     )
   }
 
-  renderSelectedOptionText (option) {
-    return toOptionText(option)
+  renderSelectedOptionText ({ text }) {
+    return toOptionText(text)
   }
 
   renderSelectedOptionDisabled () {
@@ -655,12 +655,12 @@ export default class SelectElement extends React.Component {
     )
   }
 
-  renderOptionText ({ text }) {
+  renderOptionText ({ text }) /* ({ text }, index) */ {
     return toOptionText(text)
   }
 
   renderOptionDisabled = (option, index) => {
-    const optionText = this.renderOptionText(option)
+    const optionText = this.renderOptionText(option, index)
 
     return (
       <li
@@ -673,7 +673,7 @@ export default class SelectElement extends React.Component {
   }
 
   renderOptionReadOnly = (option, index) => {
-    const optionText = this.renderOptionText(option)
+    const optionText = this.renderOptionText(option, index)
 
     return (
       <li
@@ -686,7 +686,7 @@ export default class SelectElement extends React.Component {
   }
 
   renderOption = (option, index) => {
-    const optionText = this.renderOptionText(option)
+    const optionText = this.renderOptionText(option, index)
 
     return (
       <li
@@ -746,9 +746,7 @@ export default class SelectElement extends React.Component {
 
   renderDisabled () {
     return (
-      <div
-        // ref={this.selectElement}
-        className='react-select-element disabled'>
+      <div className='react-select-element disabled'>
         {this.renderSelectedOptionDisabled()}
         {this.renderOptionsDisabled()}
       </div>
@@ -757,9 +755,7 @@ export default class SelectElement extends React.Component {
 
   renderReadOnly () {
     return (
-      <div
-        // ref={this.selectElement}
-        className='react-select-element readonly'>
+      <div className='react-select-element readonly'>
         {this.renderSelectedOptionReadOnly()}
         {this.renderOptionsReadOnly()}
       </div>
@@ -780,9 +776,7 @@ export default class SelectElement extends React.Component {
     }
 
     return (
-      <div
-        // ref={this.selectElement}
-        className='react-select-element'>
+      <div className='react-select-element'>
         {this.renderSelectedOption()}
         {this.renderOptions()}
       </div>
