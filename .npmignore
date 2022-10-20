@@ -27,4 +27,4 @@ stories
 
 # Build
 build
-./pre-commit.js
+pre-commit.js
