@@ -798,7 +798,7 @@ export default class SelectElement extends React.Component {
         aria-haspopup='listbox'
         aria-controls={id}>
         {this.renderSelectedOptionDisabled()}
-        {this.renderOptionsDisabled(id)}
+        {this.renderOptionsDisabled()}
       </div>
     )
   }
@@ -813,7 +813,7 @@ export default class SelectElement extends React.Component {
         aria-haspopup='listbox'
         aria-controls={id}>
         {this.renderSelectedOptionReadOnly()}
-        {this.renderOptionsReadOnly(id)}
+        {this.renderOptionsReadOnly()}
       </div>
     )
   }
@@ -843,7 +843,7 @@ export default class SelectElement extends React.Component {
         aria-haspopup='listbox'
         aria-controls={id}>
         {this.renderSelectedOption()}
-        {this.renderOptions(id)}
+        {this.renderOptions()}
       </div>
     )
   }
