@@ -15,6 +15,12 @@ export default {
   title: 'Example/Infinite Select Element With Scroll Into View',
   component: InfiniteSelectElementWithScrollIntoView,
   argTypes: {
+    children: {
+      control: false,
+      table: {
+        disable: true
+      }
+    },
     onChange: {
       action: 'changed'
     }

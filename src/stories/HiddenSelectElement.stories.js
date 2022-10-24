@@ -15,6 +15,12 @@ export default {
   title: 'Example/Hidden Select Element',
   component: HiddenSelectElement,
   argTypes: {
+    children: {
+      control: false,
+      table: {
+        disable: true
+      }
+    },
     onChange: {
       action: 'changed'
     }

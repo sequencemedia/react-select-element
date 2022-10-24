@@ -15,6 +15,12 @@ export default {
   title: 'Example/Select Select Element',
   component: SelectSelectElement,
   argTypes: {
+    children: {
+      control: false,
+      table: {
+        disable: true
+      }
+    },
     onChange: {
       action: 'changed'
     }

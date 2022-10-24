@@ -15,6 +15,12 @@ export default {
   title: 'Example/Infinite Select Element',
   component: InfiniteSelectElement,
   argTypes: {
+    children: {
+      control: false,
+      table: {
+        disable: true
+      }
+    },
     onChange: {
       action: 'changed'
     }

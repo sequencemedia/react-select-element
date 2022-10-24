@@ -15,6 +15,12 @@ export default {
   title: 'Example/Select Element With Scroll Into View (A)',
   component: SelectElementWithScrollIntoViewA,
   argTypes: {
+    children: {
+      control: false,
+      table: {
+        disable: true
+      }
+    },
     onChange: {
       action: 'changed'
     }
