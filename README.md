@@ -159,7 +159,7 @@ Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the
 
 You want to compose it into a `<form />`.
 
-In this case, you've chosen to compose the `<Select />` into a controlling component which renders the `value` of the selected option into the `value` attribute of an `<input type='hidden' />` element.
+In this case, you've chosen to compose the `<Select />` into a controlling component which renders the `text` of the selected option into the `value` attribute of an `<input type='hidden' />` element.
 
 ```jsx
 class HiddenSelect extends Component {
@@ -167,9 +167,9 @@ class HiddenSelect extends Component {
 
   handleIndexChange = (index) => {
     const { options, onChange } = this.props
-    const { value } = options[index]
+    const { text } = options[index]
 
-    this.setState({ value })
+    this.setState({ value: text })
     onChange(index)
   }
 
@@ -200,4 +200,4 @@ HiddenSelect.defaultProps = {
 
 ```
 
-[Again, an example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
+[Again, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
