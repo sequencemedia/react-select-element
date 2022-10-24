@@ -179,22 +179,24 @@ export default class SelectElement extends React.Component {
   get lowerBound () { return 0 }
 
   scrollOptionIntoView (element) {
-    const options = this.getOptions()
+    if (element) {
+      const options = this.getOptions()
 
-    if (options.contains(element)) {
-      const {
-        clientHeight
-      } = options
+      if (options.contains(element)) {
+        const {
+          clientHeight
+        } = options
 
-      const {
-        offsetHeight,
-        offsetTop
-      } = element
+        const {
+          offsetHeight,
+          offsetTop
+        } = element
 
-      const i = (clientHeight / 2)
-      const j = (offsetHeight / 2)
-      const n = Math.max(0, (offsetTop - i) + j)
-      if (n !== options.scrollTop) options.scrollTop = n
+        const i = (clientHeight / 2)
+        const j = (offsetHeight / 2)
+        const n = Math.max(0, (offsetTop - i) + j)
+        if (n !== options.scrollTop) options.scrollTop = n
+      }
     }
   }
 
