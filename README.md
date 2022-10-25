@@ -2,13 +2,13 @@
 
 ## React Select Element
 
-`react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements whatsoever. (It can, of course, be composed into other components which implement them.)
+`react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements. (It can, of course, be composed into other components which implement them.)
 
 You can use it as-is, or you can use `extend` your own components from it, modifying its behaviour to suit your needs.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO)
+[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
 
-While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/React.Select.Element.IO/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
+While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/react-select-element-io/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
 ### Using ES
 
@@ -113,7 +113,7 @@ class InfiniteSelect extends Select {
 }
 ```
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
+[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
 
 #### 2. `<SelectSelect />`
 
@@ -151,11 +151,11 @@ class SelectSelect extends Select {
 
 Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements modify the behaviour of the component.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/React.Select.Element.IO) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
+[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
 
 #### 3. `<HiddenSelect />`
 
-`react-select-element` does not use any `<form />` elements whatsoever.
+`react-select-element` does not use any `<form />` elements.
 
 You want to compose it into a `<form />`.
 
