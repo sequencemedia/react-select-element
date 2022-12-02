@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "2.0.43",
+  "version": "2.0.44",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -45,10 +45,10 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.18.9",
-    "@storybook/addon-essentials": "^6.5.13",
-    "@storybook/builder-webpack5": "^6.5.13",
-    "@storybook/manager-webpack5": "^6.5.13",
-    "@storybook/react": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/react": "^6.5.14",
     "babel-loader": "^9.1.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "core-js": "^3.26.1",
