@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "2.0.76",
+  "version": "2.0.77",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -50,7 +50,7 @@
     "@storybook/manager-webpack5": "^6.5.15",
     "@storybook/react": "^6.5.15",
     "babel-loader": "^9.1.2",
-    "babel-plugin-module-resolver": "4.1.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "core-js": "^3.27.1",
     "eslint": "^8.32.0",
     "eslint-config-standard": "^17.0.0",
