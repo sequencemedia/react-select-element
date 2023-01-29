@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "2.0.88",
+  "version": "2.0.89",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -59,7 +59,7 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
