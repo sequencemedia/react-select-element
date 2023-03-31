@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "2.0.142",
+  "version": "2.0.143",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -26,6 +26,7 @@
     "prebuild": "npm run clean",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
+    "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color --require @babel/register",
     "pre-commit": "npm run lint && npm run build && git add lib && DEBUG=react-select-element* node pre-commit",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -51,7 +52,9 @@
     "@storybook/react": "^6.5.16",
     "babel-loader": "^9.1.2",
     "babel-plugin-module-resolver": "^5.0.0",
+    "chai": "^4.3.7",
     "core-js": "^3.29.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-import-resolver-babel-module": "^5.3.2",
@@ -61,6 +64,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
+    "mocha": "^10.2.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -17,11 +17,11 @@ export const isKeySpace = ({ key }) => key === SPACE
  */
 export const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
 
-export const toOptionText = (t) => (t !== undefined) ? t.toString() : '\uFEFF'
+export const toOptionText = (t) => (t !== undefined) ? String(t) : '\uFEFF'
 
-export const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? +1 : 0
+export const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? 1 : 0
 
-export const reverse = (alpha, omega) => (alpha < omega) ? +1 : (alpha > omega) ? -1 : 0
+export const reverse = (alpha, omega) => (alpha < omega) ? 1 : (alpha > omega) ? -1 : 0
 
 export const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
   forward(
@@ -39,18 +39,14 @@ export const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
 
 export const exactMatchFor = (chars) => ({ text }) => (
   toOptionText(text)
-    .toLowerCase() === chars
+    .toLowerCase() === chars // `chars` is lower case
 )
 
 export const startMatchFor = (chars) => {
-  const {
-    length: n
-  } = chars
-
   return ({ text }) => (
     toOptionText(text)
       .toLowerCase()
-      .substr(0, n) === chars
+      .startsWith(chars) // `chars` is lower case
   )
 }
 
