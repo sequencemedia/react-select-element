@@ -27,7 +27,6 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color --require @babel/register",
-    "pre-commit": "npm run lint && npm run build && git add lib && DEBUG=react-select-element* node pre-commit",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "husky install"
@@ -46,6 +45,7 @@
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.21.0",
+    "@sequencemedia/hooks": "^1.0.394",
     "@storybook/addon-essentials": "^7.0.6",
     "@storybook/builder-webpack5": "^7.0.6",
     "@storybook/manager-webpack5": "^6.5.16",
