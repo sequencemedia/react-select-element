@@ -27,8 +27,6 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color --require @babel/register",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -46,11 +44,6 @@
     "@babel/preset-react": "^7.22.3",
     "@babel/register": "^7.21.0",
     "@sequencemedia/hooks": "^1.0.429",
-    "@storybook/addon-essentials": "^7.0.18",
-    "@storybook/builder-webpack5": "^7.0.18",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/react": "^7.0.18",
-    "babel-loader": "^9.1.2",
     "babel-plugin-module-resolver": "^5.0.0",
     "chai": "^4.3.7",
     "core-js": "^3.30.2",
@@ -59,7 +52,6 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-import-resolver-babel-module": "^5.3.2",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",

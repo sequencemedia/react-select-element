@@ -27,8 +27,6 @@ module.exports = {
     ],
     [
       'module-resolver', {
-        root: ['./src'],
-        cwd: 'babelrc',
         alias: {
           'react-select-element': './src'
         }

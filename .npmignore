@@ -1,6 +1,7 @@
 .DS_Store
 
 .circleci
+.github
 .husky
 
 .editorconfig
@@ -24,7 +25,3 @@
 # Storybook
 .storybook
 stories
-
-# Build
-build
-pre-commit.js
