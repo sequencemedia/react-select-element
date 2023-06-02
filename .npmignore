@@ -9,7 +9,7 @@
 .eslintignore
 .eslintrc
 
-.github
+.gitattributes
 .gitignore
 
 # NPM
