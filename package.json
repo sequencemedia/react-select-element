@@ -45,7 +45,7 @@
     "@babel/register": "^7.22.5",
     "@sequencemedia/hooks": "^1.0.443",
     "babel-plugin-module-resolver": "^5.0.0",
-    "chai": "^4.3.7",
+    "chai": "^5.0.0-alpha.1",
     "core-js": "^3.31.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.45.0",
