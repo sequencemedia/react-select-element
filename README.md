@@ -8,6 +8,12 @@ You can use it as-is, in which case, there is a _Class_ component (using `setSta
 
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
 
+And there are Storybooks.
+
+```bash
+npm run storybook
+```
+
 While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/react-select-element-io/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
 ### Using ES
