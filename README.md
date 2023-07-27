@@ -6,13 +6,13 @@
 
 You can use it as-is, in which case, there is a _Class_ component (using `setState`) or a _Plain_ function component (using _Hooks'_ `useState`). In the former case, you can `extend` your own components from it, modifying its behaviour to suit your needs.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
-
-And there are Storybooks.
+There are Storybooks!
 
 ```bash
 npm run storybook
 ```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
 
 While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/react-select-element-io/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
@@ -147,7 +147,13 @@ class InfiniteSelect extends Select {
 }
 ```
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
 
 #### 2. `<SelectSelect />`
 
@@ -185,7 +191,13 @@ class SelectSelect extends Select {
 
 Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements modify the behaviour of the component.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
 
 #### 3. `<HiddenSelect />`
 
@@ -231,7 +243,12 @@ HiddenSelect.defaultProps = {
   ...Select.defaultProps,
   onChange: () => {}
 }
-
 ```
 
-[Again, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
