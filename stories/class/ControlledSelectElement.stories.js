@@ -12,7 +12,7 @@ import {
 } from '../common/options'
 
 export default {
-  title: 'Class Component Examples/Controlled Select Element',
+  title: 'Class Component/Controlled Select Element',
   component: ControlledSelectElement,
   argTypes: {
     children: {

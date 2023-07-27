@@ -2,7 +2,7 @@ import React from 'react'
 
 import { actions } from '@storybook/addon-actions'
 
-import SelectElement from './SelectElement'
+import ControlledSelectElement from './ControlledSelectElement'
 
 import {
   OPTIONS,
@@ -12,8 +12,8 @@ import {
 } from '../common/options'
 
 export default {
-  title: 'Class Component/Select Element',
-  component: SelectElement,
+  title: 'Plain Component/Controlled Select Element',
+  component: ControlledSelectElement,
   argTypes: {
     children: {
       control: false,
@@ -27,7 +27,7 @@ export default {
   }
 }
 
-const Template = (args) => <SelectElement {...args} />
+const Template = (args) => <ControlledSelectElement {...args} />
 
 export const Options = Template.bind({})
 

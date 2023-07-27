@@ -12,7 +12,7 @@ import {
 } from '../common/options'
 
 export default {
-  title: 'Plain Component Examples/Select Element',
+  title: 'Plain Component/Select Element',
   component: SelectElement,
   argTypes: {
     children: {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -6,30 +6,25 @@ import {
 } from 'react-select-element/common'
 import SelectElement from 'react-select-element'
 
-export default class ControlledSelectElement extends React.Component {
-  state = {
-    index: getSelectIndex(this.props)
-  }
+export default function ControlledSelectElement (props) {
+  const [index, setIndex] = useState(() => getSelectIndex(props))
+  const {
+    onChange
+  } = props
 
-  handleChange = (index) => {
-    this.setState({ index })
-
-    const { onChange } = this.props
+  function handleChange (index) {
+    setIndex(index)
 
     onChange(index)
   }
 
-  render () {
-    const { index } = this.state
-
-    return (
+  return (
       <SelectElement
-        {...this.props}
-        onChange={this.handleChange}
+        {...props}
+        onChange={handleChange}
         index={index}
       />
-    )
-  }
+  )
 }
 
 ControlledSelectElement.propTypes = {
