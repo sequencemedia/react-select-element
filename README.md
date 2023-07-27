@@ -4,22 +4,56 @@
 
 `react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements. (It can, of course, be composed into other components which implement them.)
 
-You can use it as-is, or you can use `extend` your own components from it, modifying its behaviour to suit your needs.
+You can use it as-is, in which case, there is a _Class_ component (using `setState`) or a _Plain_ function component (using _Hooks'_ `useState`). In the former case, you can `extend` your own components from it, modifying its behaviour to suit your needs.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
 
 While the component appends some `className` attributes to its elements, the package does not contain any `CSS` stylesheets. The example implementation contains [a simple stylesheet](https://github.com/sequencemedia/react-select-element-io/blob/master/public/assets/css/react-select-element.css) which can help you start your own.
 
 ### Using ES
 
+The _Class_ component is the default export.
+
 ```javascript
 import Select from 'react-select-element'
 ```
 
+You can explicitly import the _Class_ component:
+
+```javascript
+import { ClassSelectElement as Select } from 'react-select-element'
+```
+
+Or explicitly import the _Plain_ function component:
+
+```javascript
+import { PlainSelectElement as Select } from 'react-select-element'
+```
+
 ### Using JS
+
+The _Class_ component is the default export.
 
 ```javascript
 const Select = require('react-select-element')
+```
+
+To explicitly import the _Class_ component:
+
+```javascript
+const { ClassSelectElement: Select } = require('react-select-element')
+```
+
+To explicitly import the _Plain_ component:
+
+```javascript
+const { PlainSelectElement: Select } = require('react-select-element')
 ```
 
 ### Implementing in React
@@ -113,7 +147,13 @@ class InfiniteSelect extends Select {
 }
 ```
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Infinite Select Component`.
 
 #### 2. `<SelectSelect />`
 
@@ -151,7 +191,13 @@ class SelectSelect extends Select {
 
 Invoking `super.incrementActiveIndex()` or `super.decrementActiveIndex()` in the overriding method ensures that existing behaviour remains unchanged, while the additional statements modify the behaviour of the component.
 
-[An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Select Select Component`.
 
 #### 3. `<HiddenSelect />`
 
@@ -197,7 +243,12 @@ HiddenSelect.defaultProps = {
   ...Select.defaultProps,
   onChange: () => {}
 }
-
 ```
 
-[Again, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
+There are Storybooks!
+
+```bash
+npm run storybook
+```
+
+[Or, an example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io) Clone that repository, install and start the package, then look for the example titled `Hidden Select Component`.
