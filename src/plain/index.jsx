@@ -64,12 +64,7 @@ export default function SelectElement (props) {
       if (onChange instanceof Function) onChange(index)
 
       /*
-       *  Exit if 'index' is a prop. The component is not managing state
-       */
-      if ('index' in props) return
-
-      /*
-       *  Otherwise, update the state
+       *  Update the state
        */
       setSelectIndex(index)
     }

@@ -4,7 +4,7 @@
 
 `react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements. (It can, of course, be composed into other components which implement them.)
 
-You can use it as-is, or you can use `extend` your own components from it, modifying its behaviour to suit your needs.
+You can use it as-is, in which case, there is _Plain_ function component (using _Hooks_) or a _Class_ component (using classes). In the latter case, you can `extend` your own components from it, modifying its behaviour to suit your needs.
 
 [An example implementation is available on GitHub.](https://github.com/sequencemedia/react-select-element-io)
 
@@ -12,14 +12,42 @@ While the component appends some `className` attributes to its elements, the pac
 
 ### Using ES
 
+The _Class_ component is the default export.
+
 ```javascript
 import Select from 'react-select-element'
 ```
 
+You can explicitly import the _Class_ component:
+
+```javascript
+import { ClassSelectElement as Select } from 'react-select-element'
+```
+
+Or import the _Plain_ function component:
+
+```javascript
+import { PlainSelectElement as Select } from 'react-select-element'
+```
+
 ### Using JS
+
+The _Class_ component is the default export.
 
 ```javascript
 const Select = require('react-select-element')
+```
+
+To explicitly import the _Class_ component:
+
+```javascript
+const { ClassSelectElement: Select } = require('react-select-element')
+```
+
+To explicitly import the _Plain_ component:
+
+```javascript
+const { PlainSelectElement: Select } = require('react-select-element')
 ```
 
 ### Implementing in React

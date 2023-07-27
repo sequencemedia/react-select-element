@@ -12,11 +12,13 @@ export default class ControlledSelectElement extends React.Component {
   }
 
   handleChange = (index) => {
-    this.setState({ index })
-
-    const { onChange } = this.props
+    const {
+      onChange
+    } = this.props
 
     onChange(index)
+
+    this.setState({ index })
   }
 
   render () {
