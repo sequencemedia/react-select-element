@@ -580,13 +580,15 @@ export default class SelectElement extends React.Component {
 
     const { selectIndex } = this.state
 
+    const handleMouse = () => this.activeIndex(index)
+
     return (
       <li
         key={index}
         ref={this.getOptionRef(index)}
         className={this.getOptionClassName(index)}
-        onMouseEnter={() => this.activeIndex(index)}
-        onMouseLeave={() => this.activeIndex(index)}
+        onMouseEnter={handleMouse}
+        onMouseLeave={handleMouse}
         onClick={() => this.handleOptionClick(index)}
         role='option'
         aria-selected={index === selectIndex}>
