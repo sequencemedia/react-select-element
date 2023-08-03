@@ -32,6 +32,7 @@ const Template = (args) => <InfiniteSelectElement {...args} />
 export const Options = Template.bind({})
 
 Options.args = {
+  id: 'infinite-select-element',
   options: OPTIONS,
   ...actions('onChange')
 }
@@ -39,6 +40,7 @@ Options.args = {
 export const SortedOptions = Template.bind({})
 
 SortedOptions.args = {
+  id: 'infinite-select-element',
   options: SORTED_OPTIONS,
   ...actions('onChange')
 }
@@ -46,6 +48,7 @@ SortedOptions.args = {
 export const RandomOptions = Template.bind({})
 
 RandomOptions.args = {
+  id: 'infinite-select-element',
   options: RANDOM_OPTIONS,
   ...actions('onChange')
 }
@@ -53,6 +56,7 @@ RandomOptions.args = {
 export const LargerOptions = Template.bind({})
 
 LargerOptions.args = {
+  id: 'infinite-select-element',
   options: LARGER_OPTIONS,
   ...actions('onChange')
 }

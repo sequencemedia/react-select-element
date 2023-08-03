@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef, Component } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
 import classNames from 'classnames'
@@ -19,16 +19,20 @@ import {
   getSelectIndex
 } from '../common/index.js'
 
-export default class SelectElement extends React.Component {
+export default class SelectElement extends Component {
   constructor (props) {
     super(props)
 
-    this.selectOption = React.createRef()
-    this.options = React.createRef()
-    this.activeOption = React.createRef()
+    this.selectOption = createRef()
+    this.options = createRef()
+    this.activeOption = createRef()
+
+    const {
+      id
+    } = props
 
     this.state = {
-      id: nanoid(),
+      id: id || nanoid(),
       selectIndex: getSelectIndex(props),
       hasActiveOptions: false,
       activeEnter: false,
@@ -721,6 +725,7 @@ export default class SelectElement extends React.Component {
 }
 
 SelectElement.propTypes = {
+  id: PropTypes.string,
   defaultIndex: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string

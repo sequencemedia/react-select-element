@@ -11,7 +11,13 @@ import ReadOnly from './ReadOnly'
 import Select from './Select'
 
 export default function SelectElement (props) {
-  const [id] = useState(() => nanoid())
+  const [id] = useState(() => {
+    const {
+      id
+    } = props
+
+    return id || nanoid()
+  })
   const [selectIndex, setSelectIndex] = useState(() => getSelectIndex(props))
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -90,6 +96,7 @@ export default function SelectElement (props) {
 }
 
 SelectElement.propTypes = {
+  id: PropTypes.string,
   defaultIndex: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
