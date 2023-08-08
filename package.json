@@ -45,7 +45,7 @@
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
     "@babel/register": "^7.22.5",
-    "@sequencemedia/hooks": "^1.0.444",
+    "@sequencemedia/hooks": "^1.0.445",
     "@storybook/addon-actions": "^7.2.1",
     "@storybook/addon-interactions": "^7.2.1",
     "@storybook/addon-links": "^7.2.1",
