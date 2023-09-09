@@ -52,7 +52,7 @@
     "@storybook/react": "^7.4.0",
     "@storybook/react-webpack5": "^7.4.0",
     "babel-plugin-module-resolver": "^5.0.0",
-    "chai": "4.3.7",
+    "chai": "^4.3.8",
     "core-js": "^3.32.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.49.0",
