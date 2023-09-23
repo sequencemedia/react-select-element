@@ -4,7 +4,7 @@
 
 `react-select-element` implements standard `HTML` `<select />` behaviour, without using any `<form />` elements. (It can, of course, be composed into other components which implement them.)
 
-You can use it as-is, in which case, there is a _Class_ component (using `setState`) or a _Plain_ function component (using _Hooks'_ `useState`). In the former case, you can `extend` your own components from it, modifying its behaviour to suit your needs.
+You can use it as-is, in which case, there is a _Class_ component (using `setState`) or a _Hooks_ function component (using _Hooks'_ `useState`). In the former case, you can `extend` your own components from it, modifying its behaviour to suit your needs.
 
 There are Storybooks!
 
@@ -27,13 +27,13 @@ import Select from 'react-select-element'
 You can explicitly import the _Class_ component:
 
 ```javascript
-import { ClassSelectElement as Select } from 'react-select-element'
+import Select from 'react-select-element/class'
 ```
 
-Or explicitly import the _Plain_ function component:
+Or explicitly import the _Hooks_ function component:
 
 ```javascript
-import { PlainSelectElement as Select } from 'react-select-element'
+import Select from 'react-select-element/hooks'
 ```
 
 ### Using JS
@@ -47,13 +47,13 @@ const Select = require('react-select-element')
 To explicitly import the _Class_ component:
 
 ```javascript
-const { ClassSelectElement: Select } = require('react-select-element')
+const Select = require('react-select-element/class')
 ```
 
-To explicitly import the _Plain_ component:
+To explicitly import the _Hooks_ component:
 
 ```javascript
-const { PlainSelectElement: Select } = require('react-select-element')
+const Select = require('react-select-element/hooks')
 ```
 
 ### Implementing in React

@@ -25,3 +25,6 @@
 # Storybook
 .storybook
 stories
+
+# Mocha
+tests

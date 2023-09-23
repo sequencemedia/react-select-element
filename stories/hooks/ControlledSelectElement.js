@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import {
   getSelectIndex
 } from 'react-select-element/common'
-import {
-  PlainSelectElement as SelectElement
-} from 'react-select-element'
+import SelectElement from 'react-select-element/hooks'
 
 export default function ControlledSelectElement (props) {
   const [index, setIndex] = useState(() => getSelectIndex(props))
@@ -22,11 +20,11 @@ export default function ControlledSelectElement (props) {
   }
 
   return (
-      <SelectElement
-        {...props}
-        onChange={handleChange}
-        index={index}
-      />
+    <SelectElement
+      {...props}
+      onChange={handleChange}
+      index={index}
+    />
   )
 }
 

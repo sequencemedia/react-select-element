@@ -8,7 +8,7 @@ export const parameters = {
           'Select Element',
           'Controlled Select Element'
         ],
-        'Plain Component',
+        'Hooks Component',
         [
           'Select Element'
         ],

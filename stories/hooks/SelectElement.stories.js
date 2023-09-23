@@ -2,7 +2,7 @@ import React from 'react'
 
 import { actions } from '@storybook/addon-actions'
 
-import ControlledSelectElement from './ControlledSelectElement'
+import SelectElement from './SelectElement'
 
 import {
   OPTIONS,
@@ -12,8 +12,8 @@ import {
 } from '../common/options'
 
 export default {
-  title: 'Plain Component/Controlled Select Element',
-  component: ControlledSelectElement,
+  title: 'Hooks Component/Select Element',
+  component: SelectElement,
   argTypes: {
     children: {
       control: false,
@@ -27,12 +27,12 @@ export default {
   }
 }
 
-const Template = (args) => <ControlledSelectElement {...args} />
+const Template = (args) => <SelectElement {...args} />
 
 export const Options = Template.bind({})
 
 Options.args = {
-  id: 'controlled-select-element',
+  id: 'select-element',
   options: OPTIONS,
   ...actions('onChange')
 }
@@ -40,7 +40,7 @@ Options.args = {
 export const SortedOptions = Template.bind({})
 
 SortedOptions.args = {
-  id: 'controlled-select-element',
+  id: 'select-element',
   options: SORTED_OPTIONS,
   ...actions('onChange')
 }
@@ -48,7 +48,7 @@ SortedOptions.args = {
 export const RandomOptions = Template.bind({})
 
 RandomOptions.args = {
-  id: 'controlled-select-element',
+  id: 'select-element',
   options: RANDOM_OPTIONS,
   ...actions('onChange')
 }
@@ -56,7 +56,7 @@ RandomOptions.args = {
 export const LargerOptions = Template.bind({})
 
 LargerOptions.args = {
-  id: 'controlled-select-element',
+  id: 'select-element',
   options: LARGER_OPTIONS,
   ...actions('onChange')
 }
