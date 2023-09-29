@@ -1,6 +1,6 @@
 {
   "name": "react-select-element",
-  "version": "2.6.1",
+  "version": "2.6.5",
   "description": "React Select Element",
   "main": "./index.js",
   "author": {
@@ -36,18 +36,18 @@
     "nanoid": "3.3.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.20",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
     "@babel/eslint-parser": "^7.22.15",
     "@babel/preset-env": "^7.22.20",
     "@babel/preset-react": "^7.22.15",
     "@babel/register": "^7.22.15",
-    "@sequencemedia/hooks": "^1.0.454",
-    "@storybook/addon-actions": "^7.4.4",
-    "@storybook/react": "^7.4.4",
-    "@storybook/react-webpack5": "^7.4.4",
+    "@sequencemedia/hooks": "^1.0.455",
+    "@storybook/addon-actions": "^7.4.5",
+    "@storybook/react": "^7.4.5",
+    "@storybook/react-webpack5": "^7.4.5",
     "babel-plugin-module-resolver": "^5.0.0",
-    "chai": "^4.3.8",
+    "chai": "^4.3.10",
     "core-js": "^3.32.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.50.0",
@@ -60,8 +60,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rimraf": "^5.0.1",
-    "storybook": "^7.4.4"
+    "rimraf": "^5.0.5",
+    "storybook": "^7.4.5"
   },
   "exports": {
     ".": "./index.js",
