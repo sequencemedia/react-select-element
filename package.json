@@ -37,15 +37,15 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.3",
+    "@babel/core": "^7.23.5",
     "@babel/eslint-parser": "^7.23.3",
-    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-env": "^7.23.5",
     "@babel/preset-react": "^7.23.3",
     "@babel/register": "^7.22.15",
-    "@sequencemedia/hooks": "^1.0.464",
-    "@storybook/addon-actions": "^7.6.0",
-    "@storybook/react": "^7.6.0",
-    "@storybook/react-webpack5": "^7.6.0",
+    "@sequencemedia/hooks": "^1.0.465",
+    "@storybook/addon-actions": "^7.6.1",
+    "@storybook/react": "^7.6.1",
+    "@storybook/react-webpack5": "^7.6.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "chai": "^4.3.10",
     "core-js": "^3.33.3",
@@ -61,7 +61,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
-    "storybook": "^7.6.0"
+    "storybook": "^7.6.1"
   },
   "exports": {
     ".": "./index.js",
