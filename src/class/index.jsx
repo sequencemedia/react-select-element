@@ -17,7 +17,7 @@ import {
   hasSmallerThanMatch,
   getSmallerThanMatchIndex,
   getSelectIndex
-} from '../common/index.js'
+} from '../common'
 
 export default class SelectElement extends Component {
   constructor (props) {

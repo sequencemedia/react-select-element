@@ -9,7 +9,7 @@ import {
   SORTED_OPTIONS,
   RANDOM_OPTIONS,
   LARGER_OPTIONS
-} from '../common/options'
+} from '../common/options.mjs'
 
 export default {
   title: 'Class Component Examples/Hidden Select Element',

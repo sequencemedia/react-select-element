@@ -2,18 +2,18 @@ import React from 'react'
 
 import { actions } from '@storybook/addon-actions'
 
-import InfiniteSelectElement from './InfiniteSelectElement'
+import InfiniteSelectElementWithScrollIntoView from './InfiniteSelectElementWithScrollIntoView'
 
 import {
   OPTIONS,
   SORTED_OPTIONS,
   RANDOM_OPTIONS,
   LARGER_OPTIONS
-} from '../common/options'
+} from '../common/options.mjs'
 
 export default {
-  title: 'Class Component Examples/Infinite Select Element',
-  component: InfiniteSelectElement,
+  title: 'Class Component Examples/Infinite Select Element With Scroll Into View',
+  component: InfiniteSelectElementWithScrollIntoView,
   argTypes: {
     children: {
       control: false,
@@ -27,7 +27,7 @@ export default {
   }
 }
 
-const Template = (args) => <InfiniteSelectElement {...args} />
+const Template = (args) => <InfiniteSelectElementWithScrollIntoView {...args} />
 
 export const Options = Template.bind({})
 

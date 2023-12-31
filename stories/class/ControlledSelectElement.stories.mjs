@@ -2,18 +2,18 @@ import React from 'react'
 
 import { actions } from '@storybook/addon-actions'
 
-import SelectElementWithScrollIntoViewA from './SelectElementWithScrollIntoViewA'
+import ControlledSelectElement from './ControlledSelectElement'
 
 import {
   OPTIONS,
   SORTED_OPTIONS,
   RANDOM_OPTIONS,
   LARGER_OPTIONS
-} from '../common/options'
+} from '../common/options.mjs'
 
 export default {
-  title: 'Class Component Examples/Select Element With Scroll Into View (A)',
-  component: SelectElementWithScrollIntoViewA,
+  title: 'Class Component/Controlled Select Element',
+  component: ControlledSelectElement,
   argTypes: {
     children: {
       control: false,
@@ -27,12 +27,12 @@ export default {
   }
 }
 
-const Template = (args) => <SelectElementWithScrollIntoViewA {...args} />
+const Template = (args) => <ControlledSelectElement {...args} />
 
 export const Options = Template.bind({})
 
 Options.args = {
-  id: 'select-element',
+  id: 'controlled-select-element',
   options: OPTIONS,
   ...actions('onChange')
 }
@@ -40,7 +40,7 @@ Options.args = {
 export const SortedOptions = Template.bind({})
 
 SortedOptions.args = {
-  id: 'select-element',
+  id: 'controlled-select-element',
   options: SORTED_OPTIONS,
   ...actions('onChange')
 }
@@ -48,7 +48,7 @@ SortedOptions.args = {
 export const RandomOptions = Template.bind({})
 
 RandomOptions.args = {
-  id: 'select-element',
+  id: 'controlled-select-element',
   options: RANDOM_OPTIONS,
   ...actions('onChange')
 }
@@ -56,7 +56,7 @@ RandomOptions.args = {
 export const LargerOptions = Template.bind({})
 
 LargerOptions.args = {
-  id: 'select-element',
+  id: 'controlled-select-element',
   options: LARGER_OPTIONS,
   ...actions('onChange')
 }

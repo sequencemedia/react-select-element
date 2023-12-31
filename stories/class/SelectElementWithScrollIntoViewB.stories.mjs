@@ -2,18 +2,18 @@ import React from 'react'
 
 import { actions } from '@storybook/addon-actions'
 
-import SelectSelectElement from './SelectSelectElement'
+import SelectElementWithScrollIntoViewB from './SelectElementWithScrollIntoViewB'
 
 import {
   OPTIONS,
   SORTED_OPTIONS,
   RANDOM_OPTIONS,
   LARGER_OPTIONS
-} from '../common/options'
+} from '../common/options.mjs'
 
 export default {
-  title: 'Class Component Examples/Select Select Element',
-  component: SelectSelectElement,
+  title: 'Class Component Examples/Select Element With Scroll Into View (B)',
+  component: SelectElementWithScrollIntoViewB,
   argTypes: {
     children: {
       control: false,
@@ -27,7 +27,7 @@ export default {
   }
 }
 
-const Template = (args) => <SelectSelectElement {...args} />
+const Template = (args) => <SelectElementWithScrollIntoViewB {...args} />
 
 export const Options = Template.bind({})
 

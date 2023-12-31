@@ -13,7 +13,7 @@ import {
   getGreaterThanMatchIndex,
   hasSmallerThanMatch,
   getSmallerThanMatchIndex
-} from '../common/index.js'
+} from '../common'
 
 import SelectedOption from './SelectedOption'
 import Options from './Options'

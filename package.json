@@ -2,7 +2,7 @@
   "name": "react-select-element",
   "version": "2.6.34",
   "description": "React Select Element",
-  "main": "./index.js",
+  "main": "./index.cjs",
   "author": {
     "name": "Jonathan Perry for Sequence Media Limited",
     "email": "sequencemedia@sequencemedia.net",
@@ -24,9 +24,9 @@
     "clean": "rimraf lib",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",
-    "lint": "eslint . .storybook --ext .js,.jsx",
+    "lint": "eslint . .storybook --ext .mjs,.cjs,.jsx",
     "lint:fix": "npm run lint -- --fix",
-    "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color --require @babel/register",
+    "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install"
@@ -66,6 +66,10 @@
   "exports": {
     ".": "./index.js",
     "./class": "./lib/class/index.js",
-    "./hooks": "./lib/hooks/index.js"
+    "./hooks": "./lib/hooks/index.js",
+    "./common": "./lib/common/index.js"
+  },
+  "imports": {
+    "#common": "./src/common/index.mjs"
   }
 }

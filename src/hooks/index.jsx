@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 
 import {
   getSelectIndex
-} from '../common/index.js'
+} from '../common'
 
 import Disabled from './Disabled'
 import ReadOnly from './ReadOnly'

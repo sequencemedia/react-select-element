@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import {
   toOptionText
-} from '../common/index.js'
+} from '../common'
 
 export default function Option ({
   activeOptionRef,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {
   toOptionText
-} from '../common/index.js'
+} from '../common'
 
 export default function SelectedOptionReadOnly ({ selectOptionRef, options, selectIndex, children }) {
   const {
