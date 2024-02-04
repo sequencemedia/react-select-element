@@ -1,9 +1,8 @@
 module.exports = {
-  compact: true,
-  comments: false,
   presets: [
     [
-      '@babel/env', {
+      '@babel/env',
+      {
         targets: {
           node: 'current',
           browsers: [
