@@ -29,7 +29,7 @@
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -43,9 +43,9 @@
     "@babel/preset-react": "^7.23.3",
     "@babel/register": "^7.23.7",
     "@sequencemedia/hooks": "^1.0.480",
-    "@storybook/addon-actions": "^7.6.15",
-    "@storybook/react": "^7.6.15",
-    "@storybook/react-webpack5": "^7.6.15",
+    "@storybook/addon-actions": "^7.6.16",
+    "@storybook/react": "^7.6.16",
+    "@storybook/react-webpack5": "^7.6.16",
     "babel-plugin-module-resolver": "^5.0.0",
     "chai": "^5.1.0",
     "core-js": "^3.36.0",
@@ -61,7 +61,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
-    "storybook": "^7.6.15"
+    "storybook": "^7.6.16"
   },
   "imports": {
     "#common": "./src/common/index.mjs"
