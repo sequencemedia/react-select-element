@@ -43,9 +43,9 @@
     "@babel/preset-react": "^7.24.1",
     "@babel/register": "^7.23.7",
     "@sequencemedia/hooks": "^1.0.488",
-    "@storybook/addon-actions": "^8.0.6",
-    "@storybook/react": "^8.0.6",
-    "@storybook/react-webpack5": "^8.0.6",
+    "@storybook/addon-actions": "^8.0.8",
+    "@storybook/react": "^8.0.8",
+    "@storybook/react-webpack5": "^8.0.8",
     "babel-plugin-module-resolver": "^5.0.0",
     "chai": "^5.1.0",
     "core-js": "^3.36.1",
@@ -61,7 +61,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
-    "storybook": "^8.0.6"
+    "storybook": "^8.0.8"
   },
   "imports": {
     "#common": "./src/common/index.mjs"
