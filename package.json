@@ -17,19 +17,19 @@
     "url": "git://github.com/sequencemedia/react-select-element.git"
   },
   "scripts": {
-    "build": "npm run babel",
-    "build:watch": "npm run babel:watch",
     "babel": "babel src -d lib",
     "babel:watch": "npm run babel -- -w",
+    "build": "npm run babel",
+    "build-storybook": "storybook build",
+    "build:watch": "npm run babel:watch",
     "clean": "rimraf lib",
-    "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean",
     "lint": "eslint . .storybook --ext .mjs,.cjs,.jsx",
     "lint:fix": "npm run lint -- --fix",
-    "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color",
+    "prebuild": "npm run clean",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "prepare": "husky"
+    "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -69,7 +69,7 @@
   "exports": {
     ".": "./index.cjs",
     "./class": "./lib/class/index.js",
-    "./hooks": "./lib/hooks/index.js",
-    "./common": "./lib/common/index.js"
+    "./common": "./lib/common/index.js",
+    "./hooks": "./lib/hooks/index.js"
   }
 }
