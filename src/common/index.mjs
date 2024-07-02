@@ -20,15 +20,19 @@ export const reverse = (alpha, omega) => (alpha < omega) ? 1 : (alpha > omega) ?
 
 export const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
   forward(
-    toOptionText(alpha).toLowerCase(),
-    toOptionText(omega).toLowerCase()
+    toOptionText(alpha)
+      .toLowerCase(),
+    toOptionText(omega)
+      .toLowerCase()
   )
 )
 
 export const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
   reverse(
-    toOptionText(alpha).toLowerCase(),
-    toOptionText(omega).toLowerCase()
+    toOptionText(alpha)
+      .toLowerCase(),
+    toOptionText(omega)
+      .toLowerCase()
   )
 )
 
@@ -47,15 +51,21 @@ export const startMatchFor = (chars) => {
 
 export const match = (alpha) => (omega) => alpha === omega
 
-export const greaterThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
-  toOptionText(text) // the smallest match greater than the chars?
-    .toLowerCase() > chars
-)
+export const greaterThanFor = (chars) => ({ text }) => {
+  return ( // find in the duplicated, sorted array
+    toOptionText(text)
+      .toLowerCase() // the smallest match greater than the chars?
+      .localeCompare(chars) > 0
+  )
+}
 
-export const smallerThanFor = (chars) => ({ text }) => ( // find in the duplicated, sorted array
-  toOptionText(text) // the largest match hasSmallerThanMatch than the chars?
-    .toLowerCase() < chars
-)
+export const smallerThanFor = (chars) => ({ text }) => {
+  return ( // find in the duplicated, sorted array
+    toOptionText(text)
+      .toLowerCase() // the largest match smaller than the chars?
+      .localeCompare(chars) < 0
+  )
+}
 
 /*
  * Matches exactly
@@ -137,4 +147,4 @@ export const getSmallerThanMatchIndex = (options, chars) => (
     ))
 )
 
-export const getSelectIndex = ({ index, defaultIndex }) => !isNaN(index) ? Number(index) : Number(defaultIndex)
+export const getSelectIndex = ({ index, defaultIndex = 0 }) => !isNaN(index) ? Number(index) : Number(defaultIndex)

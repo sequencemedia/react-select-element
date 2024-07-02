@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import {
   toOptionText
-} from '../common'
+} from '#common'
 
 export default function OptionReadOnly ({
   activeOptionRef,

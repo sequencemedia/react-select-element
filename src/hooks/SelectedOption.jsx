@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {
   toOptionText
-} from '../common'
+} from '#common'
 
 export default function SelectedOption ({
   selectOptionRef,

@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 
 import {
   getSelectIndex
-} from '../common'
+} from '#common'
 
 import Disabled from './Disabled'
 import ReadOnly from './ReadOnly'
@@ -25,7 +25,7 @@ export default function SelectElement (props) {
   const optionsRef = createRef()
   const activeOptionRef = createRef()
 
-  const { disabled } = props
+  const { disabled = false } = props
 
   if (disabled) {
     return (
@@ -41,7 +41,7 @@ export default function SelectElement (props) {
     )
   }
 
-  const { readOnly } = props
+  const { readOnly = false } = props
 
   if (readOnly) {
     return (
@@ -120,12 +120,4 @@ SelectElement.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   children: PropTypes.node
-}
-
-SelectElement.defaultProps = {
-  defaultIndex: 0,
-  tabIndex: 0,
-  options: [],
-  disabled: false,
-  readOnly: false
 }

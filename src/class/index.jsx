@@ -17,7 +17,7 @@ import {
   hasSmallerThanMatch,
   getSmallerThanMatchIndex,
   getSelectIndex
-} from '../common'
+} from '#common'
 
 export default class SelectElement extends Component {
   constructor (props) {
@@ -45,7 +45,7 @@ export default class SelectElement extends Component {
     const {
       options: {
         length: n
-      }
+      } = []
     } = this.props
 
     return Math.max(0, n - 1)
@@ -171,7 +171,7 @@ export default class SelectElement extends Component {
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
-    const { options } = this.props
+    const { options = [] } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -223,7 +223,7 @@ export default class SelectElement extends Component {
 
   handleKeyChar ({ charCode: keyChar }) {
     const { activeChars } = this.state
-    const { options } = this.props
+    const { options = [] } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -404,7 +404,7 @@ export default class SelectElement extends Component {
   }
 
   getSelectedOption () {
-    const { options } = this.props
+    const { options = [] } = this.props
     const { selectIndex } = this.state
 
     return (
@@ -501,7 +501,7 @@ export default class SelectElement extends Component {
   renderSelectedOption () {
     const {
       accessKey,
-      tabIndex,
+      tabIndex = 0,
       children
     } = this.props
 
@@ -602,7 +602,7 @@ export default class SelectElement extends Component {
   }
 
   renderOptionsDisabled () {
-    const { options } = this.props
+    const { options = [] } = this.props
 
     if (options.length) {
       const { id } = this.state
@@ -621,7 +621,7 @@ export default class SelectElement extends Component {
   }
 
   renderOptionsReadOnly () {
-    const { options } = this.props
+    const { options = [] } = this.props
 
     if (options.length) {
       const { id } = this.state
@@ -640,7 +640,7 @@ export default class SelectElement extends Component {
   }
 
   renderOptions () {
-    const { options } = this.props
+    const { options = [] } = this.props
 
     if (options.length) {
       const {
@@ -694,13 +694,13 @@ export default class SelectElement extends Component {
   }
 
   render () {
-    const { disabled } = this.props
+    const { disabled = false } = this.props
 
     if (disabled) {
       return this.renderDisabled()
     }
 
-    const { readOnly } = this.props
+    const { readOnly = false } = this.props
 
     if (readOnly) {
       return this.renderReadOnly()
@@ -749,12 +749,4 @@ SelectElement.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   children: PropTypes.node
-}
-
-SelectElement.defaultProps = {
-  defaultIndex: 0,
-  tabIndex: 0,
-  options: [],
-  disabled: false,
-  readOnly: false
 }

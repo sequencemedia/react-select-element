@@ -13,15 +13,15 @@ import {
   getGreaterThanMatchIndex,
   hasSmallerThanMatch,
   getSmallerThanMatchIndex
-} from '../common'
+} from '#common'
 
 import SelectedOption from './SelectedOption'
 import Options from './Options'
 
 export default function Select ({
   accessKey,
-  tabIndex,
-  options,
+  tabIndex = 0,
+  options = [],
   selectIndex,
   handleSelectIndexChange,
   activeIndex,
@@ -340,11 +340,4 @@ Select.propTypes = {
   activeIndex: PropTypes.number.isRequired,
   handleActiveIndexChange: PropTypes.func.isRequired,
   children: PropTypes.node
-}
-
-Select.defaultProps = {
-  tabIndex: 0,
-  options: [],
-  disabled: false,
-  readOnly: false
 }
