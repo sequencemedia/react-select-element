@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react'
+import React, {
+  useMemo
+} from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -14,21 +16,44 @@ export default function SelectedOption ({
   selectIndex,
   activeEnter,
   hasActiveOptions,
-  handleActiveEnterFocus,
-  handleFocus,
-  handleActiveEnterBlur,
-  handleBlur,
-  handleClick,
-  handleActiveOptionsKeyPress,
-  handleKeyPress,
-  handleActiveOptionsKeyUp,
-  handleKeyUp,
-  handleActiveOptionsKeyDown,
-  handleKeyDown
+  onActiveEnterFocus,
+  onFocus,
+  onActiveEnterBlur,
+  onBlur,
+  onClick,
+  onActiveOptionsKeyPress,
+  onKeyPress,
+  onActiveOptionsKeyUp,
+  onKeyUp,
+  onActiveOptionsKeyDown,
+  onKeyDown
 }) {
   const {
     text
-  } = useMemo(() => options[selectIndex] || {}, [options, selectIndex])
+  } = useMemo(() => options[selectIndex] || {}, [
+    options,
+    selectIndex
+  ])
+
+  const handleFocus = (activeEnter)
+    ? onActiveEnterFocus
+    : onFocus
+
+  const handleBlur = (activeEnter)
+    ? onActiveEnterBlur
+    : onBlur
+
+  const handleKeyPress = (hasActiveOptions)
+    ? onActiveOptionsKeyPress
+    : onKeyPress
+
+  const handleKeyUp = (hasActiveOptions)
+    ? onActiveOptionsKeyUp
+    : onKeyUp
+
+  const handleKeyDown = (hasActiveOptions)
+    ? onActiveOptionsKeyDown
+    : onKeyDown
 
   return (
     <div
@@ -36,22 +61,12 @@ export default function SelectedOption ({
       accessKey={accessKey}
       tabIndex={tabIndex}
       className='selected-option'
-      onFocus={(activeEnter)
-        ? handleActiveEnterFocus
-        : handleFocus}
-      onBlur={(activeEnter)
-        ? handleActiveEnterBlur
-        : handleBlur}
-      onClick={handleClick}
-      onKeyPress={(hasActiveOptions)
-        ? handleActiveOptionsKeyPress
-        : handleKeyPress}
-      onKeyUp={(hasActiveOptions)
-        ? handleActiveOptionsKeyUp
-        : handleKeyUp}
-      onKeyDown={(hasActiveOptions)
-        ? handleActiveOptionsKeyDown
-        : handleKeyDown}>
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onClick={onClick}
+      onKeyPress={handleKeyPress}
+      onKeyUp={handleKeyUp}
+      onKeyDown={handleKeyDown}>
       {children || (
         toOptionText(text)
       )}
@@ -79,15 +94,15 @@ SelectedOption.propTypes = {
   selectIndex: PropTypes.number.isRequired,
   activeEnter: PropTypes.bool.isRequired,
   hasActiveOptions: PropTypes.bool.isRequired,
-  handleActiveEnterFocus: PropTypes.func.isRequired,
-  handleFocus: PropTypes.func.isRequired,
-  handleActiveEnterBlur: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  handleActiveOptionsKeyPress: PropTypes.func.isRequired,
-  handleKeyPress: PropTypes.func.isRequired,
-  handleActiveOptionsKeyUp: PropTypes.func.isRequired,
-  handleKeyUp: PropTypes.func.isRequired,
-  handleActiveOptionsKeyDown: PropTypes.func.isRequired,
-  handleKeyDown: PropTypes.func.isRequired
+  onActiveEnterFocus: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired,
+  onActiveEnterBlur: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onActiveOptionsKeyPress: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
+  onActiveOptionsKeyUp: PropTypes.func.isRequired,
+  onKeyUp: PropTypes.func.isRequired,
+  onActiveOptionsKeyDown: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired
 }

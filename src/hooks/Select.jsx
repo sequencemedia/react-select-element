@@ -1,4 +1,8 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, {
+  useState,
+  useMemo,
+  useCallback
+} from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -49,102 +53,142 @@ export default function Select ({
     }
   }, [n])
 
-  function handleFocus () {
+  const {
+    current
+  } = selectOptionRef
+
+  const handleFocus = useCallback(function onFocus () {
     handleActiveIndexChange(selectIndex)
-  }
+  }, [
+    hasActiveOptions,
+    selectIndex
+  ])
 
-  function handleBlur () {
+  const handleBlur = useCallback(function onBlur () {
     setHasActiveOptions(false)
-  }
+  }, [
+    hasActiveOptions,
+    selectIndex
+  ])
 
-  const handleActiveEnterFocus = () => true
+  const handleActiveEnterFocus = useCallback(function onActiveEnterFocus () {
+    //
+  }, [current])
 
-  function handleActiveEnterBlur () {
-    const {
-      current
-    } = selectOptionRef
+  const handleActiveEnterBlur = useCallback(function onActiveEnterBlur () {
+    if (current) current.focus()
+  }, [current])
 
-    current.focus()
-  }
-
-  function handleClick (event) {
+  const handleClick = useCallback(function onClick (event) {
     if (isEventClickLike(event)) { // it's probably an accessKey event
-      const {
-        current
-      } = selectOptionRef
-
-      current.focus()
+      if (current) current.focus()
     } else { // it's probably a mouse click
       setHasActiveOptions(true)
     }
-  }
+  }, [
+    hasActiveOptions,
+    current
+  ])
 
-  function handleOptionClick (index) {
+  const handleOptionClick = useCallback(function onOptionClick (index) {
     setHasActiveOptions(false)
-    handleSelectIndexChange(index)
+    if (index !== selectIndex) handleSelectIndexChange(index)
+    if (current) current.focus()
+  }, [
+    hasActiveOptions,
+    current,
+    selectIndex,
+    activeIndex
+  ])
 
-    const {
-      current
-    } = selectOptionRef
-
-    current.focus()
-  }
-
-  function handleActiveOptionsKeyPress (event) {
+  const handleActiveOptionsKeyPress = useCallback(function onActiveOptionsKeyPress (event) {
     if (isKeyEnter(event) || isKeySpace(event)) return
+    handleActiveOptionsKeyChar(event)
+  }, [
+    activeChars,
+    options
+  ])
 
-    return handleActiveOptionsKeyChar(event)
-  }
+  const handleKeyPress = useCallback((event) => handleKeyChar(event), [
+    activeChars,
+    options
+  ])
 
-  const handleKeyPress = (event) => handleKeyChar(event)
+  const handleActiveOptionsKeyUp = useCallback((event) => handleActiveOptionsKeyCode(event), [
+    hasActiveOptions,
+    selectIndex,
+    activeIndex,
+    upperBound,
+    lowerBound
+  ])
 
-  const handleActiveOptionsKeyUp = (event) => handleActiveOptionsKeyCode(event)
+  const handleActiveOptionsKeyDown = useCallback(() => { /* */ }, [
+    hasActiveOptions,
+    selectIndex,
+    activeIndex,
+    upperBound,
+    lowerBound
+  ])
 
-  const handleActiveOptionsKeyDown = () => true
+  const handleKeyUp = useCallback((event) => handleKeyCode(event), [hasActiveOptions])
 
-  const handleKeyUp = (event) => handleKeyCode(event)
+  const handleKeyDown = useCallback(() => { /* */ }, [hasActiveOptions])
 
-  const handleKeyDown = () => true
-
-  function handleKeySpace () {
+  const handleKeySpace = useCallback(function onKeySpace () {
     setHasActiveOptions(false)
-    handleSelectIndexChange(activeIndex)
-  }
+    if (activeIndex !== selectIndex) handleSelectIndexChange(activeIndex)
+  }, [
+    hasActiveOptions,
+    selectIndex,
+    activeIndex
+  ])
 
-  function handleKeyEnter () {
+  const handleKeyEnter = useCallback(function onKeyEnter () {
     setHasActiveOptions(false)
-    handleSelectIndexChange(activeIndex)
-  }
+    if (activeIndex !== selectIndex) handleSelectIndexChange(activeIndex)
+  }, [
+    hasActiveOptions,
+    selectIndex,
+    activeIndex
+  ])
 
-  function handleKeyEscape () {
+  const handleKeyEscape = useCallback(function onKeyEscape () {
     setHasActiveOptions(false)
-  }
+  }, [hasActiveOptions])
 
   const decrementActiveIndex = useCallback(function decrementActiveIndex () {
-    handleActiveIndexChange(
-      Math.max(activeIndex - 1, lowerBound)
-    )
-  }, [activeIndex, lowerBound])
+    const index = Math.max(activeIndex - 1, lowerBound)
+    if (index !== activeIndex) handleActiveIndexChange(index)
+  }, [
+    activeIndex,
+    lowerBound
+  ])
 
   const incrementActiveIndex = useCallback(function incrementActiveIndex () {
-    handleActiveIndexChange(
-      Math.min(activeIndex + 1, upperBound)
-    )
-  }, [activeIndex, upperBound])
+    const index = Math.min(activeIndex + 1, upperBound)
+    if (index !== activeIndex) handleActiveIndexChange(index)
+  }, [
+    activeIndex,
+    upperBound
+  ])
 
-  function handleKeyArrowUp () {
+  const handleKeyArrowUp = useCallback(function onKeyArrowUp () {
     decrementActiveIndex()
-
     setActiveChars('')
-  }
+  }, [
+    activeIndex,
+    lowerBound
+  ])
 
-  function handleKeyArrowDown () {
+  const handleKeyArrowDown = useCallback(function onKeyArrowDown () {
     incrementActiveIndex()
-
     setActiveChars('')
-  }
+  }, [
+    activeIndex,
+    upperBound
+  ])
 
-  const handleActiveOptionsKeyChar = useCallback(function handleActiveOptionsKeyChar ({ charCode: keyChar }) {
+  const handleActiveOptionsKeyChar = useCallback(function onActiveOptionsKeyChar ({ charCode: keyChar }) {
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -153,48 +197,47 @@ export default function Select ({
     */
     if (hasExactMatch(options, chars)) {
       setActiveChars(chars)
-      handleActiveIndexChange(
-        getExactMatchIndex(options, chars)
-      )
+      const index = getExactMatchIndex(options, chars)
+      if (index !== activeIndex) handleActiveIndexChange(index)
     } else {
       if (hasStartMatch(options, chars)) {
         setActiveChars(chars)
-        handleActiveIndexChange(
-          getStartMatchIndex(options, chars)
-        )
+        const index = getStartMatchIndex(options, chars)
+        if (index !== activeIndex) handleActiveIndexChange(index)
       } else {
         if (hasExactMatch(options, char)) {
           setActiveChars(char)
-          handleActiveIndexChange(
-            getExactMatchIndex(options, char)
-          )
+          const index = getExactMatchIndex(options, char)
+          if (index !== activeIndex) handleActiveIndexChange(index)
         } else {
           if (hasStartMatch(options, char)) {
             setActiveChars(char)
-            handleActiveIndexChange(
-              getStartMatchIndex(options, char)
-            )
+            const index = getStartMatchIndex(options, char)
+            if (index !== activeIndex) handleActiveIndexChange(index)
           } else {
             if (hasGreaterThanMatch(options, char)) {
               setActiveChars('')
-              handleActiveIndexChange(
-                getGreaterThanMatchIndex(options, char)
-              )
+              const index = getGreaterThanMatchIndex(options, char)
+              if (index !== activeIndex) handleActiveIndexChange(index)
             } else {
               if (hasSmallerThanMatch(options, char)) {
                 setActiveChars('')
-                handleActiveIndexChange(
-                  getSmallerThanMatchIndex(options, char)
-                )
+                const index = getSmallerThanMatchIndex(options, char)
+                if (index !== activeIndex) handleActiveIndexChange(index)
               }
             }
           }
         }
       }
     }
-  }, [activeChars, options])
+  }, [
+    activeChars,
+    selectIndex,
+    activeIndex,
+    options
+  ])
 
-  const handleKeyChar = useCallback(function handleKeyChar ({ charCode: keyChar }) {
+  const handleKeyChar = useCallback(function onKeyChar ({ charCode: keyChar }) {
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -203,70 +246,78 @@ export default function Select ({
     */
     if (hasExactMatch(options, chars)) {
       setActiveChars(chars)
-      handleSelectIndexChange(
-        getExactMatchIndex(options, chars)
-      )
+      const index = getExactMatchIndex(options, chars)
+      if (index !== selectIndex) handleSelectIndexChange(index)
     } else {
       if (hasStartMatch(options, chars)) {
         setActiveChars(chars)
-        handleSelectIndexChange(
-          getStartMatchIndex(options, chars)
-        )
+        const index = getStartMatchIndex(options, chars)
+        if (index !== selectIndex) handleSelectIndexChange(index)
       } else {
         if (hasExactMatch(options, char)) {
           setActiveChars(char)
-          handleSelectIndexChange(
-            getExactMatchIndex(options, char)
-          )
+          const index = getExactMatchIndex(options, char)
+          if (index !== selectIndex) handleSelectIndexChange(index)
         } else {
           if (hasStartMatch(options, char)) {
             setActiveChars(char)
-            handleSelectIndexChange(
-              getStartMatchIndex(options, char)
-            )
+            const index = getStartMatchIndex(options, char)
+            if (index !== selectIndex) handleSelectIndexChange(index)
           } else {
             if (hasGreaterThanMatch(options, char)) {
               setActiveChars('')
-              handleSelectIndexChange(
-                getGreaterThanMatchIndex(options, char)
-              )
+              const index = getGreaterThanMatchIndex(options, char)
+              if (index !== selectIndex) handleSelectIndexChange(index)
             }
           }
         }
       }
     }
-  }, [activeChars, options])
+  }, [
+    activeChars,
+    selectIndex,
+    activeIndex,
+    options
+  ])
 
-  function handleActiveOptionsKeyCode (event) {
-    const { keyCode } = event
+  const handleActiveOptionsKeyCode = useCallback(function onActiveOptionsKeyCode (event) {
+    const {
+      keyCode
+    } = event
 
     switch (keyCode) {
-      case 13:
+      case 13: // [hasActiveOptions, activeIndex]
         handleKeyEnter(event)
         break
-      case 27:
+      case 27: // [hasActiveOptions]
         handleKeyEscape(event)
         break
-      case 32:
+      case 32: // [hasActiveOptions, activeIndex]
         handleKeySpace(event)
         break
-      case 38:
+      case 38: // [activeIndex, lowerBound]
         handleKeyArrowUp(event)
         break
-      case 40:
+      case 40: // [activeIndex, upperBound]
         handleKeyArrowDown(event)
         break
     }
-  }
+  }, [
+    hasActiveOptions,
+    selectIndex,
+    activeIndex,
+    upperBound,
+    lowerBound
+  ])
 
-  function handleKeyCode ({ keyCode }) {
+  const handleKeyCode = useCallback(function onKeyCode ({ keyCode }) {
     if (
       keyCode === 32 ||
       keyCode === 38 ||
       keyCode === 40) { // space or arrow up or arrow down
       setHasActiveOptions(true)
     }
-  }
+  }, [hasActiveOptions])
 
   return (
     <div
@@ -282,17 +333,17 @@ export default function Select ({
         selectIndex={selectIndex}
         activeEnter={activeEnter}
         hasActiveOptions={hasActiveOptions}
-        handleActiveEnterFocus={handleActiveEnterFocus}
-        handleFocus={handleFocus}
-        handleActiveEnterBlur={handleActiveEnterBlur}
-        handleBlur={handleBlur}
-        handleClick={handleClick}
-        handleActiveOptionsKeyPress={handleActiveOptionsKeyPress}
-        handleKeyPress={handleKeyPress}
-        handleActiveOptionsKeyUp={handleActiveOptionsKeyUp}
-        handleKeyUp={handleKeyUp}
-        handleActiveOptionsKeyDown={handleActiveOptionsKeyDown}
-        handleKeyDown={handleKeyDown}
+        onActiveEnterFocus={handleActiveEnterFocus}
+        onFocus={handleFocus}
+        onActiveEnterBlur={handleActiveEnterBlur}
+        onBlur={handleBlur}
+        onClick={handleClick}
+        onActiveOptionsKeyPress={handleActiveOptionsKeyPress}
+        onKeyPress={handleKeyPress}
+        onActiveOptionsKeyUp={handleActiveOptionsKeyUp}
+        onKeyUp={handleKeyUp}
+        onActiveOptionsKeyDown={handleActiveOptionsKeyDown}
+        onKeyDown={handleKeyDown}
       />
       <Options
         activeOptionRef={activeOptionRef}
@@ -301,9 +352,9 @@ export default function Select ({
         selectIndex={selectIndex}
         activeIndex={activeIndex}
         hasActiveOptions={hasActiveOptions}
-        handleActiveIndexChange={handleActiveIndexChange}
-        handleActiveEnterChange={setActiveEnter}
-        handleOptionClick={handleOptionClick}
+        onActiveIndexChange={handleActiveIndexChange}
+        onActiveEnterChange={setActiveEnter}
+        onOptionClick={handleOptionClick}
         id={id}
       />
     </div>

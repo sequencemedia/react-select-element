@@ -1,4 +1,7 @@
-import React, { useMemo } from 'react'
+import React, {
+  useMemo,
+  useCallback
+} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -12,21 +15,29 @@ export default function Options ({
   activeIndex,
   hasActiveOptions,
   id,
-  handleActiveIndexChange,
-  handleActiveEnterChange,
-  handleOptionClick
+  onActiveIndexChange,
+  onActiveEnterChange,
+  onOptionClick
 }) {
   const className = useMemo(() => (
     classNames('options', { active: hasActiveOptions })
   ), [hasActiveOptions])
+
+  const handleMouseEnter = useCallback(() => {
+    onActiveEnterChange(true)
+  }, [hasActiveOptions])
+
+  const handleMouseLeave = useCallback(() => {
+    onActiveEnterChange(false)
+  }, [hasActiveOptions])
 
   if (options.length) {
     return (
       <ul
         ref={optionsRef}
         className={className}
-        onMouseEnter={() => handleActiveEnterChange(true)}
-        onMouseLeave={() => handleActiveEnterChange(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         role='listbox'
         aria-hidden={!hasActiveOptions}
         id={id}>
@@ -37,8 +48,8 @@ export default function Options ({
             index={index}
             selectIndex={selectIndex}
             activeIndex={activeIndex}
-            handleActiveIndexChange={handleActiveIndexChange}
-            handleClick={handleOptionClick}
+            onActiveIndexChange={onActiveIndexChange}
+            onClick={onOptionClick}
             key={index}
           />
         ))}
@@ -69,7 +80,7 @@ Options.propTypes = {
   activeIndex: PropTypes.number.isRequired,
   hasActiveOptions: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  handleActiveIndexChange: PropTypes.func.isRequired,
-  handleActiveEnterChange: PropTypes.func.isRequired,
-  handleOptionClick: PropTypes.func.isRequired
+  onActiveIndexChange: PropTypes.func.isRequired,
+  onActiveEnterChange: PropTypes.func.isRequired,
+  onOptionClick: PropTypes.func.isRequired
 }

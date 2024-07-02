@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react'
+import React, {
+  useMemo
+} from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -8,7 +10,10 @@ import {
 export default function SelectedOptionReadOnly ({ selectOptionRef, options, selectIndex, children }) {
   const {
     text
-  } = useMemo(() => options[selectIndex] || {}, [options, selectIndex])
+  } = useMemo(() => options[selectIndex] || {}, [
+    options,
+    selectIndex
+  ])
 
   return (
     <div

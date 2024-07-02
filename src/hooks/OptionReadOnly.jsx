@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react'
+import React, {
+  useMemo
+} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -17,7 +19,10 @@ export default function OptionReadOnly ({
 }) {
   const className = useMemo(() => (
     classNames({ selected: (index === selectIndex) }, 'option')
-  ), [index, selectIndex])
+  ), [
+    index,
+    selectIndex
+  ])
 
   return (
     <li
