@@ -123,8 +123,7 @@ export default class SelectElement extends Component {
 
   handleActiveOptionsKeyPress = (event) => {
     if (isKeyEnter(event) || isKeySpace(event)) return
-
-    return this.handleActiveOptionsKeyChar(event)
+    this.handleActiveOptionsKeyChar(event)
   }
 
   handleKeyPress = (event) => this.handleKeyChar(event)
@@ -360,26 +359,30 @@ export default class SelectElement extends Component {
   }
 
   getOptionsFirstChild () {
-    return (this.getOptions()
-      .firstChild
+    return (
+      this.getOptions()
+        .firstChild
     ) || null
   }
 
   getOptionsLastChild () {
-    return (this.getOptions()
-      .lastChild
+    return (
+      this.getOptions()
+        .lastChild
     ) || null
   }
 
   getActiveOptionPreviousSibling () {
-    return (this.getActiveOption()
-      .previousSibling
+    return (
+      this.getActiveOption()
+        .previousSibling
     ) || null
   }
 
   getActiveOptionNextSibling () {
-    return (this.getActiveOption()
-      .nextSibling
+    return (
+      this.getActiveOption()
+        .nextSibling
     ) || null
   }
 
@@ -395,7 +398,7 @@ export default class SelectElement extends Component {
     return 'selected-option'
   }
 
-  getSelectedOptionReadOnlyClassName (index) {
+  getSelectedOptionReadOnlyClassName () {
     return 'selected-option'
   }
 
