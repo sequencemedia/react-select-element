@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import SelectElement from 'react-select-element'
+
+function DEFAULT_HANDLE_CHANGE () {
+  //
+}
 
 export default class HiddenSelectElement extends Component {
   state = {}
 
   handleIndexChange = (index) => {
-    const { options, onChange } = this.props
+    const { options = [], onChange = DEFAULT_HANDLE_CHANGE } = this.props
     const { text } = options[index]
 
     this.setState({ value: text })
@@ -30,20 +33,5 @@ export default class HiddenSelectElement extends Component {
 }
 
 HiddenSelectElement.propTypes = {
-  onChange: PropTypes.func,
-  index: PropTypes.number,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-      ])
-    })
-  )
-}
-
-HiddenSelectElement.defaultProps = {
-  onChange: () => {},
-  index: 0,
-  options: []
+  ...SelectElement.propTypes
 }

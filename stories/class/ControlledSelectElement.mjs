@@ -6,14 +6,18 @@ import {
 } from 'react-select-element/common'
 import SelectElement from 'react-select-element'
 
+function DEFAULT_HANDLE_CHANGE () {
+  //
+}
+
 export default class ControlledSelectElement extends React.Component {
   state = {
-    index: getSelectIndex(this.props)
+    index: getSelectIndex(this.props) ?? 0
   }
 
   handleChange = (index) => {
     const {
-      onChange
+      onChange = DEFAULT_HANDLE_CHANGE
     } = this.props
 
     onChange(index)
@@ -22,7 +26,7 @@ export default class ControlledSelectElement extends React.Component {
   }
 
   render () {
-    const { index } = this.state
+    const { index = 0 } = this.state
 
     return (
       <SelectElement
@@ -45,10 +49,4 @@ ControlledSelectElement.propTypes = {
       ])
     })
   )
-}
-
-ControlledSelectElement.defaultProps = {
-  onChange: () => {},
-  index: 0,
-  options: []
 }

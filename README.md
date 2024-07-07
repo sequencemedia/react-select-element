@@ -208,11 +208,15 @@ You want to compose it into a `<form />`.
 In this case, you've chosen to compose the `<Select />` into a controlling component which renders the `text` of the selected option into the `value` attribute of an `<input type='hidden' />` element.
 
 ```jsx
+function DEFAULT_HANDLE_CHANGE () {
+  //
+}
+
 class HiddenSelect extends Component {
   state = {}
 
   handleIndexChange = (index) => {
-    const { options, onChange } = this.props
+    const { options = [], onChange = DEFAULT_HANDLE_CHANGE } = this.props
     const { text } = options[index]
 
     this.setState({ value: text })
@@ -235,13 +239,7 @@ class HiddenSelect extends Component {
 }
 
 HiddenSelect.propTypes = {
-  ...Select.propTypes,
-  onChange: PropTypes.func
-}
-
-HiddenSelect.defaultProps = {
-  ...Select.defaultProps,
-  onChange: () => {}
+  ...Select.propTypes
 }
 ```
 
