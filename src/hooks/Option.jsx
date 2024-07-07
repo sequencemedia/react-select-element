@@ -3,7 +3,7 @@ import React, {
   useCallback
 } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import classNames from 'classnames/dedupe'
 
 import {
   toOptionText
@@ -20,30 +20,33 @@ export default function Option ({
     text
   }
 }) {
+  /**
+   *  Dependencies ordered from most to least likely to change
+   */
   const className = useMemo(() => (
-    classNames({ selected: (index === selectIndex) }, 'option', { active: (index === activeIndex) })
+    classNames('option', { active: (index === activeIndex), selected: (index === selectIndex) })
   ), [
+    activeIndex,
     index,
-    selectIndex,
-    activeIndex
+    selectIndex
   ])
 
   const handleMouseEnter = useCallback(() => onActiveIndexChange(index), [
+    activeIndex,
     index,
-    selectIndex,
-    activeIndex
+    selectIndex
   ])
 
   const handleMouseLeave = useCallback(() => onActiveIndexChange(index), [
+    activeIndex,
     index,
-    selectIndex,
-    activeIndex
+    selectIndex
   ])
 
   const handleClick = useCallback(() => onClick(index), [
+    activeIndex,
     index,
-    selectIndex,
-    activeIndex
+    selectIndex
   ])
 
   return (

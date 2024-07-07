@@ -11,7 +11,6 @@ export default function SelectedOption ({
   selectOptionRef,
   accessKey,
   tabIndex,
-  children,
   options,
   selectIndex,
   activeEnter,
@@ -26,7 +25,8 @@ export default function SelectedOption ({
   onActiveOptionsKeyUp,
   onKeyUp,
   onActiveOptionsKeyDown,
-  onKeyDown
+  onKeyDown,
+  children = null
 }) {
   const {
     text

@@ -2,7 +2,7 @@ import React, {
   useMemo
 } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import classNames from 'classnames/dedupe'
 
 import {
   toOptionText
@@ -18,7 +18,7 @@ export default function OptionDisabled ({
   }
 }) {
   const className = useMemo(() => (
-    classNames({ selected: (index === selectIndex) }, 'option')
+    classNames('option', { selected: (index === selectIndex) })
   ), [
     index,
     selectIndex

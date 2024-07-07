@@ -1,7 +1,7 @@
 import React, { createRef, Component } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
-import classNames from 'classnames'
+import classNames from 'classnames/dedupe'
 
 import {
   isKeyEnter,
@@ -419,7 +419,7 @@ export default class SelectElement extends Component {
     const { selectIndex } = this.state
 
     return (
-      classNames({ selected: (index === selectIndex) }, 'option')
+      classNames('option', { selected: (index === selectIndex) })
     )
   }
 
@@ -427,18 +427,18 @@ export default class SelectElement extends Component {
     const { selectIndex } = this.state
 
     return (
-      classNames({ selected: (index === selectIndex) }, 'option')
+      classNames('option', { selected: (index === selectIndex) })
     )
   }
 
   getOptionClassName (index) {
     const {
-      selectIndex,
-      activeIndex
+      activeIndex,
+      selectIndex
     } = this.state
 
     return (
-      classNames({ selected: (index === selectIndex) }, 'option', { active: (index === activeIndex) })
+      classNames('option', { active: (index === activeIndex), selected: (index === selectIndex) })
     )
   }
 
@@ -458,10 +458,10 @@ export default class SelectElement extends Component {
     if (props !== this.props) return true
 
     return (
-      (state.selectIndex !== this.state.selectIndex) ||
       (state.hasActiveOptions !== this.state.hasActiveOptions) ||
       (state.activeEnter !== this.state.activeEnter) ||
-      (state.activeIndex !== this.state.activeIndex)
+      (state.activeIndex !== this.state.activeIndex) ||
+      (state.selectIndex !== this.state.selectIndex)
     )
   }
 
@@ -470,7 +470,7 @@ export default class SelectElement extends Component {
   }
 
   renderSelectedOptionDisabled () {
-    const { children } = this.props
+    const { children = null } = this.props
 
     return (
       <div
@@ -486,7 +486,7 @@ export default class SelectElement extends Component {
   }
 
   renderSelectedOptionReadOnly () {
-    const { children } = this.props
+    const { children = null } = this.props
 
     return (
       <div
@@ -505,7 +505,7 @@ export default class SelectElement extends Component {
     const {
       accessKey,
       tabIndex = 0,
-      children
+      children = null
     } = this.props
 
     const {

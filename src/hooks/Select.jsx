@@ -33,6 +33,7 @@ export default function Select ({
   selectOptionRef,
   optionsRef,
   activeOptionRef,
+  children = null,
   id
 }) {
   const [hasActiveOptions, setHasActiveOptions] = useState(false)
@@ -58,7 +59,7 @@ export default function Select ({
   } = selectOptionRef
 
   const handleFocus = useCallback(function onFocus () {
-    handleActiveIndexChange(selectIndex)
+    handleActiveIndexChange(selectIndex) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
     hasActiveOptions,
     selectIndex
@@ -92,7 +93,7 @@ export default function Select ({
 
   const handleOptionClick = useCallback(function onOptionClick (index) {
     setHasActiveOptions(false)
-    if (index !== selectIndex) handleSelectIndexChange(index)
+    handleSelectIndexChange(index) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
     if (current) current.focus()
   }, [
     hasActiveOptions,
@@ -136,7 +137,7 @@ export default function Select ({
 
   const handleKeySpace = useCallback(function onKeySpace () {
     setHasActiveOptions(false)
-    if (activeIndex !== selectIndex) handleSelectIndexChange(activeIndex)
+    handleSelectIndexChange(activeIndex) // let `handleSelectIndexChange` handle `(activeIndex !== selectIndex)`
   }, [
     hasActiveOptions,
     selectIndex,
@@ -145,7 +146,7 @@ export default function Select ({
 
   const handleKeyEnter = useCallback(function onKeyEnter () {
     setHasActiveOptions(false)
-    if (activeIndex !== selectIndex) handleSelectIndexChange(activeIndex)
+    handleSelectIndexChange(activeIndex) // let `handleSelectIndexChange` handle `(activeIndex !== selectIndex)`
   }, [
     hasActiveOptions,
     selectIndex,
@@ -158,7 +159,7 @@ export default function Select ({
 
   const decrementActiveIndex = useCallback(function decrementActiveIndex () {
     const index = Math.max(activeIndex - 1, lowerBound)
-    if (index !== activeIndex) handleActiveIndexChange(index)
+    handleActiveIndexChange(index) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
     activeIndex,
     lowerBound
@@ -166,7 +167,7 @@ export default function Select ({
 
   const incrementActiveIndex = useCallback(function incrementActiveIndex () {
     const index = Math.min(activeIndex + 1, upperBound)
-    if (index !== activeIndex) handleActiveIndexChange(index)
+    handleActiveIndexChange(index) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
     activeIndex,
     upperBound
@@ -197,33 +198,39 @@ export default function Select ({
     */
     if (hasExactMatch(options, chars)) {
       setActiveChars(chars)
-      const index = getExactMatchIndex(options, chars)
-      if (index !== activeIndex) handleActiveIndexChange(index)
+      handleActiveIndexChange(
+        getExactMatchIndex(options, chars) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+      )
     } else {
       if (hasStartMatch(options, chars)) {
         setActiveChars(chars)
-        const index = getStartMatchIndex(options, chars)
-        if (index !== activeIndex) handleActiveIndexChange(index)
+        handleActiveIndexChange(
+          getStartMatchIndex(options, chars) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+        )
       } else {
         if (hasExactMatch(options, char)) {
           setActiveChars(char)
-          const index = getExactMatchIndex(options, char)
-          if (index !== activeIndex) handleActiveIndexChange(index)
+          handleActiveIndexChange(
+            getExactMatchIndex(options, char) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+          )
         } else {
           if (hasStartMatch(options, char)) {
             setActiveChars(char)
-            const index = getStartMatchIndex(options, char)
-            if (index !== activeIndex) handleActiveIndexChange(index)
+            handleActiveIndexChange(
+              getStartMatchIndex(options, char) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+            )
           } else {
             if (hasGreaterThanMatch(options, char)) {
               setActiveChars('')
-              const index = getGreaterThanMatchIndex(options, char)
-              if (index !== activeIndex) handleActiveIndexChange(index)
+              handleActiveIndexChange(
+                getGreaterThanMatchIndex(options, char) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+              )
             } else {
               if (hasSmallerThanMatch(options, char)) {
                 setActiveChars('')
-                const index = getSmallerThanMatchIndex(options, char)
-                if (index !== activeIndex) handleActiveIndexChange(index)
+                handleActiveIndexChange(
+                  getSmallerThanMatchIndex(options, char) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
+                )
               }
             }
           }
@@ -232,9 +239,9 @@ export default function Select ({
     }
   }, [
     activeChars,
-    selectIndex,
     activeIndex,
-    options
+    options,
+    selectIndex
   ])
 
   const handleKeyChar = useCallback(function onKeyChar ({ charCode: keyChar }) {
@@ -246,28 +253,33 @@ export default function Select ({
     */
     if (hasExactMatch(options, chars)) {
       setActiveChars(chars)
-      const index = getExactMatchIndex(options, chars)
-      if (index !== selectIndex) handleSelectIndexChange(index)
+      handleSelectIndexChange(
+        getExactMatchIndex(options, chars) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
+      )
     } else {
       if (hasStartMatch(options, chars)) {
         setActiveChars(chars)
-        const index = getStartMatchIndex(options, chars)
-        if (index !== selectIndex) handleSelectIndexChange(index)
+        handleSelectIndexChange(
+          getStartMatchIndex(options, chars) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
+        )
       } else {
         if (hasExactMatch(options, char)) {
           setActiveChars(char)
-          const index = getExactMatchIndex(options, char)
-          if (index !== selectIndex) handleSelectIndexChange(index)
+          handleSelectIndexChange(
+            getExactMatchIndex(options, char) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
+          )
         } else {
           if (hasStartMatch(options, char)) {
             setActiveChars(char)
-            const index = getStartMatchIndex(options, char)
-            if (index !== selectIndex) handleSelectIndexChange(index)
+            handleSelectIndexChange(
+              getStartMatchIndex(options, char) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
+            )
           } else {
             if (hasGreaterThanMatch(options, char)) {
               setActiveChars('')
-              const index = getGreaterThanMatchIndex(options, char)
-              if (index !== selectIndex) handleSelectIndexChange(index)
+              handleSelectIndexChange(
+                getGreaterThanMatchIndex(options, char) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
+              )
             }
           }
         }
@@ -275,9 +287,9 @@ export default function Select ({
     }
   }, [
     activeChars,
-    selectIndex,
     activeIndex,
-    options
+    options,
+    selectIndex
   ])
 
   const handleActiveOptionsKeyCode = useCallback(function onActiveOptionsKeyCode (event) {
@@ -304,8 +316,8 @@ export default function Select ({
     }
   }, [
     hasActiveOptions,
-    selectIndex,
     activeIndex,
+    selectIndex,
     upperBound,
     lowerBound
   ])
@@ -343,8 +355,9 @@ export default function Select ({
         onActiveOptionsKeyUp={handleActiveOptionsKeyUp}
         onKeyUp={handleKeyUp}
         onActiveOptionsKeyDown={handleActiveOptionsKeyDown}
-        onKeyDown={handleKeyDown}
-      />
+        onKeyDown={handleKeyDown}>
+        {children}
+      </SelectedOption>
       <Options
         activeOptionRef={activeOptionRef}
         optionsRef={optionsRef}

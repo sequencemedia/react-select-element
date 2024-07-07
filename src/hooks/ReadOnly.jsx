@@ -10,6 +10,7 @@ export default function ReadOnly ({
   activeOptionRef,
   options,
   selectIndex,
+  children = null,
   activeIndex,
   id
 }) {
@@ -22,8 +23,9 @@ export default function ReadOnly ({
       <SelectedOptionReadOnly
         selectOptionRef={selectOptionRef}
         options={options}
-        selectIndex={selectIndex}
-      />
+        selectIndex={selectIndex}>
+        {children}
+      </SelectedOptionReadOnly>
       <OptionsReadOnly
         optionsRef={optionsRef}
         activeOptionRef={activeOptionRef}
@@ -60,5 +62,6 @@ ReadOnly.propTypes = {
     })
   ).isRequired,
   selectIndex: PropTypes.number.isRequired,
-  activeIndex: PropTypes.number.isRequired
+  activeIndex: PropTypes.number.isRequired,
+  children: PropTypes.node
 }

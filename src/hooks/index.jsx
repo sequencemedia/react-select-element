@@ -1,6 +1,7 @@
 import React, {
   createRef,
-  useState
+  useState,
+  useCallback
 } from 'react'
 import PropTypes from 'prop-types'
 import { nanoid } from 'nanoid'
@@ -28,39 +29,7 @@ export default function SelectElement (props) {
   const optionsRef = createRef()
   const activeOptionRef = createRef()
 
-  const { disabled = false } = props
-
-  if (disabled) {
-    return (
-      <Disabled
-        id={id}
-        selectIndex={selectIndex}
-        activeIndex={activeIndex}
-        selectOptionRef={selectOptionRef}
-        optionsRef={optionsRef}
-        activeOptionRef={activeOptionRef}
-        {...props}
-      />
-    )
-  }
-
-  const { readOnly = false } = props
-
-  if (readOnly) {
-    return (
-      <ReadOnly
-        id={id}
-        selectIndex={selectIndex}
-        activeIndex={activeIndex}
-        selectOptionRef={selectOptionRef}
-        optionsRef={optionsRef}
-        activeOptionRef={activeOptionRef}
-        {...props}
-      />
-    )
-  }
-
-  function handleSelectIndexChange (index) {
+  const handleSelectIndexChange = useCallback(function onSelectIndexChange (index) {
     /*
      * Is the index different to the index stored in state?
      */
@@ -77,10 +46,46 @@ export default function SelectElement (props) {
        */
       setSelectIndex(index)
     }
+  }, [
+    selectIndex
+  ])
+
+  const handleActiveIndexChange = useCallback(function onActiveIndexChange (index) {
+    if (index !== activeIndex) setActiveIndex(index)
+  }, [
+    activeIndex
+  ])
+
+  const { disabled = false } = props
+
+  if (disabled) {
+    return (
+      <Disabled
+        id={id}
+        selectIndex={selectIndex}
+        activeIndex={activeIndex}
+        selectOptionRef={selectOptionRef}
+        optionsRef={optionsRef}
+        activeOptionRef={activeOptionRef}
+        {...props} // children
+      />
+    )
   }
 
-  function handleActiveIndexChange (index) {
-    if (index !== activeIndex) setActiveIndex(index)
+  const { readOnly = false } = props
+
+  if (readOnly) {
+    return (
+      <ReadOnly
+        id={id}
+        selectIndex={selectIndex}
+        activeIndex={activeIndex}
+        selectOptionRef={selectOptionRef}
+        optionsRef={optionsRef}
+        activeOptionRef={activeOptionRef}
+        {...props} // children
+      />
+    )
   }
 
   return (
@@ -93,7 +98,7 @@ export default function SelectElement (props) {
       selectOptionRef={selectOptionRef}
       optionsRef={optionsRef}
       activeOptionRef={activeOptionRef}
-      {...props}
+      {...props} // children
     />
   )
 }

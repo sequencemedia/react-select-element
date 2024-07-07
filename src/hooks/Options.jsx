@@ -3,7 +3,7 @@ import React, {
   useCallback
 } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import classNames from 'classnames/dedupe'
 
 import Option from './Option'
 
@@ -25,11 +25,11 @@ export default function Options ({
 
   const handleMouseEnter = useCallback(() => {
     onActiveEnterChange(true)
-  }, [hasActiveOptions])
+  }, []) // hasActiveOptions])
 
   const handleMouseLeave = useCallback(() => {
     onActiveEnterChange(false)
-  }, [hasActiveOptions])
+  }, []) // hasActiveOptions])
 
   if (options.length) {
     return (

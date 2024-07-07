@@ -7,7 +7,12 @@ import {
   toOptionText
 } from '#common'
 
-export default function SelectedOptionReadOnly ({ selectOptionRef, options, selectIndex, children }) {
+export default function SelectedOptionReadOnly ({
+  selectOptionRef,
+  options,
+  selectIndex,
+  children = null
+}) {
   const {
     text
   } = useMemo(() => options[selectIndex] || {}, [

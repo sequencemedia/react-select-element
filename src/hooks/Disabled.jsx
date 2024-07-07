@@ -10,6 +10,7 @@ export default function Disabled ({
   activeOptionRef,
   options,
   selectIndex,
+  children = null,
   activeIndex,
   id
 }) {
@@ -22,8 +23,9 @@ export default function Disabled ({
       <SelectedOptionDisabled
         selectOptionRef={selectOptionRef}
         options={options}
-        selectIndex={selectIndex}
-      />
+        selectIndex={selectIndex}>
+        {children}
+      </SelectedOptionDisabled>
       <OptionsDisabled
         optionsRef={optionsRef}
         activeOptionRef={activeOptionRef}
@@ -60,5 +62,6 @@ Disabled.propTypes = {
     })
   ).isRequired,
   selectIndex: PropTypes.number.isRequired,
-  activeIndex: PropTypes.number.isRequired
+  activeIndex: PropTypes.number.isRequired,
+  children: PropTypes.node
 }
