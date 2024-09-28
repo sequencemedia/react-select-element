@@ -22,6 +22,9 @@
 # Deps
 .depsrc
 
+# Hooks
+.husky/hooks
+
 # Storybook
 .storybook
 stories
