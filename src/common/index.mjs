@@ -147,4 +147,13 @@ export const getSmallerThanMatchIndex = (options, chars) => (
     ))
 )
 
-export const getSelectIndex = ({ index, defaultIndex = 0 }) => !isNaN(index) ? Number(index) : Number(defaultIndex)
+export function getSelectIndex ({ index, defaultIndex }) {
+  const i = Number(index)
+  if (!isNaN(i)) return i
+  else {
+    const d = Number(defaultIndex)
+    if (!isNaN(d)) return d
+  }
+
+  return NaN
+}
