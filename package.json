@@ -66,7 +66,10 @@
     "#common": "./src/common/index.mjs"
   },
   "exports": {
-    ".": "./index.cjs",
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.mjs"
+    },
     "./class": "./lib/class/index.js",
     "./common": "./lib/common/index.js",
     "./hooks": "./lib/hooks/index.js"
