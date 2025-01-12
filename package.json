@@ -43,6 +43,8 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/register": "^7.25.9",
     "@storybook/addon-actions": "7.6.20",
+    "@storybook/addon-interactions": "7.6.20",
+    "@storybook/addon-links": "7.6.20",
     "@storybook/react": "7.6.20",
     "@storybook/react-webpack5": "7.6.20",
     "babel-plugin-module-resolver": "^5.0.2",
