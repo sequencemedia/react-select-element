@@ -108,8 +108,8 @@ export default [
    */
   standard({
     files: [
-      'src/**/*.tsx',
-      'stories/**/*.jsx'
+      'src/**/*.{jsx,tsx}',
+      'stories/**/*.{jsx,tsx}'
     ],
     languageOptions: {
       parser: babelParser,

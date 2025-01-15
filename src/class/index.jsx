@@ -1,6 +1,10 @@
 import React, { createRef, Component } from 'react'
 import PropTypes from 'prop-types'
-import { nanoid } from 'nanoid'
+
+import {
+  nanoid
+} from 'nanoid'
+
 import classNames from 'classnames/dedupe'
 
 import {

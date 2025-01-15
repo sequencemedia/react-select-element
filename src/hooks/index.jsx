@@ -4,7 +4,10 @@ import React, {
   useCallback
 } from 'react'
 import PropTypes from 'prop-types'
-import { nanoid } from 'nanoid'
+
+import {
+  nanoid
+} from 'nanoid'
 
 import {
   getSelectIndex
@@ -34,7 +37,9 @@ export default function SelectElement (props) {
      * Is the index different to the index stored in state?
      */
     if (index !== selectIndex) {
-      const { onChange } = props
+      const {
+        onChange
+      } = props
 
       /*
        *  Always invoke 'onChange' if it is available
@@ -56,7 +61,9 @@ export default function SelectElement (props) {
     activeIndex
   ])
 
-  const { disabled = false } = props
+  const {
+    disabled = false
+  } = props
 
   if (disabled) {
     return (
