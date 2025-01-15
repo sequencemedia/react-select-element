@@ -88,7 +88,9 @@ export default class SelectElement extends Component {
   }
 
   handleFocus = () => {
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     this.activeIndex(selectIndex)
   }
@@ -143,7 +145,9 @@ export default class SelectElement extends Component {
   handleKeySpace () {
     this.setState({ hasActiveOptions: false })
 
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.selectIndex(activeIndex)
   }
@@ -151,7 +155,9 @@ export default class SelectElement extends Component {
   handleKeyEnter () {
     this.setState({ hasActiveOptions: false })
 
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.selectIndex(activeIndex)
   }
@@ -173,8 +179,12 @@ export default class SelectElement extends Component {
   }
 
   handleActiveOptionsKeyChar ({ charCode: keyChar }) {
-    const { activeChars } = this.state
-    const { options = [] } = this.props
+    const {
+      activeChars
+    } = this.state
+    const {
+      options = []
+    } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -225,8 +235,12 @@ export default class SelectElement extends Component {
   }
 
   handleKeyChar ({ charCode: keyChar }) {
-    const { activeChars } = this.state
-    const { options = [] } = this.props
+    const {
+      activeChars
+    } = this.state
+    const {
+      options = []
+    } = this.props
     const char = String.fromCharCode(keyChar).toLowerCase()
     const chars = activeChars + char
 
@@ -301,13 +315,17 @@ export default class SelectElement extends Component {
   }
 
   selectIndex (index) {
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     /*
      * Is the index different to the index stored in state?
      */
     if (index !== selectIndex) {
-      const { onChange } = this.props
+      const {
+        onChange
+      } = this.props
 
       /*
        *  Always invoke 'onChange' if it is available
@@ -327,7 +345,9 @@ export default class SelectElement extends Component {
   }
 
   activeIndex (index) {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     if (index !== activeIndex) {
       this.setState({ activeIndex: index })
@@ -335,7 +355,9 @@ export default class SelectElement extends Component {
   }
 
   decrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.activeIndex(
       Math.max(activeIndex - 1, this.lowerBound)
@@ -343,7 +365,9 @@ export default class SelectElement extends Component {
   }
 
   incrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.activeIndex(
       Math.min(activeIndex + 1, this.upperBound)
@@ -391,7 +415,9 @@ export default class SelectElement extends Component {
   }
 
   getOptionRef = (index) => {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     if (index === activeIndex) {
       return this.activeOption
@@ -411,8 +437,12 @@ export default class SelectElement extends Component {
   }
 
   getSelectedOption () {
-    const { options = [] } = this.props
-    const { selectIndex } = this.state
+    const {
+      options = []
+    } = this.props
+    const {
+      selectIndex
+    } = this.state
 
     return (
       options[selectIndex] || {}
@@ -420,7 +450,9 @@ export default class SelectElement extends Component {
   }
 
   getOptionDisabledClassName (index) {
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     return (
       classNames('option', { selected: (index === selectIndex) })
@@ -428,7 +460,9 @@ export default class SelectElement extends Component {
   }
 
   getOptionReadOnlyClassName (index) {
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     return (
       classNames('option', { selected: (index === selectIndex) })
@@ -447,7 +481,9 @@ export default class SelectElement extends Component {
   }
 
   getOptionsClassName () {
-    const { hasActiveOptions } = this.state
+    const {
+      hasActiveOptions
+    } = this.state
 
     return (
       classNames('options', { active: hasActiveOptions })
@@ -474,7 +510,9 @@ export default class SelectElement extends Component {
   }
 
   renderSelectedOptionDisabled () {
-    const { children = null } = this.props
+    const {
+      children = null
+    } = this.props
 
     return (
       <div
@@ -490,7 +528,9 @@ export default class SelectElement extends Component {
   }
 
   renderSelectedOptionReadOnly () {
-    const { children = null } = this.props
+    const {
+      children = null
+    } = this.props
 
     return (
       <div
@@ -555,7 +595,9 @@ export default class SelectElement extends Component {
   renderOptionDisabled = (option, index) => {
     const optionText = this.renderOptionText(option, index)
 
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     return (
       <li
@@ -572,7 +614,9 @@ export default class SelectElement extends Component {
   renderOptionReadOnly = (option, index) => {
     const optionText = this.renderOptionText(option, index)
 
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     return (
       <li
@@ -589,7 +633,9 @@ export default class SelectElement extends Component {
   renderOption = (option, index) => {
     const optionText = this.renderOptionText(option, index)
 
-    const { selectIndex } = this.state
+    const {
+      selectIndex
+    } = this.state
 
     const handleMouse = () => this.activeIndex(index)
 
@@ -609,10 +655,14 @@ export default class SelectElement extends Component {
   }
 
   renderOptionsDisabled () {
-    const { options = [] } = this.props
+    const {
+      options = []
+    } = this.props
 
     if (options.length) {
-      const { id } = this.state
+      const {
+        id
+      } = this.state
 
       return (
         <ul
@@ -628,10 +678,14 @@ export default class SelectElement extends Component {
   }
 
   renderOptionsReadOnly () {
-    const { options = [] } = this.props
+    const {
+      options = []
+    } = this.props
 
     if (options.length) {
-      const { id } = this.state
+      const {
+        id
+      } = this.state
 
       return (
         <ul
@@ -647,7 +701,9 @@ export default class SelectElement extends Component {
   }
 
   renderOptions () {
-    const { options = [] } = this.props
+    const {
+      options = []
+    } = this.props
 
     if (options.length) {
       const {
@@ -671,7 +727,9 @@ export default class SelectElement extends Component {
   }
 
   renderDisabled () {
-    const { id } = this.state
+    const {
+      id
+    } = this.state
 
     return (
       <div
@@ -686,7 +744,9 @@ export default class SelectElement extends Component {
   }
 
   renderReadOnly () {
-    const { id } = this.state
+    const {
+      id
+    } = this.state
 
     return (
       <div
@@ -701,13 +761,16 @@ export default class SelectElement extends Component {
   }
 
   render () {
-    const { disabled = false } = this.props
+    const { disabled = false } =
+       this.props
 
     if (disabled) {
       return this.renderDisabled()
     }
 
-    const { readOnly = false } = this.props
+    const {
+      readOnly = false
+    } = this.props
 
     if (readOnly) {
       return this.renderReadOnly()

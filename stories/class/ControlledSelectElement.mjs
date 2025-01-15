@@ -26,7 +26,9 @@ export default class ControlledSelectElement extends React.Component {
   }
 
   render () {
-    const { index = 0 } = this.state
+    const {
+      index = 0
+    } = this.state
 
     return (
       <SelectElement

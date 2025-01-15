@@ -2,7 +2,9 @@ import SelectElement from 'react-select-element'
 
 class InfiniteSelectElement extends SelectElement {
   incrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
     const incremented = activeIndex + 1
 
     this.activeIndex(
@@ -11,7 +13,9 @@ class InfiniteSelectElement extends SelectElement {
   }
 
   decrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
     const decremented = activeIndex - 1
 
     this.activeIndex(

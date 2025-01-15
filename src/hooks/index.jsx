@@ -79,7 +79,9 @@ export default function SelectElement (props) {
     )
   }
 
-  const { readOnly = false } = props
+  const {
+    readOnly = false
+  } = props
 
   if (readOnly) {
     return (

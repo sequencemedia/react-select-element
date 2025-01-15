@@ -128,7 +128,9 @@ To achieve this, you can `extend` the component and override two of its methods.
 ```javascript
 class InfiniteSelect extends Select {
   incrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
     const incremented = activeIndex + 1
 
     this.activeIndex(
@@ -137,7 +139,9 @@ class InfiniteSelect extends Select {
   }
 
   decrementActiveIndex () {
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
     const decremented = activeIndex - 1
 
     this.activeIndex(
@@ -170,7 +174,9 @@ class SelectSelect extends Select {
   incrementActiveIndex () {
     super.incrementActiveIndex()
 
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.selectIndex(
       Math.min(activeIndex + 1, this.upperBound)
@@ -180,7 +186,9 @@ class SelectSelect extends Select {
   decrementActiveIndex () {
     super.decrementActiveIndex()
 
-    const { activeIndex } = this.state
+    const {
+      activeIndex
+    } = this.state
 
     this.selectIndex(
       Math.max(activeIndex - 1, this.lowerBound)
@@ -216,15 +224,22 @@ class HiddenSelect extends Component {
   state = {}
 
   handleIndexChange = (index) => {
-    const { options = [], onChange = DEFAULT_HANDLE_CHANGE } = this.props
-    const { text } = options[index]
+    const {
+      options = [],
+      onChange = DEFAULT_HANDLE_CHANGE
+    } = this.props
+    const {
+      text
+    } = options[index]
 
     this.setState({ value: text })
     onChange(index)
   }
 
   render () {
-    const { value } = this.state
+    const {
+      value
+    } = this.state
 
     return (
       <div className='hidden-select'>

@@ -10,15 +10,22 @@ export default class HiddenSelectElement extends Component {
   state = {}
 
   handleIndexChange = (index) => {
-    const { options = [], onChange = DEFAULT_HANDLE_CHANGE } = this.props
-    const { text } = options[index]
+    const {
+      options = [],
+      onChange = DEFAULT_HANDLE_CHANGE
+    } = this.props
+    const {
+      text
+    } = options[index]
 
     this.setState({ value: text })
     onChange(index)
   }
 
   render () {
-    const { value = '' } = this.state
+    const {
+      value = ''
+    } = this.state
 
     return (
       <div className='hidden-select'>
