@@ -43,7 +43,7 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/register": "^7.25.9",
     "@chromatic-com/storybook": "^3.2.4",
-    "@sequencemedia/eslint-config-standard": "^0.2.17",
+    "@sequencemedia/eslint-config-standard": "^0.2.18",
     "@storybook/addon-actions": "^8.5.2",
     "@storybook/addon-interactions": "^8.5.2",
     "@storybook/addon-links": "^8.5.2",
