@@ -42,16 +42,16 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@babel/register": "^7.25.9",
-    "@chromatic-com/storybook": "^3.2.5",
+    "@chromatic-com/storybook": "^3.2.6",
     "@sequencemedia/eslint-config-standard": "^0.2.43",
-    "@storybook/addon-actions": "^8.6.4",
-    "@storybook/addon-interactions": "^8.6.4",
-    "@storybook/addon-links": "^8.6.4",
+    "@storybook/addon-actions": "^8.6.5",
+    "@storybook/addon-interactions": "^8.6.5",
+    "@storybook/addon-links": "^8.6.5",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/manager-api": "^8.6.4",
-    "@storybook/react": "^8.6.4",
-    "@storybook/react-webpack5": "^8.6.4",
-    "@storybook/theming": "^8.6.4",
+    "@storybook/manager-api": "^8.6.5",
+    "@storybook/react": "^8.6.5",
+    "@storybook/react-webpack5": "^8.6.5",
+    "@storybook/theming": "^8.6.5",
     "babel-plugin-module-resolver": "^5.0.2",
     "chai": "^5.2.0",
     "core-js": "^3.41.0",
@@ -67,7 +67,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^6.0.1",
-    "storybook": "^8.6.4"
+    "storybook": "^8.6.5"
   },
   "imports": {
     "#common": "./src/common/index.mjs"
