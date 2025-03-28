@@ -44,14 +44,14 @@
     "@babel/register": "^7.25.9",
     "@chromatic-com/storybook": "^3.2.6",
     "@sequencemedia/eslint-config-standard": "^0.2.47",
-    "@storybook/addon-actions": "^8.6.10",
-    "@storybook/addon-interactions": "^8.6.10",
-    "@storybook/addon-links": "^8.6.10",
+    "@storybook/addon-actions": "^8.6.11",
+    "@storybook/addon-interactions": "^8.6.11",
+    "@storybook/addon-links": "^8.6.11",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/manager-api": "^8.6.10",
-    "@storybook/react": "^8.6.10",
-    "@storybook/react-webpack5": "^8.6.10",
-    "@storybook/theming": "^8.6.10",
+    "@storybook/manager-api": "^8.6.11",
+    "@storybook/react": "^8.6.11",
+    "@storybook/react-webpack5": "^8.6.11",
+    "@storybook/theming": "^8.6.11",
     "babel-plugin-module-resolver": "^5.0.2",
     "chai": "^5.2.0",
     "core-js": "^3.41.0",
@@ -67,7 +67,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^6.0.1",
-    "storybook": "^8.6.10"
+    "storybook": "^8.6.11"
   },
   "imports": {
     "#common": "./src/common/index.mjs"
