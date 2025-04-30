@@ -54,7 +54,7 @@
     "@storybook/theming": "^8.6.12",
     "babel-plugin-module-resolver": "^5.0.2",
     "chai": "^5.2.0",
-    "core-js": "^3.41.0",
+    "core-js": "^3.42.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.25.1",
     "eslint-import-resolver-babel-module": "^5.3.2",
