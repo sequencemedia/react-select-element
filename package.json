@@ -36,10 +36,10 @@
     "nanoid": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.27.1",
+    "@babel/cli": "^7.27.2",
     "@babel/core": "^7.27.1",
     "@babel/eslint-parser": "^7.27.1",
-    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/register": "^7.27.1",
     "@chromatic-com/storybook": "^3.2.6",
