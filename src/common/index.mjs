@@ -5,7 +5,7 @@ export const isKeyEnter = ({ key }) => key === ENTER
 
 export const isKeySpace = ({ key }) => key === SPACE
 
-/*
+/**
  *  'accesskey' events are raised as clicks with all-zero co-ordinates. All-zero
  *  coordinates are (of course) possible, but unlikely. This is a woolly way of
  *  identifying 'accesskey' events
@@ -67,18 +67,18 @@ export const smallerThanFor = (chars) => ({ text }) => {
   )
 }
 
-/*
- * Matches exactly
+/**
+ *  Matches exactly
  */
 export const getExactMatch = (options, chars) => options.find(exactMatchFor(chars))
 
-/*
- * Matches exactly
+/**
+ *  Matches exactly
  */
 export const hasExactMatch = (options, chars) => options.some(exactMatchFor(chars))
 
-/*
- * Matches exactly
+/**
+ *  Matches exactly
  */
 export const getExactMatchIndex = (options, chars) => (
   options
@@ -87,18 +87,18 @@ export const getExactMatchIndex = (options, chars) => (
     ))
 )
 
-/*
- * Match from the start of the string
+/**
+ *  Match from the start of the string
  */
 export const getStartMatch = (options, chars) => options.find(startMatchFor(chars))
 
-/*
- * Match from the start of the string
+/**
+ *  Match from the start of the string
  */
 export const hasStartMatch = (options, chars) => options.some(startMatchFor(chars))
 
-/*
- * Match from the start of the string
+/**
+ *  Match from the start of the string
  */
 export const getStartMatchIndex = (options, chars) => (
   options
@@ -107,12 +107,12 @@ export const getStartMatchIndex = (options, chars) => (
     ))
 )
 
-/*
+/**
  *  Find the the smallest match greater than the chars!
  */
 export const getGreaterThanMatch = (options, chars) => options.find(greaterThanFor(chars))
 
-/*
+/**
  *  Find the the smallest match greater than the chars!
  */
 export const hasGreaterThanMatch = (options, chars) => options.some(greaterThanFor(chars))
@@ -127,12 +127,12 @@ export const getGreaterThanMatchIndex = (options, chars) => (
     ))
 )
 
-/*
+/**
  *  Find the the largest match smaller than the chars!
  */
 export const getSmallerThanMatch = (options, chars) => options.find(smallerThanFor(chars))
 
-/*
+/**
  *  Find the the largest match smaller than the chars!
  */
 export const hasSmallerThanMatch = (options, chars) => options.some(smallerThanFor(chars))
