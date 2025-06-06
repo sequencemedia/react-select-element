@@ -3,8 +3,6 @@ export default {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   addons: [
-    '@storybook/addon-actions',
-    '@storybook/addon-interactions',
     '@storybook/addon-links',
     '@storybook/addon-webpack5-compiler-babel',
     '@chromatic-com/storybook'
