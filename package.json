@@ -64,6 +64,9 @@
     "rimraf": "^6.0.1",
     "storybook": "^9.0.5"
   },
+  "overrides": {
+    "storybook": "$storybook"
+  },
   "imports": {
     "#common": "./src/common/index.mjs"
   },
@@ -75,8 +78,5 @@
     "./class": "./lib/class/index.js",
     "./common": "./lib/common/index.js",
     "./hooks": "./lib/hooks/index.js"
-  },
-  "overrides": {
-    "storybook": "$storybook"
   }
 }
