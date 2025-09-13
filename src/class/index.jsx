@@ -761,8 +761,9 @@ export default class SelectElement extends Component {
   }
 
   render () {
-    const { disabled = false } =
-       this.props
+    const {
+      disabled = false
+    } = this.props
 
     if (disabled) {
       return this.renderDisabled()
