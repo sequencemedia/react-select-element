@@ -1,10 +1,23 @@
+/**
+ *  @typedef {object} OptionType
+ *  @property {string} text
+ */
+
 const ENTER = 'Enter'
 const SPACE = String.fromCharCode(32)
 
+/**
+ *  @param {{ key?: string }} event
+ *  @returns {boolean}
+ */
 export function isKeyEnter ({ key }) {
   return key === ENTER
 }
 
+/**
+ *  @param {{ key?: string }} event
+ *  @returns {boolean}
+ */
 export function isKeySpace ({ key }) {
   return key === SPACE
 }
@@ -18,18 +31,37 @@ export function isEventClickLike ({ pageX, pageY, screenX, screenY }) {
   return !(pageX || pageY || screenX || screenY)
 }
 
+/**
+ *  @param {string | number | boolean | null} [t]
+ *  @returns {string}
+ */
 export function toOptionText (t) {
   return (t !== undefined) ? String(t) : '\uFEFF'
 }
 
+/**
+ *  @param {string} alpha
+ *  @param {omega} omega
+ *  @returns {number}
+ */
 export function forward (alpha, omega) {
   return (alpha < omega) ? -1 : (alpha > omega) ? 1 : 0
 }
 
+/**
+ *  @param {string} alpha
+ *  @param {omega} omega
+ *  @returns {number}
+ */
 export function reverse (alpha, omega) {
   return (alpha < omega) ? 1 : (alpha > omega) ? -1 : 0
 }
 
+/**
+ *  @param {OptionType} alpha
+ *  @param {OptionType} omega
+ *  @returns {number}
+ */
 export function forwardByOptionText ({ text: alpha }, { text: omega }) {
   return (
     forward(
@@ -41,6 +73,11 @@ export function forwardByOptionText ({ text: alpha }, { text: omega }) {
   )
 }
 
+/**
+ *  @param {OptionType} alpha
+ *  @param {OptionType} omega
+ *  @returns {number}
+ */
 export function reverseByOptionText ({ text: alpha }, { text: omega }) {
   return (
     reverse(
@@ -52,6 +89,10 @@ export function reverseByOptionText ({ text: alpha }, { text: omega }) {
   )
 }
 
+/**
+ *  @param {string} chars
+ *  @returns {(option: OptionType) => boolean}
+ */
 export function hasExactMatchFor (chars) {
   return function isMatch ({ text }) {
     return (
@@ -61,6 +102,10 @@ export function hasExactMatchFor (chars) {
   }
 }
 
+/**
+ *  @param {string} chars
+ *  @returns {(option: OptionType) => boolean}
+ */
 export function hasStartMatchFor (chars) {
   return function isMatch ({ text }) {
     return (
@@ -71,12 +116,20 @@ export function hasStartMatchFor (chars) {
   }
 }
 
+/**
+ *  @param {string} alpha
+ *  @returns {(omega: string) => boolean}
+ */
 export function hasMatch (alpha) {
   return function isMatch (omega) {
     return alpha === omega
   }
 }
 
+/**
+ *  @param {string} chars
+ *  @returns {(option: OptionType) => boolean}
+ */
 export function hasGreaterThanFor (chars) {
   return function isGreaterThan ({ text }) {
     return ( // find in the duplicated, sorted array
@@ -87,6 +140,10 @@ export function hasGreaterThanFor (chars) {
   }
 }
 
+/**
+ *  @param {string} chars
+ *  @returns {(option: OptionType) => boolean}
+ */
 export function hasSmallerThanFor (chars) {
   return function isSmallerThan ({ text }) {
     return ( // find in the duplicated, sorted array
@@ -99,6 +156,10 @@ export function hasSmallerThanFor (chars) {
 
 /**
  *  Matches exactly
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {OptionType}
  */
 export function getExactMatch (options, chars) {
   return (
@@ -109,6 +170,10 @@ export function getExactMatch (options, chars) {
 
 /**
  *  Matches exactly
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {boolean}
  */
 export function hasExactMatch (options, chars) {
   return (
@@ -119,6 +184,10 @@ export function hasExactMatch (options, chars) {
 
 /**
  *  Matches exactly
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {number}
  */
 export function getExactMatchIndex (options, chars) {
   return (
@@ -129,6 +198,10 @@ export function getExactMatchIndex (options, chars) {
 
 /**
  *  Match from the start of the string
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {OptionType}
  */
 export function getStartMatch (options, chars) {
   return (
@@ -139,6 +212,10 @@ export function getStartMatch (options, chars) {
 
 /**
  *  Match from the start of the string
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {boolean}
  */
 export function hasStartMatch (options, chars) {
   return (
@@ -149,6 +226,10 @@ export function hasStartMatch (options, chars) {
 
 /**
  *  Match from the start of the string
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {number}
  */
 export function getStartMatchIndex (options, chars) {
   return (
@@ -159,6 +240,10 @@ export function getStartMatchIndex (options, chars) {
 
 /**
  *  Find the the smallest match greater than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {OptionType}
  */
 export function getGreaterThanMatch (options, chars) {
   return (
@@ -169,6 +254,10 @@ export function getGreaterThanMatch (options, chars) {
 
 /**
  *  Find the the smallest match greater than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {boolean}
  */
 export function hasGreaterThanMatch (options, chars) {
   return (
@@ -177,6 +266,13 @@ export function hasGreaterThanMatch (options, chars) {
   )
 }
 
+/**
+ *  Find the the smallest match greater than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {number}
+ */
 export function getGreaterThanMatchIndex (options, chars) {
   const forwardOptions = options.toSorted(forwardByOptionText)
 
@@ -191,6 +287,10 @@ export function getGreaterThanMatchIndex (options, chars) {
 
 /**
  *  Find the the largest match smaller than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {OptionType}
  */
 export function getSmallerThanMatch (options, chars) {
   return (
@@ -201,6 +301,10 @@ export function getSmallerThanMatch (options, chars) {
 
 /**
  *  Find the the largest match smaller than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {boolean}
  */
 export function hasSmallerThanMatch (options, chars) {
   return (
@@ -209,6 +313,13 @@ export function hasSmallerThanMatch (options, chars) {
   )
 }
 
+/**
+ *  Find the the largest match smaller than the chars!
+ *
+ *  @param {OptionType[]} options
+ *  @param {string} chars
+ *  @returns {number}
+ */
 export function getSmallerThanMatchIndex (options, chars) {
   const reverseOptions = options.toSorted(reverseByOptionText)
 
@@ -221,6 +332,10 @@ export function getSmallerThanMatchIndex (options, chars) {
   )
 }
 
+/**
+ *  @param {{ index?: number, defaultIndex?: number }} props
+ *  @returns {number | NaN}
+ */
 export function getSelectIndex ({ index, defaultIndex }) {
   const i = Number(index)
   if (!isNaN(i)) return i
