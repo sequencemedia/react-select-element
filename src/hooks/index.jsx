@@ -23,7 +23,7 @@ export default function SelectElement (props) {
       id
     } = props
 
-    return id || nanoid()
+    return id ?? nanoid()
   })
   const [selectIndex, setSelectIndex] = useState(() => getSelectIndex(props))
   const [activeIndex, setActiveIndex] = useState(0)

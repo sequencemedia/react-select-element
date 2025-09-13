@@ -15,7 +15,7 @@ export default function SelectedOptionReadOnly ({
 }) {
   const {
     text
-  } = useMemo(() => options[selectIndex] || {}, [
+  } = useMemo(() => options[selectIndex] ?? {}, [
     options,
     selectIndex
   ])
@@ -24,7 +24,7 @@ export default function SelectedOptionReadOnly ({
     <div
       ref={selectOptionRef}
       className='selected-option'>
-      {children || (
+      {children ?? (
         toOptionText(text)
       )}
     </div>

@@ -30,7 +30,7 @@ export default function SelectedOption ({
 }) {
   const {
     text
-  } = useMemo(() => options[selectIndex] || {}, [
+  } = useMemo(() => options[selectIndex] ?? {}, [
     options,
     selectIndex
   ])
@@ -67,7 +67,7 @@ export default function SelectedOption ({
       onKeyPress={handleKeyPress}
       onKeyUp={handleKeyUp}
       onKeyDown={handleKeyDown}>
-      {children || (
+      {children ?? (
         toOptionText(text)
       )}
     </div>

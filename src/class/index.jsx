@@ -36,7 +36,7 @@ export default class SelectElement extends Component {
     } = props
 
     this.state = {
-      id: id || nanoid(),
+      id: id ?? nanoid(),
       selectIndex: getSelectIndex(props),
       hasActiveOptions: false,
       activeEnter: false,
@@ -390,28 +390,28 @@ export default class SelectElement extends Component {
     return (
       this.getOptions()
         .firstChild
-    ) || null
+    ) ?? null
   }
 
   getOptionsLastChild () {
     return (
       this.getOptions()
         .lastChild
-    ) || null
+    ) ?? null
   }
 
   getActiveOptionPreviousSibling () {
     return (
       this.getActiveOption()
         .previousSibling
-    ) || null
+    ) ?? null
   }
 
   getActiveOptionNextSibling () {
     return (
       this.getActiveOption()
         .nextSibling
-    ) || null
+    ) ?? null
   }
 
   getOptionRef = (index) => {
@@ -445,7 +445,7 @@ export default class SelectElement extends Component {
     } = this.state
 
     return (
-      options[selectIndex] || {}
+      options[selectIndex] ?? {}
     )
   }
 
@@ -518,7 +518,7 @@ export default class SelectElement extends Component {
       <div
         ref={this.selectOption}
         className={this.getSelectedOptionDisabledClassName()}>
-        {children || (
+        {children ?? (
           this.renderSelectedOptionText(
             this.getSelectedOption()
           )
@@ -536,7 +536,7 @@ export default class SelectElement extends Component {
       <div
         ref={this.selectOption}
         className={this.getSelectedOptionReadOnlyClassName()}>
-        {children || (
+        {children ?? (
           this.renderSelectedOptionText(
             this.getSelectedOption()
           )
@@ -579,7 +579,7 @@ export default class SelectElement extends Component {
         onKeyDown={(hasActiveOptions)
           ? this.handleActiveOptionsKeyDown
           : this.handleKeyDown}>
-        {children || (
+        {children ?? (
           this.renderSelectedOptionText(
             this.getSelectedOption()
           )
