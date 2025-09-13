@@ -110,12 +110,12 @@ export default function Select ({
     options
   ])
 
-  const handleKeyPress = useCallback((event) => handleKeyChar(event), [
+  const handleKeyPress = useCallback(function onKeyPress (event) { handleKeyChar(event) }, [
     activeChars,
     options
   ])
 
-  const handleActiveOptionsKeyUp = useCallback((event) => handleActiveOptionsKeyCode(event), [
+  const handleActiveOptionsKeyUp = useCallback(function onActiveOptionsKeyUp (event) { handleActiveOptionsKeyCode(event) }, [
     hasActiveOptions,
     selectIndex,
     activeIndex,
@@ -123,7 +123,7 @@ export default function Select ({
     lowerBound
   ])
 
-  const handleActiveOptionsKeyDown = useCallback(() => { /* */ }, [
+  const handleActiveOptionsKeyDown = useCallback(function onActiveOptionsKeyDown () { /* */ }, [
     hasActiveOptions,
     selectIndex,
     activeIndex,
@@ -131,9 +131,9 @@ export default function Select ({
     lowerBound
   ])
 
-  const handleKeyUp = useCallback((event) => handleKeyCode(event), [hasActiveOptions])
+  const handleKeyUp = useCallback(function onKeyUp (event) { handleKeyCode(event) }, [hasActiveOptions])
 
-  const handleKeyDown = useCallback(() => { /* */ }, [hasActiveOptions])
+  const handleKeyDown = useCallback(function onKeyDown () { /* */ }, [hasActiveOptions])
 
   const handleKeySpace = useCallback(function onKeySpace () {
     setHasActiveOptions(false)

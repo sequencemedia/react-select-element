@@ -67,9 +67,7 @@ export default function SelectedOption ({
       onKeyPress={handleKeyPress}
       onKeyUp={handleKeyUp}
       onKeyDown={handleKeyDown}>
-      {children ?? (
-        toOptionText(text)
-      )}
+      {children ?? toOptionText(text)}
     </div>
   )
 }

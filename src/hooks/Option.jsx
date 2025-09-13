@@ -15,7 +15,7 @@ export default function Option ({
   selectIndex,
   activeIndex,
   onActiveIndexChange,
-  onClick,
+  onClick: onOptionClick,
   option: {
     text
   }
@@ -31,19 +31,19 @@ export default function Option ({
     selectIndex
   ])
 
-  const handleMouseEnter = useCallback(() => onActiveIndexChange(index), [
+  const handleMouseEnter = useCallback(function onMouseEnter () { onActiveIndexChange(index) }, [
     activeIndex,
     index,
     selectIndex
   ])
 
-  const handleMouseLeave = useCallback(() => onActiveIndexChange(index), [
+  const handleMouseLeave = useCallback(function onMouseLeave () { onActiveIndexChange(index) }, [
     activeIndex,
     index,
     selectIndex
   ])
 
-  const handleClick = useCallback(() => onClick(index), [
+  const handleClick = useCallback(function onClick () { onOptionClick(index) }, [
     activeIndex,
     index,
     selectIndex

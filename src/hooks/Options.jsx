@@ -23,11 +23,11 @@ export default function Options ({
     classNames('options', { active: hasActiveOptions })
   ), [hasActiveOptions])
 
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseEnter = useCallback(function onMouseEnter () {
     onActiveEnterChange(true)
   }, []) // hasActiveOptions])
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = useCallback(function onMouseLeave () {
     onActiveEnterChange(false)
   }, []) // hasActiveOptions])
 

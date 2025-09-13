@@ -24,9 +24,7 @@ export default function SelectedOptionDisabled ({
     <div
       ref={selectOptionRef}
       className='selected-option'>
-      {children ?? (
-        toOptionText(text)
-      )}
+      {children ?? toOptionText(text)}
     </div>
   )
 }
