@@ -8,23 +8,23 @@ import {
   reverse,
   reverseByOptionText,
   toOptionText,
-  match,
+  hasMatch,
   hasGreaterThanMatch,
   getGreaterThanMatch,
   getGreaterThanMatchIndex,
-  greaterThanFor,
+  hasGreaterThanFor,
   hasSmallerThanMatch,
   getSmallerThanMatch,
   getSmallerThanMatchIndex,
-  smallerThanFor,
+  hasSmallerThanFor,
   hasExactMatch,
   getExactMatch,
   getExactMatchIndex,
-  exactMatchFor,
+  hasExactMatchFor,
   hasStartMatch,
   getStartMatch,
   getStartMatchIndex,
-  startMatchFor,
+  hasStartMatchFor,
   getSelectIndex,
   isEventClickLike,
   isKeyEnter,
@@ -42,7 +42,7 @@ describe('`react-select-element`', () => {
 
   describe('`toOptionText`', () => it('is a function', () => expect(toOptionText).to.be.a('function')))
 
-  describe('`match`', () => it('is a function', () => expect(match).to.be.a('function')))
+  describe('`hasMatch`', () => it('is a function', () => expect(hasMatch).to.be.a('function')))
 
   describe('`hasGreaterThanMatch`', () => it('is a function', () => expect(hasGreaterThanMatch).to.be.a('function')))
 
@@ -50,7 +50,7 @@ describe('`react-select-element`', () => {
 
   describe('`getGreaterThanMatchIndex`', () => it('is a function', () => expect(getGreaterThanMatchIndex).to.be.a('function')))
 
-  describe('`greaterThanFor`', () => it('is a function', () => expect(greaterThanFor).to.be.a('function')))
+  describe('`hasGreaterThanFor`', () => it('is a function', () => expect(hasGreaterThanFor).to.be.a('function')))
 
   describe('`hasSmallerThanMatch`', () => it('is a function', () => expect(hasSmallerThanMatch).to.be.a('function')))
 
@@ -58,7 +58,7 @@ describe('`react-select-element`', () => {
 
   describe('`getSmallerThanMatchIndex`', () => it('is a function', () => expect(getSmallerThanMatchIndex).to.be.a('function')))
 
-  describe('`smallerThanFor`', () => it('is a function', () => expect(smallerThanFor).to.be.a('function')))
+  describe('`hasSmallerThanFor`', () => it('is a function', () => expect(hasSmallerThanFor).to.be.a('function')))
 
   describe('`hasExactMatch`', () => it('is a function', () => expect(hasExactMatch).to.be.a('function')))
 
@@ -66,7 +66,7 @@ describe('`react-select-element`', () => {
 
   describe('`getExactMatchIndex`', () => it('is a function', () => expect(getExactMatchIndex).to.be.a('function')))
 
-  describe('`exactMatchFor`', () => it('is a function', () => expect(exactMatchFor).to.be.a('function')))
+  describe('`hasExactMatchFor`', () => it('is a function', () => expect(hasExactMatchFor).to.be.a('function')))
 
   describe('`hasStartMatch`', () => it('is a function', () => expect(hasStartMatch).to.be.a('function')))
 
@@ -74,7 +74,7 @@ describe('`react-select-element`', () => {
 
   describe('`getStartMatchIndex`', () => it('is a function', () => expect(getStartMatchIndex).to.be.a('function')))
 
-  describe('`startMatchFor`', () => it('is a function', () => expect(startMatchFor).to.be.a('function')))
+  describe('`hasStartMatchFor`', () => it('is a function', () => expect(hasStartMatchFor).to.be.a('function')))
 
   describe('`getSelectIndex`', () => it('is a function', () => expect(getSelectIndex).to.be.a('function')))
 
@@ -136,12 +136,12 @@ describe('`react-select-element`', () => {
     describe('argument is null', () => it('returns a string', () => expect(toOptionText(null)).to.equal('null')))
   })
 
-  describe('`match()`', () => {
+  describe('`hasMatch()`', () => {
     describe('argument is a string', () => {
       let func
 
       beforeEach(() => {
-        func = match('a')
+        func = hasMatch('a')
       })
 
       it('returns a function', () => expect(func).to.be.a('function'))
@@ -165,10 +165,10 @@ describe('`react-select-element`', () => {
       let func
 
       beforeEach(() => {
-        func = match(1)
+        func = hasMatch(1)
       })
 
-      it('returns a function', () => expect(match(0)).to.be.a('function'))
+      it('returns a function', () => expect(hasMatch(0)).to.be.a('function'))
 
       describe('the function', () => {
         describe('argument is a string', () => it('returns false', () => expect(func('a')).to.be.false))
@@ -189,7 +189,7 @@ describe('`react-select-element`', () => {
       let func
 
       beforeEach(() => {
-        func = match(true)
+        func = hasMatch(true)
       })
 
       it('returns a function', () => expect(func).to.be.a('function'))
@@ -213,7 +213,7 @@ describe('`react-select-element`', () => {
       let func
 
       beforeEach(() => {
-        func = match()
+        func = hasMatch()
       })
 
       it('returns a function', () => expect(func).to.be.a('function'))
@@ -237,7 +237,7 @@ describe('`react-select-element`', () => {
       let func
 
       beforeEach(() => {
-        func = match(null)
+        func = hasMatch(null)
       })
 
       it('returns a function', () => expect(func).to.be.a('function'))
@@ -324,11 +324,11 @@ describe('`react-select-element`', () => {
     })
   })
 
-  describe('`greaterThanFor()`', () => {
+  describe('`hasGreaterThanFor()`', () => {
     let func
 
     beforeEach(() => {
-      func = greaterThanFor('zyx')
+      func = hasGreaterThanFor('zyx')
     })
 
     it('returns a function', () => expect(func).to.be.a('function'))
@@ -428,11 +428,11 @@ describe('`react-select-element`', () => {
     })
   })
 
-  describe('`smallerThanFor()`', () => {
+  describe('`hasSmallerThanFor()`', () => {
     let func
 
     beforeEach(() => {
-      func = smallerThanFor('abc')
+      func = hasSmallerThanFor('abc')
     })
 
     it('returns a function', () => expect(func).to.be.a('function'))
@@ -538,11 +538,11 @@ describe('`react-select-element`', () => {
     })
   })
 
-  describe('`exactMatchFor()`', () => {
+  describe('`hasExactMatchFor()`', () => {
     let func
 
     beforeEach(() => {
-      func = exactMatchFor('abc')
+      func = hasExactMatchFor('abc')
     })
 
     it('returns a function', () => expect(func).to.be.a('function'))
@@ -644,11 +644,11 @@ describe('`react-select-element`', () => {
     })
   })
 
-  describe('`startMatchFor()`', () => {
+  describe('`hasStartMatchFor()`', () => {
     let func
 
     beforeEach(() => {
-      func = startMatchFor('abc')
+      func = hasStartMatchFor('abc')
     })
 
     it('returns a function', () => expect(func).to.be.a('function'))

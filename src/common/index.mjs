@@ -1,151 +1,225 @@
 const ENTER = 'Enter'
 const SPACE = String.fromCharCode(32)
 
-export const isKeyEnter = ({ key }) => key === ENTER
+export function isKeyEnter ({ key }) {
+  return key === ENTER
+}
 
-export const isKeySpace = ({ key }) => key === SPACE
+export function isKeySpace ({ key }) {
+  return key === SPACE
+}
 
 /**
  *  'accesskey' events are raised as clicks with all-zero co-ordinates. All-zero
  *  coordinates are (of course) possible, but unlikely. This is a woolly way of
  *  identifying 'accesskey' events
  */
-export const isEventClickLike = ({ pageX, pageY, screenX, screenY }) => !(pageX || pageY || screenX || screenY)
+export function isEventClickLike ({ pageX, pageY, screenX, screenY }) {
+  return !(pageX || pageY || screenX || screenY)
+}
 
-export const toOptionText = (t) => (t !== undefined) ? String(t) : '\uFEFF'
+export function toOptionText (t) {
+  return (t !== undefined) ? String(t) : '\uFEFF'
+}
 
-export const forward = (alpha, omega) => (alpha < omega) ? -1 : (alpha > omega) ? 1 : 0
+export function forward (alpha, omega) {
+  return (alpha < omega) ? -1 : (alpha > omega) ? 1 : 0
+}
 
-export const reverse = (alpha, omega) => (alpha < omega) ? 1 : (alpha > omega) ? -1 : 0
+export function reverse (alpha, omega) {
+  return (alpha < omega) ? 1 : (alpha > omega) ? -1 : 0
+}
 
-export const forwardByOptionText = ({ text: alpha }, { text: omega }) => (
-  forward(
-    toOptionText(alpha)
-      .toLowerCase(),
-    toOptionText(omega)
-      .toLowerCase()
-  )
-)
-
-export const reverseByOptionText = ({ text: alpha }, { text: omega }) => (
-  reverse(
-    toOptionText(alpha)
-      .toLowerCase(),
-    toOptionText(omega)
-      .toLowerCase()
-  )
-)
-
-export const exactMatchFor = (chars) => ({ text }) => (
-  toOptionText(text)
-    .toLowerCase() === chars // `chars` is lower case
-)
-
-export const startMatchFor = (chars) => {
-  return ({ text }) => (
-    toOptionText(text)
-      .toLowerCase()
-      .startsWith(chars) // `chars` is lower case
+export function forwardByOptionText ({ text: alpha }, { text: omega }) {
+  return (
+    forward(
+      toOptionText(alpha)
+        .toLowerCase(),
+      toOptionText(omega)
+        .toLowerCase()
+    )
   )
 }
 
-export const match = (alpha) => (omega) => alpha === omega
-
-export const greaterThanFor = (chars) => ({ text }) => {
-  return ( // find in the duplicated, sorted array
-    toOptionText(text)
-      .toLowerCase() // the smallest match greater than the chars?
-      .localeCompare(chars) > 0
+export function reverseByOptionText ({ text: alpha }, { text: omega }) {
+  return (
+    reverse(
+      toOptionText(alpha)
+        .toLowerCase(),
+      toOptionText(omega)
+        .toLowerCase()
+    )
   )
 }
 
-export const smallerThanFor = (chars) => ({ text }) => {
-  return ( // find in the duplicated, sorted array
-    toOptionText(text)
-      .toLowerCase() // the largest match smaller than the chars?
-      .localeCompare(chars) < 0
+export function hasExactMatchFor (chars) {
+  return function isMatch ({ text }) {
+    return (
+      toOptionText(text)
+        .toLowerCase() === chars // `chars` is lower case
+    )
+  }
+}
+
+export function hasStartMatchFor (chars) {
+  return function isMatch ({ text }) {
+    return (
+      toOptionText(text)
+        .toLowerCase()
+        .startsWith(chars) // `chars` is lower case
+    )
+  }
+}
+
+export function hasMatch (alpha) {
+  return function isMatch (omega) {
+    return alpha === omega
+  }
+}
+
+export function hasGreaterThanFor (chars) {
+  return function isGreaterThan ({ text }) {
+    return ( // find in the duplicated, sorted array
+      toOptionText(text)
+        .toLowerCase() // the smallest match greater than the chars?
+        .localeCompare(chars) > 0
+    )
+  }
+}
+
+export function hasSmallerThanFor (chars) {
+  return function isSmallerThan ({ text }) {
+    return ( // find in the duplicated, sorted array
+      toOptionText(text)
+        .toLowerCase() // the largest match smaller than the chars?
+        .localeCompare(chars) < 0
+    )
+  }
+}
+
+/**
+ *  Matches exactly
+ */
+export function getExactMatch (options, chars) {
+  return (
+    options
+      .find(hasExactMatchFor(chars))
   )
 }
 
 /**
  *  Matches exactly
  */
-export const getExactMatch = (options, chars) => options.find(exactMatchFor(chars))
+export function hasExactMatch (options, chars) {
+  return (
+    options
+      .some(hasExactMatchFor(chars))
+  )
+}
 
 /**
  *  Matches exactly
  */
-export const hasExactMatch = (options, chars) => options.some(exactMatchFor(chars))
-
-/**
- *  Matches exactly
- */
-export const getExactMatchIndex = (options, chars) => (
-  options
-    .findIndex(match(
-      getExactMatch(options, chars)
-    ))
-)
+export function getExactMatchIndex (options, chars) {
+  return (
+    options
+      .findIndex(hasMatch(getExactMatch(options, chars)))
+  )
+}
 
 /**
  *  Match from the start of the string
  */
-export const getStartMatch = (options, chars) => options.find(startMatchFor(chars))
+export function getStartMatch (options, chars) {
+  return (
+    options
+      .find(hasStartMatchFor(chars))
+  )
+}
 
 /**
  *  Match from the start of the string
  */
-export const hasStartMatch = (options, chars) => options.some(startMatchFor(chars))
+export function hasStartMatch (options, chars) {
+  return (
+    options
+      .some(hasStartMatchFor(chars))
+  )
+}
 
 /**
  *  Match from the start of the string
  */
-export const getStartMatchIndex = (options, chars) => (
-  options
-    .findIndex(match(
-      getStartMatch(options, chars)
-    ))
-)
+export function getStartMatchIndex (options, chars) {
+  return (
+    options
+      .findIndex(hasMatch(getStartMatch(options, chars)))
+  )
+}
 
 /**
  *  Find the the smallest match greater than the chars!
  */
-export const getGreaterThanMatch = (options, chars) => options.find(greaterThanFor(chars))
+export function getGreaterThanMatch (options, chars) {
+  return (
+    options
+      .find(hasGreaterThanFor(chars))
+  )
+}
 
 /**
  *  Find the the smallest match greater than the chars!
  */
-export const hasGreaterThanMatch = (options, chars) => options.some(greaterThanFor(chars))
+export function hasGreaterThanMatch (options, chars) {
+  return (
+    options
+      .some(hasGreaterThanFor(chars))
+  )
+}
 
-export const getGreaterThanMatchIndex = (options, chars) => (
-  options
-    .findIndex(match(
-      getGreaterThanMatch(
-        Array.from(options).sort(forwardByOptionText),
+export function getGreaterThanMatchIndex (options, chars) {
+  const forwardOptions = options.toSorted(forwardByOptionText)
+
+  return (
+    options
+      .findIndex(hasMatch(getGreaterThanMatch(
+        forwardOptions,
         chars
-      )
-    ))
-)
+      )))
+  )
+}
 
 /**
  *  Find the the largest match smaller than the chars!
  */
-export const getSmallerThanMatch = (options, chars) => options.find(smallerThanFor(chars))
+export function getSmallerThanMatch (options, chars) {
+  return (
+    options
+      .find(hasSmallerThanFor(chars))
+  )
+}
 
 /**
  *  Find the the largest match smaller than the chars!
  */
-export const hasSmallerThanMatch = (options, chars) => options.some(smallerThanFor(chars))
+export function hasSmallerThanMatch (options, chars) {
+  return (
+    options
+      .some(hasSmallerThanFor(chars))
+  )
+}
 
-export const getSmallerThanMatchIndex = (options, chars) => (
-  options
-    .findIndex(match(
-      getSmallerThanMatch(
-        Array.from(options).sort(reverseByOptionText),
+export function getSmallerThanMatchIndex (options, chars) {
+  const reverseOptions = options.toSorted(reverseByOptionText)
+
+  return (
+    options
+      .findIndex(hasMatch(getSmallerThanMatch(
+        reverseOptions,
         chars
-      )
-    ))
-)
+      )))
+  )
+}
 
 export function getSelectIndex ({ index, defaultIndex }) {
   const i = Number(index)

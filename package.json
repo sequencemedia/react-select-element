@@ -29,6 +29,7 @@
     "prepare": "husky",
     "prepublishOnly": "npm run build",
     "storybook": "storybook dev -p 6006",
+    "pretest": "npm run build",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color"
   },
   "dependencies": {
