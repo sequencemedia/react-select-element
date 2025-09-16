@@ -28,8 +28,8 @@
     "prebuild": "npm run clean",
     "prepare": "husky",
     "prepublishOnly": "npm run build",
-    "storybook": "storybook dev -p 6006",
     "pretest": "npm run build",
+    "storybook": "storybook dev -p 6006",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color"
   },
   "dependencies": {
