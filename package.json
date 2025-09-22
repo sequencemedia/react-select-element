@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
-    "nanoid": "^5.1.5"
+    "nanoid": "^5.1.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
