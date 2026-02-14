@@ -43,11 +43,11 @@
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
     "@babel/register": "^7.28.6",
-    "@chromatic-com/storybook": "^5.0.0",
+    "@chromatic-com/storybook": "^5.0.1",
     "@sequencemedia/eslint-config-standard": "^0.2.107",
-    "@storybook/addon-links": "^10.2.7",
+    "@storybook/addon-links": "^10.2.8",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
-    "@storybook/react-webpack5": "^10.2.7",
+    "@storybook/react-webpack5": "^10.2.8",
     "babel-plugin-module-resolver": "^5.0.2",
     "chai": "^6.2.2",
     "core-js": "^3.48.0",
@@ -55,7 +55,7 @@
     "eslint": "9.38.0",
     "eslint-import-resolver-babel-module": "^5.3.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-storybook": "^10.2.7",
+    "eslint-plugin-storybook": "^10.2.8",
     "globals": "^17.3.0",
     "husky": "^9.1.7",
     "mocha": "^11.7.5",
@@ -63,7 +63,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "rimraf": "^6.1.2",
-    "storybook": "^10.2.7"
+    "storybook": "^10.2.8"
   },
   "overrides": {
     "storybook": "$storybook"
