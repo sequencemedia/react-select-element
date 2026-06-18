@@ -26,7 +26,7 @@
     "lint": "eslint",
     "lint:fix": "npm run lint -- --fix",
     "prebuild": "npm run clean",
-    "prepare": "husky",
+    "prepare": "node husky.mjs",
     "prepublishOnly": "npm run build",
     "pretest": "npm run build",
     "storybook": "storybook dev -p 6006",
