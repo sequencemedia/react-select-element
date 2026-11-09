@@ -79,5 +79,9 @@
     "./class": "./lib/class/index.js",
     "./common": "./lib/common/index.js",
     "./hooks": "./lib/hooks/index.js"
+  },
+  "allowScripts": {
+    "core-js@3.51.0": true,
+    "esbuild@0.28.2": true
   }
 }
