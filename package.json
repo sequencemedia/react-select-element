@@ -32,6 +32,10 @@
     "storybook": "storybook dev -p 6006",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --verbose --color"
   },
+  "allowScripts": {
+    "core-js@3.51.0": true,
+    "esbuild@0.28.2": true
+  },
   "dependencies": {
     "classnames": "^2.5.1",
     "nanoid": "^6.0.2"
@@ -79,9 +83,5 @@
     "./class": "./lib/class/index.js",
     "./common": "./lib/common/index.js",
     "./hooks": "./lib/hooks/index.js"
-  },
-  "allowScripts": {
-    "core-js@3.51.0": true,
-    "esbuild@0.28.2": true
   }
 }
