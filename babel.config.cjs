@@ -17,7 +17,8 @@ module.exports = {
   ],
   plugins: [
     [
-      'module-resolver', {
+      'module-resolver',
+      {
         alias: {
           'react-select-element': './src'
         }
