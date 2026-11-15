@@ -1,5 +1,5 @@
 import React, {
-  createRef,
+  useRef,
   useState,
   useCallback
 } from 'react'
@@ -28,9 +28,9 @@ export default function SelectElement (props) {
   const [selectIndex, setSelectIndex] = useState(() => getSelectIndex(props))
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const selectOptionRef = createRef()
-  const optionsRef = createRef()
-  const activeOptionRef = createRef()
+  const selectOptionRef = useRef()
+  const optionsRef = useRef()
+  const activeOptionRef = useRef()
 
   const handleSelectIndexChange = useCallback(function onSelectIndexChange (index) {
     /*

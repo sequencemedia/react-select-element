@@ -1,7 +1,7 @@
 import SelectElement from 'react-select-element'
 
 export default class SelectWithScrollIntoViewB extends SelectElement {
-  handleKeyArrowUp (event) {
+  handleKeyArrowUp () { // event) {
     super.handleKeyArrowUp()
 
     const sibling = this.getActiveOptionPreviousSibling()
@@ -9,7 +9,7 @@ export default class SelectWithScrollIntoViewB extends SelectElement {
     if (sibling) this.scrollOptionIntoView(sibling)
   }
 
-  handleKeyArrowDown (event) {
+  handleKeyArrowDown () { // event) {
     super.handleKeyArrowDown()
 
     const sibling = this.getActiveOptionNextSibling()
