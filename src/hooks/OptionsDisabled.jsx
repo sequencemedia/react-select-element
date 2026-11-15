@@ -26,7 +26,7 @@ export default function OptionsDisabled ({
             index={index}
             selectIndex={selectIndex}
             activeIndex={activeIndex}
-            key={index}
+            key={'option_disabled_' + index} // eslint-disable-line @eslint-react/no-array-index-key -- Key
           />
         ))}
       </ul>

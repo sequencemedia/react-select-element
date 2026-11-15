@@ -26,7 +26,7 @@ export default function OptionsReadOnly ({
             index={index}
             selectIndex={selectIndex}
             activeIndex={activeIndex}
-            key={index}
+            key={'option_read_only_' + index} // eslint-disable-line @eslint-react/no-array-index-key -- Key
           />
         ))}
       </ul>

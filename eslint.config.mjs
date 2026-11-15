@@ -53,6 +53,11 @@ const reactRules = {
 }
 
 export default [
+  {
+    ignores: [
+      'lib'
+    ]
+  },
   /**
    *  React config for all `jsx` and `tsx` files
    */

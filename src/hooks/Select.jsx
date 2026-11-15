@@ -61,20 +61,19 @@ export default function Select ({
   const handleFocus = useCallback(function onFocus () {
     handleActiveIndexChange(selectIndex) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
-    hasActiveOptions,
-    selectIndex
+    selectIndex,
+    handleActiveIndexChange
   ])
 
   const handleBlur = useCallback(function onBlur () {
     setHasActiveOptions(false)
   }, [
-    hasActiveOptions,
-    selectIndex
+    setHasActiveOptions
   ])
 
   const handleActiveEnterFocus = useCallback(function onActiveEnterFocus () {
     //
-  }, [current])
+  }, [])
 
   const handleActiveEnterBlur = useCallback(function onActiveEnterBlur () {
     if (current) current.focus()
@@ -87,8 +86,8 @@ export default function Select ({
       setHasActiveOptions(true)
     }
   }, [
-    hasActiveOptions,
-    current
+    current,
+    setHasActiveOptions
   ])
 
   const handleOptionClick = useCallback(function onOptionClick (index) {
@@ -96,73 +95,42 @@ export default function Select ({
     handleSelectIndexChange(index) // let `handleSelectIndexChange` handle `(index !== selectIndex)`
     if (current) current.focus()
   }, [
-    hasActiveOptions,
     current,
-    selectIndex,
-    activeIndex
+    setHasActiveOptions,
+    handleSelectIndexChange
   ])
-
-  const handleActiveOptionsKeyPress = useCallback(function onActiveOptionsKeyPress (event) {
-    if (isKeyEnter(event) || isKeySpace(event)) return
-    handleActiveOptionsKeyChar(event)
-  }, [
-    activeChars,
-    options
-  ])
-
-  const handleKeyPress = useCallback(function onKeyPress (event) { handleKeyChar(event) }, [
-    activeChars,
-    options
-  ])
-
-  const handleActiveOptionsKeyUp = useCallback(function onActiveOptionsKeyUp (event) { handleActiveOptionsKeyCode(event) }, [
-    hasActiveOptions,
-    selectIndex,
-    activeIndex,
-    upperBound,
-    lowerBound
-  ])
-
-  const handleActiveOptionsKeyDown = useCallback(function onActiveOptionsKeyDown () { /* */ }, [
-    hasActiveOptions,
-    selectIndex,
-    activeIndex,
-    upperBound,
-    lowerBound
-  ])
-
-  const handleKeyUp = useCallback(function onKeyUp (event) { handleKeyCode(event) }, [hasActiveOptions])
-
-  const handleKeyDown = useCallback(function onKeyDown () { /* */ }, [hasActiveOptions])
 
   const handleKeySpace = useCallback(function onKeySpace () {
     setHasActiveOptions(false)
     handleSelectIndexChange(activeIndex) // let `handleSelectIndexChange` handle `(activeIndex !== selectIndex)`
   }, [
-    hasActiveOptions,
-    selectIndex,
-    activeIndex
+    activeIndex,
+    setHasActiveOptions,
+    handleSelectIndexChange
   ])
 
   const handleKeyEnter = useCallback(function onKeyEnter () {
     setHasActiveOptions(false)
     handleSelectIndexChange(activeIndex) // let `handleSelectIndexChange` handle `(activeIndex !== selectIndex)`
   }, [
-    hasActiveOptions,
-    selectIndex,
-    activeIndex
+    activeIndex,
+    setHasActiveOptions,
+    handleSelectIndexChange
   ])
 
   const handleKeyEscape = useCallback(function onKeyEscape () {
     setHasActiveOptions(false)
-  }, [hasActiveOptions])
+  }, [
+    setHasActiveOptions
+  ])
 
   const decrementActiveIndex = useCallback(function decrementActiveIndex () {
     const index = Math.max(activeIndex - 1, lowerBound)
     handleActiveIndexChange(index) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
     activeIndex,
-    lowerBound
+    lowerBound,
+    handleActiveIndexChange
   ])
 
   const incrementActiveIndex = useCallback(function incrementActiveIndex () {
@@ -170,23 +138,24 @@ export default function Select ({
     handleActiveIndexChange(index) // let `handleActiveIndexChange` handle `(index !== activeIndex)`
   }, [
     activeIndex,
-    upperBound
+    upperBound,
+    handleActiveIndexChange
   ])
 
   const handleKeyArrowUp = useCallback(function onKeyArrowUp () {
     decrementActiveIndex()
     setActiveChars('')
   }, [
-    activeIndex,
-    lowerBound
+    decrementActiveIndex,
+    setActiveChars
   ])
 
   const handleKeyArrowDown = useCallback(function onKeyArrowDown () {
     incrementActiveIndex()
     setActiveChars('')
   }, [
-    activeIndex,
-    upperBound
+    incrementActiveIndex,
+    setActiveChars
   ])
 
   const handleActiveOptionsKeyChar = useCallback(function onActiveOptionsKeyChar ({ charCode: keyChar }) {
@@ -239,9 +208,8 @@ export default function Select ({
     }
   }, [
     activeChars,
-    activeIndex,
     options,
-    selectIndex
+    handleActiveIndexChange
   ])
 
   const handleKeyChar = useCallback(function onKeyChar ({ charCode: keyChar }) {
@@ -287,9 +255,8 @@ export default function Select ({
     }
   }, [
     activeChars,
-    activeIndex,
     options,
-    selectIndex
+    handleSelectIndexChange
   ])
 
   const handleActiveOptionsKeyCode = useCallback(function onActiveOptionsKeyCode (event) {
@@ -315,11 +282,11 @@ export default function Select ({
         break
     }
   }, [
-    hasActiveOptions,
-    activeIndex,
-    selectIndex,
-    upperBound,
-    lowerBound
+    handleKeyEnter,
+    handleKeyEscape,
+    handleKeySpace,
+    handleKeyArrowUp,
+    handleKeyArrowDown
   ])
 
   const handleKeyCode = useCallback(function onKeyCode ({ keyCode }) {
@@ -329,7 +296,28 @@ export default function Select ({
       keyCode === 40) { // space or arrow up or arrow down
       setHasActiveOptions(true)
     }
-  }, [hasActiveOptions])
+  }, [setHasActiveOptions])
+
+  const handleKeyPress = useCallback(function onKeyPress (event) { handleKeyChar(event) }, [
+    handleKeyChar
+  ])
+
+  const handleActiveOptionsKeyPress = useCallback(function onActiveOptionsKeyPress (event) {
+    if (isKeyEnter(event) || isKeySpace(event)) return
+    handleActiveOptionsKeyChar(event)
+  }, [
+    handleActiveOptionsKeyChar
+  ])
+
+  const handleActiveOptionsKeyUp = useCallback(function onActiveOptionsKeyUp (event) { handleActiveOptionsKeyCode(event) }, [
+    handleActiveOptionsKeyCode
+  ])
+
+  const handleActiveOptionsKeyDown = useCallback(function onActiveOptionsKeyDown () { /* */ }, [])
+
+  const handleKeyUp = useCallback(function onKeyUp (event) { handleKeyCode(event) }, [handleKeyCode])
+
+  const handleKeyDown = useCallback(function onKeyDown () { /* */ }, [])
 
   return (
     <div

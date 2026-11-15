@@ -25,11 +25,11 @@ export default function Options ({
 
   const handleMouseEnter = useCallback(function onMouseEnter () {
     onActiveEnterChange(true)
-  }, []) // hasActiveOptions])
+  }, [onActiveEnterChange])
 
   const handleMouseLeave = useCallback(function onMouseLeave () {
     onActiveEnterChange(false)
-  }, []) // hasActiveOptions])
+  }, [onActiveEnterChange])
 
   if (options.length) {
     return (
@@ -50,7 +50,7 @@ export default function Options ({
             activeIndex={activeIndex}
             onActiveIndexChange={onActiveIndexChange}
             onClick={onOptionClick}
-            key={index}
+            key={'option_' + index} // eslint-disable-line @eslint-react/no-array-index-key -- Key
           />
         ))}
       </ul>

@@ -51,7 +51,7 @@ export default function SelectElement (props) {
        */
       setSelectIndex(index)
     }
-  }, [
+  }, [ // eslint-disable-line @eslint-react/exhaustive-deps -- Props
     selectIndex
   ])
 

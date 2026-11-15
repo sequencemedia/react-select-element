@@ -32,21 +32,18 @@ export default function Option ({
   ])
 
   const handleMouseEnter = useCallback(function onMouseEnter () { onActiveIndexChange(index) }, [
-    activeIndex,
     index,
-    selectIndex
+    onActiveIndexChange
   ])
 
   const handleMouseLeave = useCallback(function onMouseLeave () { onActiveIndexChange(index) }, [
-    activeIndex,
     index,
-    selectIndex
+    onActiveIndexChange
   ])
 
   const handleClick = useCallback(function onClick () { onOptionClick(index) }, [
-    activeIndex,
     index,
-    selectIndex
+    onOptionClick
   ])
 
   return (
