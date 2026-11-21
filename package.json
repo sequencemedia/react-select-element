@@ -50,16 +50,16 @@
     "@eslint-react/eslint-plugin": "5.30.2",
     "@sequencemedia/eslint-config-standard": "0.4.3",
     "@sequencemedia/eslint-config-typescript": "0.2.15",
-    "@storybook/addon-links": "^10.6.7",
+    "@storybook/addon-links": "^10.6.8",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
-    "@storybook/react-webpack5": "^10.6.7",
+    "@storybook/react-webpack5": "^10.6.8",
     "babel-plugin-module-resolver": "^5.0.3",
     "chai": "^6.3.0",
     "core-js": "^3.51.0",
     "cross-env": "^10.1.0",
     "eslint": "10.15.0",
     "eslint-import-resolver-babel-module": "^5.3.2",
-    "eslint-plugin-storybook": "^10.6.7",
+    "eslint-plugin-storybook": "^10.6.8",
     "globals": "^17.14.0",
     "husky": "^9.1.7",
     "mocha": "^12.0.3",
@@ -67,7 +67,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "rimraf": "^6.1.4",
-    "storybook": "^10.6.7"
+    "storybook": "^10.6.8"
   },
   "overrides": {
     "storybook": "$storybook"
